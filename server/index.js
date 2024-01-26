@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const db = require('./queries.js');
 
 const PORT = (process.env.PORT || 3000);
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 app.get('/products', db.getAllProducts);
 app.post('/products', db.addProduct);

@@ -1,0 +1,5 @@
+set up authentiction middleware
+set up registration endpoint
+set up login endpoint
+implement password hashing
+set up checkout endpoint

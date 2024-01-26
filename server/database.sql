@@ -22,26 +22,24 @@ VALUES
 CREATE TABLE users (
     user_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     username text UNIQUE,
-    hashed_pw text,
-    is_logged_in boolean
+    hashed_pw text
 );
 
-INSERT INTO users (username, hashed_pw, is_logged_in)
+INSERT INTO users (username, hashed_pw)
 VALUES 
-('dog_ate_my_socks', 'asdfasdf', true),
-('FootwearCollector', 'qwerqwer', false);
+('dog_ate_my_socks', 'asdfasdf'),
+('FootwearCollector', 'qwerqwer');
 
 
 CREATE TABLE orders (
     order_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id integer REFERENCES users(user_id),
-    still_in_cart boolean 
+    user_id integer REFERENCES users(user_id)
 );
 
-INSERT INTO orders (user_id, still_in_cart)
+INSERT INTO orders (user_id)
 VALUES
-(1, true),
-(2, false);
+(1),
+(2);
 
 CREATE TABLE ordered_products (
     order_id integer REFERENCES orders(order_id),

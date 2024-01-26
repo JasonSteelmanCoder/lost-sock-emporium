@@ -111,8 +111,8 @@ const getAllOrders = (req, res, next) => {
 
 const addOrder = (req, res, next) => {
     pool.query(
-        'INSERT INTO orders (user_id, still_in_cart) VALUES ($1, $2);',
-        [req.body.user_id, req.body.still_in_cart],
+        'INSERT INTO orders (user_id) VALUES ($1);',
+        [req.body.user_id],
         (err, results) => {
             if (err) {
                 throw err;
@@ -140,17 +140,6 @@ const updateOrderById = (req, res, next) => {
         pool.query(
             'UPDATE orders SET user_id = $1 WHERE order_id = $2',
             [req.body.user_id, req.params.order_id],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
-            }
-        );
-    };
-    if (req.body.still_in_cart) {
-        pool.query(
-            'UPDATE orders SET still_in_cart = $1 WHERE order_id = $2',
-            [req.body.still_in_cart, req.params.order_id],
             (err, results) => {
                 if (err) {
                     throw err;
@@ -188,7 +177,7 @@ const getAllUsers = (req, res, next) => {
 
 const addUser = (req, res, next) => {
     pool.query(
-        'INSERT INTO users (username, is_logged_in, hashed_pw) VALUES ($1, true, $2);',
+        'INSERT INTO users (username, hashed_pw) VALUES ($1, $2);',
         [req.body.username, req.body.hashed_pw], // password needs to be hashed!
         (err, results) => {
             if (err) {
@@ -224,17 +213,6 @@ const updateUserById = (req, res, next) => {
             }
         )
     }
-    if (req.body.is_logged_in) {
-        pool.query(
-            'UPDATE users SET is_logged_in = $1 WHERE user_id = $2',
-            [req.body.is_logged_in, req.params.user_id],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
-            }
-        );
-    };
     if (req.body.hashed_pw) {
         pool.query(
             'UPDATE users SET hashed_pw = $1 WHERE user_id = $2',
