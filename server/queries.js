@@ -9,6 +9,26 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
+const deserializer = (user_id, cb) => {
+    pool.query(
+        'SELECT * FROM users WHERE user_id = $1',
+        [user_id],
+        (err, results) => {
+            cb(err, results.rows[0]); // TODO: check that this is returning the correct type of data
+        }
+    );
+};
+
+const passwordChecker = (username, cb) => {
+    pool.query(
+        'SELECT * FROM users WHERE username = $1;',
+        [username],
+        (err, results) => {
+            cb(err, results.rows[0]);  // TODO: check that this is returning the correct type of data
+        }
+    );
+};
+
 const getAllProducts = (req, res, next) => {
     pool.query(
         "SELECT * FROM products;", 
@@ -305,6 +325,9 @@ const deleteOrderedProductById = (req, res, next) => {
 };
 
 module.exports = {
+    pool,
+    deserializer,
+    passwordChecker,
     getAllProducts,
     addProduct,
     getProductById,

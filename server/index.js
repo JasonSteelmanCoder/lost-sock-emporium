@@ -1,11 +1,63 @@
 const express = require('express');
 const app = express();
 const db = require('./queries.js');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const PORT = (process.env.PORT || 3000);
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        cookie: {maxAge: 60 * 60, secure: false},
+        saveUninitialized: false,
+        resave: false,
+        store: new pgSession({
+            pool: db.pool,
+            tableName: 'session',
+        }),
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+    done(null, user.user_id);
+});
+
+passport.deserializeUser((user_id, done) => {
+    db.deserializer(user_id, (err, user) => {
+        if (err) {
+            return done(err);
+        };
+        done(null, user);
+    });
+});
+
+passport.use(
+    new LocalStrategy((username, password, cb) => {
+        db.passwordChecker(username, (err, user) => {
+            if (err) {
+                return cb(err);
+            };
+            if (!user) {
+                return cb(null, false);
+            };
+            if (user.password != password) {
+                return cb(null, false);
+            };
+            return cb(null, user);
+        });
+    })
+);
+
+app.post('/register');
+app.post('/login', passport.authenticate("local", {failureRedirect: "/login"}));
+app.post('/checkout');
 
 app.get('/products', db.getAllProducts);
 app.post('/products', db.addProduct);
