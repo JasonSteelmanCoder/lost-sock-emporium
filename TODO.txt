@@ -1,3 +1,5 @@
 handle edge cases in registration, like users that already exist
 implement password hashing
 set up checkout endpoint
+set up testing regime in postman
+document api

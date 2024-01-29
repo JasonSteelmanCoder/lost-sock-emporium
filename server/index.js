@@ -41,7 +41,6 @@ passport.deserializeUser((user_id, done) => {
 passport.use(
     new LocalStrategy((username, hashed_pw, done) => {
         db.passwordChecker(username, (err, user) => {
-            console.log(user);
             if (err) {
                 return done(err, false);
             };
@@ -70,7 +69,7 @@ app.get('/logout', (req, res, next) => {
     });
     res.send('logged out!');
 });
-app.post('/checkout');
+app.post('/checkout', db.checkOut);
 
 app.get('/products', db.getAllProducts);
 app.post('/products', db.addProduct);

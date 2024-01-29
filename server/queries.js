@@ -14,7 +14,7 @@ const deserializer = (user_id, cb) => {
         'SELECT * FROM users WHERE user_id = $1',
         [user_id],
         (err, results) => {
-            cb(err, results.rows[0]); // TODO: check that this is returning the correct type of data
+            cb(err, results.rows[0]); 
         }
     );
 };
@@ -24,9 +24,34 @@ const passwordChecker = (username, cb) => {
         'SELECT * FROM users WHERE username = $1;',
         [username],
         (err, results) => {
-            cb(err, results.rows[0]);  // TODO: check that this is returning the correct type of data
+            cb(err, results.rows[0]);  
         }
     );
+};
+
+const checkOut = async (req, res, next) => {
+    try {
+        const orderResults = await pool.query(
+            'INSERT INTO orders (user_id) VALUES ($1) RETURNING order_id;',
+            [req.body.user_id],
+
+        );
+        console.log(orderResults.rows[0].order_id);
+        for (let ordered_product of req.body.cart) {
+            pool.query(
+                'INSERT INTO ordered_products (order_id, product_id, quantity) VALUES ($1, $2, $3);',
+                [orderResults.rows[0].order_id /* check this */, ordered_product.product_id, ordered_product.quantity],
+                (err, results) => {
+                    if (err) {
+                        throw err;
+                    };
+                }
+            )
+        };
+        res.status(201).send('Your order has been created!');
+    } catch (err) {
+        throw err;
+    };
 };
 
 const getAllProducts = (req, res, next) => {
@@ -330,6 +355,7 @@ module.exports = {
     pool,
     deserializer,
     passwordChecker,
+    checkOut,
     getAllProducts,
     addProduct,
     getProductById,
