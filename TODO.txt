@@ -1,5 +1,6 @@
-handle edge cases in registration, like users that already exist
-implement password hashing
-set up checkout endpoint
-set up testing regime in postman
 document api
+handle edge cases in registration, like users that already exist
+check for other edge cases in login, checkout
+turn postman checks into proper test suite
+Add doc strings throughout
+Write readme

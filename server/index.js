@@ -5,6 +5,7 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 const PORT = (process.env.PORT || 3000);
 
@@ -39,15 +40,16 @@ passport.deserializeUser((user_id, done) => {
 });
 
 passport.use(
-    new LocalStrategy((username, hashed_pw, done) => {
-        db.passwordChecker(username, (err, user) => {
+    new LocalStrategy((username, password, done) => {
+        db.passwordChecker(username, async (err, user) => {
             if (err) {
                 return done(err, false);
             };
             if (!user) {
                 return done(null, false);
             };
-            if (user.hashed_pw != hashed_pw) {
+            const matchedPassword = await bcrypt.compare(password, user.hashed_pw); 
+            if (!matchedPassword) {
                 return done(null, false);
             };
             return done(null, user);

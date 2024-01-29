@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bcrypt = require('bcrypt');
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -220,17 +221,21 @@ const getAllUsers = (req, res, next) => {
     )
 };
 
-const addUser = (req, res, next) => {
-    if (req.body.username && req.body.hashed_pw) {pool.query(
-        'INSERT INTO users (username, hashed_pw) VALUES ($1, $2);',
-        [req.body.username, req.body.hashed_pw], // password needs to be hashed!
-        (err, results) => {
-            if (err) {
-                throw err;
-            };
-            res.status(201).send('user added!');
-        }
-    )} else {
+const addUser = async(req, res, next) => {
+    if (req.body.username && req.body.password) { 
+        const salt = await bcrypt.genSalt(10);
+        const hashed_pw = await bcrypt.hash(req.body.password, salt);
+        pool.query(
+            'INSERT INTO users (username, hashed_pw) VALUES ($1, $2);',
+            [req.body.username, hashed_pw], 
+            (err, results) => {
+                if (err) {
+                    throw err;
+                };
+                res.status(201).send('user added!');
+            }
+        )
+    } else {
         res.status(401).send('Username and password are both required.');
     };
 };
