@@ -62,6 +62,14 @@ app.post('/register', (req, res, next) => {
 app.post('/login', passport.authenticate("local"), (req, res, next) => {
     res.send('logged in');
 });
+app.get('/logout', (req, res, next) => {
+    req.logOut((err) => {
+        if (err) {
+            throw err;
+        };
+    });
+    res.send('logged out!');
+});
 app.post('/checkout');
 
 app.get('/products', db.getAllProducts);
