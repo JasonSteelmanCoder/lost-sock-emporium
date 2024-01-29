@@ -39,24 +39,29 @@ passport.deserializeUser((user_id, done) => {
 });
 
 passport.use(
-    new LocalStrategy((username, password, cb) => {
+    new LocalStrategy((username, hashed_pw, done) => {
         db.passwordChecker(username, (err, user) => {
+            console.log(user);
             if (err) {
-                return cb(err);
+                return done(err, false);
             };
             if (!user) {
-                return cb(null, false);
+                return done(null, false);
             };
-            if (user.password != password) {
-                return cb(null, false);
+            if (user.hashed_pw != hashed_pw) {
+                return done(null, false);
             };
-            return cb(null, user);
+            return done(null, user);
         });
     })
 );
 
-app.post('/register');
-app.post('/login', passport.authenticate("local", {failureRedirect: "/login"}));
+app.post('/register', (req, res, next) => {
+    db.addUser(req, res, next);
+});
+app.post('/login', passport.authenticate("local"), (req, res, next) => {
+    res.send('logged in');
+});
 app.post('/checkout');
 
 app.get('/products', db.getAllProducts);

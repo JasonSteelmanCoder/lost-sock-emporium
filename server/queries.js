@@ -196,7 +196,7 @@ const getAllUsers = (req, res, next) => {
 };
 
 const addUser = (req, res, next) => {
-    pool.query(
+    if (req.body.username && req.body.hashed_pw) {pool.query(
         'INSERT INTO users (username, hashed_pw) VALUES ($1, $2);',
         [req.body.username, req.body.hashed_pw], // password needs to be hashed!
         (err, results) => {
@@ -205,7 +205,9 @@ const addUser = (req, res, next) => {
             };
             res.status(201).send('user added!');
         }
-    );
+    )} else {
+        res.status(401).send('Username and password are both required.');
+    };
 };
 
 const getUserById = (req, res, next) => {
