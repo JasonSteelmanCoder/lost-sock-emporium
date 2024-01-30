@@ -8,8 +8,25 @@ const pgSession = require('connect-pg-simple')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const PORT = (process.env.PORT || 3000);
+
+const swaggerDefinition = {
+    openapi: '3.0.0',
+    info: {
+        title: 'Express API for the Lost Sock Emporium',
+        version: '1.0.0',
+    },
+}; 
+
+const options = {
+    swaggerDefinition,
+    apis: ['./index.js']
+}
+
+const swaggerSpec = swaggerJSDoc(options);
 
 // set up middleware
 
@@ -61,6 +78,8 @@ passport.use(
     })
 );
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // Utility endpoints
 
 app.post('/register', (req, res, next) => {
@@ -81,8 +100,100 @@ app.post('/checkout', db.checkOut);
 
 // CRUD endpoints
 
+
+/**
+ * @swagger
+ * /products:
+ *  get:
+ *      summary: returns a list of all products
+ *      responses: 
+ *          '200': 
+ *              description: A list of product objects
+ *              content:
+ *                  application/JSON:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              type: object
+ *                              properties:
+ *                                  product_id:
+ *                                      type: integer
+ *                                      description: the product's ID
+ *                                  product_name: 
+ *                                      type: string
+ *                                      description: the name of the product
+ *                                  description: 
+ *                                      type: string
+ *                                      description: the customer-facing description of the product
+ *                                  price:
+ *                                      type: number
+ *                                      description: the price of the product                                  
+*/
 app.get('/products', db.getAllProducts);
+
+/**
+ * @swagger
+ * /products:
+ *  post:
+ *      summary: adds a new product to the database 'products' table
+ *      requestBody: 
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      required:
+ *                          - product_name
+ *                          - description
+ *                          - price
+ *                      properties:
+ *                          product_name:
+ *                              type: string
+ *                              description: The name of the product
+ *                          description: 
+ *                              type: string
+ *                              description: The user-facing description of the product
+ *                          price:
+ *                              type: number
+ *                              description: The price of the product in dollars, to the penny
+ *      responses: 
+ *          '201':
+ *              description: Product created
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.post('/products', db.addProduct);
+
+/**
+ * @swagger
+ * /products/:product_id:
+ *  get:
+ *      summary: returns a product by id
+ *      responses: 
+ *          '200': 
+ *              description: A product object
+ *              content:
+ *                  application/JSON:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              product_id:
+ *                                  type: integer
+ *                                  description: the product's ID
+ *                              product_name: 
+ *                                  type: string
+ *                                  description: the name of the product
+ *                              description: 
+ *                                  type: string
+ *                                  description: the customer-facing description of the product
+ *                              price:
+ *                                  type: number
+ *                                  description: the price of the product                                  
+*/
+
+//add error handling for wrong/missing id!
 app.get('/products/:product_id', db.getProductById);
 app.put('/products/:product_id', db.updateProductById);
 app.delete('/products/:product_id', db.deleteProductById);

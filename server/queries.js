@@ -119,7 +119,7 @@ const getProductById = (req, res, next) => {
                 res.send(results.rows);
             };
     });
-};
+};  // add error handling for wrong/missing id
 
 const updateProductById = (req, res, next) => {
     // All fields that are named in req.body are updated in database.
