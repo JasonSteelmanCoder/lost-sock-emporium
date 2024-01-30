@@ -1,6 +1,8 @@
+// Imports
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 
+// Set up pool to access database
 const { Pool } = require('pg');
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -10,7 +12,7 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
-const deserializer = (user_id, cb) => {
+const deserialize = (user_id, cb) => {
     pool.query(
         'SELECT * FROM users WHERE user_id = $1',
         [user_id],
@@ -20,7 +22,8 @@ const deserializer = (user_id, cb) => {
     );
 };
 
-const passwordChecker = (username, cb) => {
+// Check the database for a user's existence. Used by passport's local strategy in index.js.
+const retrieveUser = (username, cb) => {
     pool.query(
         'SELECT * FROM users WHERE username = $1;',
         [username],
@@ -30,28 +33,53 @@ const passwordChecker = (username, cb) => {
     );
 };
 
-const checkOut = async (req, res, next) => {
-    try {
-        const orderResults = await pool.query(
-            'INSERT INTO orders (user_id) VALUES ($1) RETURNING order_id;',
-            [req.body.user_id],
 
-        );
-        console.log(orderResults.rows[0].order_id);
+// Create new order with corresponding ordered_products when a user checks out.
+const checkOut = async (req, res, next) => {
+    // look up user_id in database
+    const userIdCheck = await pool.query(
+        'SELECT * FROM users WHERE user_id = $1;',
+        [req.body.user_id]
+    );
+    // look up cart items in database
+    const checkProductsExist = async () => {
         for (let ordered_product of req.body.cart) {
-            pool.query(
-                'INSERT INTO ordered_products (order_id, product_id, quantity) VALUES ($1, $2, $3);',
-                [orderResults.rows[0].order_id /* check this */, ordered_product.product_id, ordered_product.quantity],
-                (err, results) => {
-                    if (err) {
-                        throw err;
-                    };
-                }
-            )
+            const productReport = await pool.query(
+                'SELECT EXISTS (SELECT 1 FROM products WHERE product_id = $1)',
+                [ordered_product.product_id]
+            );
+            if (!productReport.rows[0].exists) {
+                return false;
+            };
         };
-        res.status(201).send('Your order has been created!');
-    } catch (err) {
-        throw err;
+        return true;
+    };
+    // Check that request body has a valid user_id and a non-empty cart
+    if (!userIdCheck.rows[0] || !req.body.cart || req.body.cart.length === 0) {
+        res.status(400).send("Bad request: cart or user_id is incorrect");
+    } else if (!await checkProductsExist()) {
+        res.status(400).send("Bad request: product ids are incorrect");
+    } else {
+        try {
+            const orderResults = await pool.query(
+                'INSERT INTO orders (user_id) VALUES ($1) RETURNING order_id;',      // return the order_id of the new order. You'll need it to add ordered products.
+                [req.body.user_id]
+            );
+            for (let ordered_product of req.body.cart) {
+                pool.query(
+                    'INSERT INTO ordered_products (order_id, product_id, quantity) VALUES ($1, $2, $3);',
+                    [orderResults.rows[0].order_id, ordered_product.product_id, ordered_product.quantity],
+                    (err, results) => {
+                        if (err) {
+                            throw err;
+                        };
+                    }
+                )
+            };
+            res.status(201).send('Your order has been created!');
+        } catch (err) {
+            throw err;
+        }
     };
 };
 
@@ -94,6 +122,8 @@ const getProductById = (req, res, next) => {
 };
 
 const updateProductById = (req, res, next) => {
+    // All fields that are named in req.body are updated in database.
+    // Fields missing from req.body are left alone.
     if (req.body.product_name) {
         pool.query(
             'UPDATE products SET product_name = $1 WHERE product_id = $2;', 
@@ -222,7 +252,14 @@ const getAllUsers = (req, res, next) => {
 };
 
 const addUser = async(req, res, next) => {
-    if (req.body.username && req.body.password) { 
+    // Check that username does not already exist
+    const usernameExists = await pool.query(
+        'SELECT * FROM users WHERE username = $1',
+        [req.body.username]
+    )
+    if (usernameExists) {
+        res.status(400).send('Username already exists!');
+    } else if (req.body.username && req.body.password) {            // check that username & password are both included 
         const salt = await bcrypt.genSalt(10);
         const hashed_pw = await bcrypt.hash(req.body.password, salt);
         pool.query(
@@ -237,7 +274,7 @@ const addUser = async(req, res, next) => {
         )
     } else {
         res.status(401).send('Username and password are both required.');
-    };
+    };     
 };
 
 const getUserById = (req, res, next) => {
@@ -357,10 +394,10 @@ const deleteOrderedProductById = (req, res, next) => {
 };
 
 module.exports = {
-    pool,
-    deserializer,
-    passwordChecker,
-    checkOut,
+    pool,           // used to set up session in index.js
+    deserialize,       // used by passport in index.js
+    retrieveUser,        //used by passport in index.js
+    checkOut,       // coordinates posting to both orders and ordered_products
     getAllProducts,
     addProduct,
     getProductById,

@@ -1,3 +1,5 @@
+-- The products table stores products that are for sale.
+
 CREATE TABLE products (
     product_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     product_name text,
@@ -18,6 +20,8 @@ VALUES
 ('Neon Nightlife', 'A flashy substitute for the neon sock that disappeared after a night out. Glows in the dark, perfect for parties and lively events.', 2.50),
 ('Gentle Yoga', 'Replaces the misplaced yoga sock. Offers grip and stability for yoga and pilates, ensuring comfort and balance in every pose.', 2.88);
 
+-- Users are added to the users table when they register.
+-- When a user logs in, their login information is compared to the users table.
 
 CREATE TABLE users (
     user_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -31,6 +35,8 @@ VALUES
 ('FootwearCollector', 'qwerqwer');
 
 
+-- Orders coordinate users with ordered_products, using an order_id and user_id.
+
 CREATE TABLE orders (
     order_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id integer REFERENCES users(user_id)
@@ -40,6 +46,10 @@ INSERT INTO orders (user_id)
 VALUES
 (1),
 (2);
+
+-- Ordered products are products selected by the customer with associated quantity. 
+-- They have a many to many relationship with orders.
+-- The primary key is a composite of order_id and product_id.
 
 CREATE TABLE ordered_products (
     order_id integer REFERENCES orders(order_id),
@@ -52,6 +62,10 @@ INSERT INTO ordered_products
 VALUES 
 (1, 4, 3),
 (2, 1, 1);
+
+-- Session table is managed by connect-pg-simple.
+-- It keeps track of users currently logged in.
+-- Expired sessions are automatically deleted from the table.
 
 CREATE TABLE "session" (
   "sid" varchar NOT NULL COLLATE "default",

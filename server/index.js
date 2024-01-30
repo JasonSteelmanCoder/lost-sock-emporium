@@ -1,3 +1,5 @@
+// imports and configuration
+
 const express = require('express');
 const app = express();
 const db = require('./queries.js');
@@ -8,6 +10,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
 const PORT = (process.env.PORT || 3000);
+
+// set up middleware
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -31,7 +35,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((user_id, done) => {
-    db.deserializer(user_id, (err, user) => {
+    db.deserialize(user_id, (err, user) => {
         if (err) {
             return done(err);
         };
@@ -41,7 +45,7 @@ passport.deserializeUser((user_id, done) => {
 
 passport.use(
     new LocalStrategy((username, password, done) => {
-        db.passwordChecker(username, async (err, user) => {
+        db.retrieveUser(username, async (err, user) => {
             if (err) {
                 return done(err, false);
             };
@@ -56,6 +60,8 @@ passport.use(
         });
     })
 );
+
+// Utility endpoints
 
 app.post('/register', (req, res, next) => {
     db.addUser(req, res, next);
@@ -72,6 +78,8 @@ app.get('/logout', (req, res, next) => {
     res.send('logged out!');
 });
 app.post('/checkout', db.checkOut);
+
+// CRUD endpoints
 
 app.get('/products', db.getAllProducts);
 app.post('/products', db.addProduct);
@@ -96,6 +104,8 @@ app.post('/ordered_products', db.addOrderedProduct);
 app.get('/ordered_products/:order_id/:product_id', db.getOrderedProductById);
 app.put('/ordered_products/:order_id/:product_id', db.updateOrderedProductById);
 app.delete('/ordered_products/:order_id/:product_id', db.deleteOrderedProductById);
+
+// Start backend
 
 app.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
