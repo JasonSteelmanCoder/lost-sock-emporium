@@ -115,49 +115,52 @@ const getProductById = (req, res, next) => {
         (err, results) => {
             if (err) {
                 throw err;
+            } else if (!results.rows[0]) {
+                res.status(404).send('Product not found with that id.');
             } else {
                 res.send(results.rows);
             };
     });
-};  // add error handling for wrong/missing id
+};
 
-const updateProductById = (req, res, next) => {
+const updateProductById = async (req, res, next) => {
     // All fields that are named in req.body are updated in database.
     // Fields missing from req.body are left alone.
-    if (req.body.product_name) {
-        pool.query(
-            'UPDATE products SET product_name = $1 WHERE product_id = $2;', 
-            [req.body.product_name, req.params.product_id], 
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
-            }
-        );
+    let isUpdated = false;
+    try {
+        if (req.body.product_name) {
+            await pool.query(
+                'UPDATE products SET product_name = $1 WHERE product_id = $2;', 
+                [req.body.product_name, req.params.product_id]
+            );
+            isUpdated = true;
+        };
+        if (req.body.description) {
+            await pool.query(
+                'UPDATE products SET description = $1 WHERE product_id = $2;',
+                [req.body.description, req.params.product_id]
+            );
+            isUpdated = true;
+        }
+        if (typeof(req.body.price) === "number") {
+            await pool.query(
+                'UPDATE products SET price = $1 WHERE product_id = $2;',
+                [req.body.price, req.params.product_id]
+            );
+            isUpdated = true;
+        } else if (req.body.price) {
+            res.status(400).send('Price must be a number.');
+        };
+
+        if (isUpdated) {
+            res.send('Product updated!');
+        } else {
+            res.status(400).send('At least one property must be included to update.')
+        }
+
+    } catch (err) {
+        res.status(500).send('Internal Server Error');
     };
-    if (req.body.description) {
-        pool.query(
-            'UPDATE products SET description = $1 WHERE produc_id = $2;',
-            [req.body.description, req.params.product_id],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
-            }
-        )
-    }
-    if (req.body.price) {
-        pool.query(
-            'UPDATE products SET price = $1 WHERE product_id = $2;',
-            [req.body.price, req.params.product_id],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
-            }
-        );
-    };
-    res.send('Updated');
 };
 
 const deleteProductById = (req, res, next) => {
@@ -168,7 +171,7 @@ const deleteProductById = (req, res, next) => {
             if (err) {
                 throw err;
             };
-            res.status(204).send('deleted');
+            res.status(204).send('No content');
         }
     );
 };
@@ -190,10 +193,13 @@ const addOrder = (req, res, next) => {
         'INSERT INTO orders (user_id) VALUES ($1);',
         [req.body.user_id],
         (err, results) => {
-            if (err) {
-                throw err;
+            if (err && err.code === '23503') {
+                res.status(404).send('user_id must be an integer corresponding to an existing user.');
+            } else if (err) {
+                res.status(500).send('There was an error.');
+            } else {
+                res.status(201).send('order added!')
             };
-            res.status(201).send('order added!')
         }
     );
 };
@@ -204,26 +210,37 @@ const getOrderById = (req, res, next) => {
         [req.params.order_id],
         (err, results) => {
             if (err) {
-                throw err;
+                res.status(500).send();
             };
-            res.json(results.rows);
+            if (results.rows[0]) {
+                res.json(results.rows[0]);
+            } else {
+                res.status(404).send('Order not found with that order_id.');
+            };
         }
     );
 };
 
-const updateOrderById = (req, res, next) => {
+const updateOrderById = async (req, res, next) => {
     if (req.body.user_id) {
-        pool.query(
-            'UPDATE orders SET user_id = $1 WHERE order_id = $2',
-            [req.body.user_id, req.params.order_id],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
+        try {
+            const results = await pool.query(
+                'UPDATE orders SET user_id = $1 WHERE order_id = $2 RETURNING order_id',
+                [req.body.user_id, req.params.order_id]
+            );
+            if (results.rows[0]){
+                res.send('order updated!');
+            } else {
+                res.status(404).send('order not found for that order_id');
             }
-        );
+        } catch (err) {
+            if (err.code === '23503') {
+                res.status(404).send('user_id not found');
+            } else {
+                res.status(500).send('server-side error');
+            }
+        };
     };
-    res.send('order updated!');
 };
 
 const deleteOrderById = (req, res, next) => {
@@ -257,7 +274,7 @@ const addUser = async(req, res, next) => {
         'SELECT * FROM users WHERE username = $1',
         [req.body.username]
     )
-    if (usernameExists) {
+    if (usernameExists.rows[0]) {
         res.status(400).send('Username already exists!');
     } else if (req.body.username && req.body.password) {            // check that username & password are both included 
         const salt = await bcrypt.genSalt(10);
@@ -283,37 +300,34 @@ const getUserById = (req, res, next) => {
         [req.params.user_id],
         (err, results) => {
             if (err) {
-                throw err;
-            };
-            res.json(results.rows);
+                res.status(500).send('server-side error');
+            } else if (!results.rows[0]) {
+                res.status(404).send('user not found for that user_id')
+            } else {
+                res.json(results.rows[0]);
+            }
         }
     );
 };
 
-const updateUserById = (req, res, next) => {
+const updateUserById = async (req, res, next) => {
     if (req.body.username) {
-        pool.query(
-            'UPDATE users SET username = $1 WHERE user_id = $2',
-            [req.body.username, req.params.user_id],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
+        try {
+            const results = await pool.query(
+                'UPDATE users SET username = $1 WHERE user_id = $2 RETURNING user_id',
+                [req.body.username, req.params.user_id]
+            );
+            if (!results.rows[0]) {
+                res.status(404).send('no user found for that user_id');
+            } else {
+                res.send('user updated!')
             }
-        )
+        } catch (err) {
+            res.status(500).send('server-side error');
+        };
+    } else {
+        res.status(400).send('new username must be included in body of request');
     }
-    if (req.body.hashed_pw) {
-        pool.query(
-            'UPDATE users SET hashed_pw = $1 WHERE user_id = $2',
-            [req.body.hashed_pw, req.params.user_id],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                };
-            }
-        )
-    }
-    res.send('user updated!');
 };
 
 const deleteUserById = (req, res, next) => {
@@ -322,9 +336,10 @@ const deleteUserById = (req, res, next) => {
         [req.params.user_id],
         (err, results) => {
             if (err) {
-                throw err;
+                res.status(500).send('server-side error')
+            } else {
+                res.status(204).send('user deleted!');
             };
-            res.status(204).send('user deleted!');
         }
     );
 };
@@ -341,17 +356,28 @@ const getAllOrderedProducts = (req, res, next) => {
     );
 };
 
-const addOrderedProduct = (req, res, next) => {
-    pool.query(
-        'INSERT INTO ordered_products VALUES ($1, $2, $3);',
-        [req.body.order_id, req.body.product_id, req.body.quantity],
-        (err, results) => {
-            if (err) {
-                throw err;
-            };
-            res.status(201).send('ordered_product added!');
-        }
-    );
+const addOrderedProduct = async (req, res, next) => {
+    if (req.body.order_id && req.body.product_id && req.body.quantity) {
+        pool.query(
+            'INSERT INTO ordered_products VALUES ($1, $2, $3);',
+            [req.body.order_id, req.body.product_id, req.body.quantity],
+            (err, results) => {
+                if (err && err.code === '23505') {
+                    res.status(400).send('this order already exists')   // no duplicate orders allowed (may change in future.)
+                } else if (err && err.code === '23503') {
+                    res.status(404).send('the order_id or product_id in the request does not exist');
+                } else if (err) {
+                    res.status(500).json(err);
+                } else if (err && err.code === '22P02') {
+                    res.status(400).send('quantity must be an integer')
+                } else {
+                    res.status(201).send('ordered_product added!');
+                }
+            }
+        );
+    } else {
+        res.status(400).send('order_id, product_id, and quantity must all be included in the request body.');
+    }
 };
 
 const getOrderedProductById = (req, res, next) => {

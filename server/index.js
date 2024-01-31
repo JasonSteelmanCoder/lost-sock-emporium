@@ -171,6 +171,13 @@ app.post('/products', db.addProduct);
  * /products/:product_id:
  *  get:
  *      summary: returns a product by id
+ *      parameters: 
+ *          - in: path
+ *            name: product_id
+ *            required: true
+ *            schema: 
+ *                type: integer
+ *            description: the product_id corresponding to the product to be retrieved
  *      responses: 
  *          '200': 
  *              description: A product object
@@ -191,27 +198,534 @@ app.post('/products', db.addProduct);
  *                              price:
  *                                  type: number
  *                                  description: the price of the product                                  
+ *          '404':
+ *              description: Product not found for that id
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string 
 */
-
-//add error handling for wrong/missing id!
 app.get('/products/:product_id', db.getProductById);
+
+/**
+ * @swagger
+ * /products/:product_id:
+ *  put:
+ *      summary: updates selected properties of product by id
+ *      parameters: 
+ *          - in: path
+ *            name: product_id
+ *            required: true
+ *            schema:
+ *                type: integer
+ *            description: the product_id for the product to be updated
+ *      requestBody: 
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          product_name:
+ *                              type: string
+ *                              description: The name of the product
+ *                          description: 
+ *                              type: string
+ *                              description: The user-facing description of the product
+ *                          price:
+ *                              type: number
+ *                              description: The price of the product in dollars, to the penny
+ *      responses: 
+ *          '200':
+ *              description: Product updated!
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '400':
+ *              description: Price is not a number, or the request body is blank
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: Internal server error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.put('/products/:product_id', db.updateProductById);
+
+/**
+ * @swagger
+ * /products/:product_id:
+ *  delete:
+ *      summary: delete a product with a certain id
+ *      parameters:
+ *          - in: path
+ *            name: product_id
+ *            required: true
+ *            schema:
+ *                type: integer
+ *            description: the product_id of the product to be deleted
+ *      responses: 
+ *          '204': 
+ *              description: product is deleted or did not exist
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.delete('/products/:product_id', db.deleteProductById);
 
+
+/**
+ * @swagger
+ * /orders:
+ *  get:
+ *      summary:
+ *      responses:
+ *          '200':
+ *              description: json array of order objects
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items: 
+ *                              type: object
+ *                              properties: 
+ *                                  order_id:
+ *                                      type: integer
+ *                                      description: the id of the order 
+ *                                  user_id:
+ *                                      type: integer
+ *                                      description: the id of the user who made the order 
+*/
 app.get('/orders', db.getAllOrders);
+
+/**
+ * @swagger
+ * /orders:
+ *  post:
+ *      summary: add a new order object to the orders table
+ *      requestBody:
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema: 
+ *                      type: object
+ *                  properties:
+ *                      user_id:
+ *                          type: integer
+ *                          description: the user_id of the user making the order
+ *      responses:
+ *          '201':
+ *              description: new order object added to the orders table
+ *              content:
+ *                  type: 
+ *                      text/plain:
+ *                          schema:
+ *                              type: string
+ *          '404':
+ *              description: the user_id in the request is not found.
+ *              content:
+ *                  type:
+ *                      text/plain:
+ *                          schema:
+ *                              type: string
+ *          '500':
+ *              description: server-side error
+ *              content:
+ *                  type:
+ *                      text/plain:
+ *                          schema:
+ *                              type: string
+*/
 app.post('/orders', db.addOrder);
+
+
+/**
+ * @swagger
+ * /orders/:order_id:
+ *  get:
+ *      summary: get a single order by its order_id
+ *      parameters:
+ *          - in: path
+ *            name: order_id
+ *            required: true
+ *            schema:
+ *                type: integer
+ *            description: the order_id of the order to retrieve
+ *      responses:
+ *          '200':
+ *              description: order object in json format
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties: 
+ *                              order_id:
+ *                                  type: integer
+ *                                  description: the id of the order
+ *                              user_id:
+ *                                  type: integer
+ *                                  description: the id of the user who placed the order                  
+ *          '404':
+ *              description: order not found with the order_id provided
+ *              content: 
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ * 
+*/
 app.get('/orders/:order_id', db.getOrderById);
+
+/**
+ * @swagger
+ * /orders/:order_id:
+ *  put:
+ *      summary: update the user_id of an order by order_id
+ *      parameters:
+ *          - in: path
+ *            name: order_id
+ *            required: true
+ *            schema: 
+ *                type: integer
+ *            description: the order_id of the order to update
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                  properties:
+ *                      user_id:
+ *                          type: integer
+ *                          description: new user_id for the order
+ *      responses:
+ *          '200':
+ *              description: order updated
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '404':
+ *              description: user_id or order_id not found
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.put('/orders/:order_id', db.updateOrderById);
+
+/**
+ * @swagger
+ * /orders/:order_id:
+ *  delete:
+ *      summary: delete an order by its order_id
+ *      parameters:
+ *          - in: path
+ *            name: order_id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: the id of the order to delete
+ *      responses: 
+ *          '204':
+ *              description: the order is deleted or does not exist
+ *              content:
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+*/
 app.delete('/orders/:order_id', db.deleteOrderById);
 
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *      summary: get all user objects from the users database
+ *      responses: 
+ *          '200':
+ *              description: json array of user objects
+ *              content:
+ *                  application/json:
+ *                      schema: 
+ *                          type: array
+ *                          items: 
+ *                              type: object
+ *                              properties: 
+ *                                  user_id:
+ *                                      type: integer
+ *                                      description: the id of the user
+ *                                  username: 
+ *                                      type: string
+ *                                      description: the user's username
+ *                                  hashed_pw: 
+ *                                      type: string
+ *                                      description: the hash of the user's password
+*/
 app.get('/users', db.getAllUsers);
+
+/**
+ * @swagger
+ * /users:
+ *  post:
+ *      summary: add a new user object to the users table
+ *      requestBody:
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                  properties:
+ *                      username: 
+ *                          type: string
+ *                          description: the new user's username
+ *                      password:
+ *                          type: string
+ *                          description: the new user's password
+ *      responses:
+ *          '201':
+ *              description: new user object has been added to the users table
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '400':
+ *              description: username already exists
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type:string
+ *          '401':
+ *              description: request is missing username or password
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.post('/users', db.addUser);
+
+/**
+ * @swagger
+ * /users/:user_id:
+ *  get:
+ *      summary: get a single user by user_id
+ *      parameters:
+ *          - in: path
+ *            name: user_id
+ *            required: true
+ *            schema: 
+ *              type: string
+ *            description: the user_id of the user object to retrieve
+ *      responses:
+ *          '200':
+ *              description: returns json object for the user matching the user_id
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              user_id: 
+ *                                  type: integer
+ *                                  description: the user_id for the retrieved user object
+ *                              username: 
+ *                                  type: string
+ *                                  description: the username for the retrieved user
+ *                              hashed_pw: 
+ *                                  type: string
+ *                                  description: the hash of the user's password
+ *          '404':
+ *              description: user not found for given user_id
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.get('/users/:user_id', db.getUserById);
+
+/**
+ * @swagger
+ * /users/:user_id:
+ *  put:
+ *      summary: update a user's account by user_id
+ *      parameters:
+ *          - in: path
+ *            name: user_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the user_id that corresponds with the user to update
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                  properties: 
+ *                      username:
+ *                          type: string
+ *                          description: the new username for the updated user
+ *      responses:
+ *          '200':
+ *              description: user updated 
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '400':
+ *              description: username not included in the body of the request 
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '404':
+ *              description: user not found for the given user_id 
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error 
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.put('/users/:user_id', db.updateUserById);
+
+/**
+ * @swagger
+ * /users/:user_id:
+ *  delete:
+ *      summary: delete user by id
+ *      parameters:
+ *          - in: path
+ *            name: user_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the user_id of the user object to be deleted
+ *      responses:
+ *          '204':
+ *              description: the user was deleted or didn't exist 
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.delete('/users/:user_id', db.deleteUserById);
 
+/**
+ * @swagger
+ * /ordered_products:
+ *  get:
+ *      summary:
+ *      responses:
+ *          '200':
+ *              description: a json array of ordered_product objects
+ *              content:
+ *                  application/json:
+ *                      schema:          
+ *                          type: array
+ *                          items:
+ *                              type: object
+ *                              properties: 
+ *                                  order_id:   
+ *                                      type: integer
+ *                                      description: the id of the order that these ordered_products belong to
+ *                                  product_id:
+ *                                      type: integer
+ *                                      description: the id of the product type required by the order
+ *                                  quantity:
+ *                                      type: integer
+ *                                      description: the quantity of the product that is required by the order 
+*/
 app.get('/ordered_products', db.getAllOrderedProducts);
+
+/**
+ * @swagger
+ * /ordered_products:
+ *  post: 
+ *      summary: add a new ordered_product object to the ordered_products table
+ *      requestBody: 
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                  properties:
+ *                      order_id:   
+ *                          type: integer
+ *                          description: the id of the order that these ordered_products belong to
+ *                      product_id:
+ *                          type: integer
+ *                          description: the id of the product type required by the order
+ *                      quantity:
+ *                          type: integer
+ *                          description: the quantity of the product that is required by the order 
+ *      responses:
+ *          '201':
+ *              description: ordered_product object is added to orded_products table
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '404':
+ *              description: the order_id or product_id in the request was not found
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '400':
+ *              description: bad request
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.post('/ordered_products', db.addOrderedProduct);
+
+/**
+ * @swagger
+ * /ordered_products/:order_id/:product_id:
+ *  get:
+ *      summary:
+ *      parameters:
+ *      responses:
+*/
 app.get('/ordered_products/:order_id/:product_id', db.getOrderedProductById);
 app.put('/ordered_products/:order_id/:product_id', db.updateOrderedProductById);
 app.delete('/ordered_products/:order_id/:product_id', db.deleteOrderedProductById);
