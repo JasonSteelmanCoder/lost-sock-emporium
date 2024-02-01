@@ -41,22 +41,40 @@ const checkOut = async (req, res, next) => {
         'SELECT * FROM users WHERE user_id = $1;',
         [req.body.user_id]
     );
-    // look up cart items in database
-    const checkProductsExist = async () => {
+    // check that cart items include quantities
+    const hasPositiveQuantity = () => {
         for (let ordered_product of req.body.cart) {
-            const productReport = await pool.query(
-                'SELECT EXISTS (SELECT 1 FROM products WHERE product_id = $1)',
-                [ordered_product.product_id]
-            );
-            if (!productReport.rows[0].exists) {
+            if (!ordered_product.quantity || ordered_product.quantity < 1) {
                 return false;
             };
         };
         return true;
+    }
+    
+    // look up cart items in database
+    const checkProductsExist = async () => {
+        try {
+            for (let ordered_product of req.body.cart) {
+                const productReport = await pool.query(
+                    'SELECT EXISTS (SELECT 1 FROM products WHERE product_id = $1)',
+                    [ordered_product.product_id]
+                );
+                if (!productReport.rows[0].exists) {
+                    return false;
+                };
+            };
+            return true;
+        } catch (err) {
+            console.log(err);
+        };
     };
     // Check that request body has a valid user_id and a non-empty cart
-    if (!userIdCheck.rows[0] || !req.body.cart || req.body.cart.length === 0) {
+    if (!userIdCheck.rows[0]) {
+        res.status(404).send("User not found.")
+    } else if (!req.body.cart || req.body.cart.length === 0 || !req.body.cart[0]) {
         res.status(400).send("Bad request: cart or user_id is incorrect");
+    } else if (!hasPositiveQuantity()) {
+        res.status(400).send("Bad request: each ordered_product must have a positive quantity");
     } else if (!await checkProductsExist()) {
         res.status(400).send("Bad request: product ids are incorrect");
     } else {
@@ -70,15 +88,17 @@ const checkOut = async (req, res, next) => {
                     'INSERT INTO ordered_products (order_id, product_id, quantity) VALUES ($1, $2, $3);',
                     [orderResults.rows[0].order_id, ordered_product.product_id, ordered_product.quantity],
                     (err, results) => {
-                        if (err) {
-                            throw err;
+                        if (err && err.code === '23502') {
+                            res.status(400).send('cart items must have a quantity');
+                        } else if (err) {
+                            res.status(500).send('server-side error');
                         };
                     }
-                )
+                );
             };
             res.status(201).send('Your order has been created!');
         } catch (err) {
-            throw err;
+            res.status(500).json(err);
         }
     };
 };

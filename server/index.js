@@ -82,24 +82,179 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Utility endpoints
 
+
+/**
+ * @swagger
+ * /register:
+ *  post:
+ *      summary: Register a new user
+ *      requestBody:
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      required: 
+ *                          - username
+ *                          - password
+ *                      properties: 
+ *                          username: 
+ *                              type: string
+ *                              description: the new user's username
+ *                          password:
+ *                              type: string
+ *                              description: the new user's password
+ *      responses: 
+ *          '201':
+ *              description: new user object created successfully
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '400':
+ *              description: Username already exists
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '401':
+ *              description: Username or password is missing
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.post('/register', (req, res, next) => {
     db.addUser(req, res, next);
 });
+
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *      summary: login with a username and password
+ *      requestBody: 
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      required: 
+ *                          - username
+ *                          - password
+ *                      properties: 
+ *                          username: 
+ *                              type: string
+ *                              description: the username for the user logging in
+ *                          password:
+ *                              type: string
+ *                              description: the password for the user logging in
+ *                      
+ *      responses:
+ *          '200':
+ *              description: Login successful.
+ *              content: 
+ *          '400':
+ *              description: Bad request. Correct username and password required.
+ *              content: 
+ *          '401':
+ *              description: Unauthorized. Password incorrect. 
+ *              content: 
+*/
 app.post('/login', passport.authenticate("local"), (req, res, next) => {
     res.send('logged in');
 });
+
+/**
+ * @swagger
+ * /logout:
+ *  get:
+ *      summary: log a user out
+ *      responses:
+ *          '200':
+ *              description: logout successful
+ *              content:
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+ *          '500':
+ *              description:
+ *              content:
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+*/
 app.get('/logout', (req, res, next) => {
     req.logOut((err) => {
         if (err) {
-            throw err;
+            res.status(500).send('server-side error');
+        } else {
+            res.send('logged out!');
         };
     });
-    res.send('logged out!');
+    
 });
+
+/**
+ * @swagger
+ * /checkout:
+ *  post:
+ *      summary: Check out with the products in your cart. A new order object is inserted into the orders table and new ordered_products objects are inserted into the ordered_products table.
+ *      requestBody: 
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      required:
+ *                          - user_id
+ *                          - cart
+ *                      properties:
+ *                          user_id: 
+ *                              type: integer
+ *                              description: the user_id of the user who is checking out
+ *                          cart:
+ *                              type: array
+ *                              items:
+ *                                  type: object
+ *                                  properties:
+ *                                      product_id:
+ *                                          type: integer
+ *                                          description: the id of the product type that is being ordered
+ *                                      quantity:
+ *                                          type: integer
+ *                                          description: the number of the product that the user is ordering
+ *                                  description: an object representing an ordered_product
+ *      responses:
+ *          '201':
+ *              description: Checkout successful. The new order and ordered_products have been inserted into their tables.
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '404':
+ *              description: user_id not found
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string 
+ *          '400':
+ *              description: The cart or user_id properties of the request body are incorrect.
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.post('/checkout', db.checkOut);
 
-// CRUD endpoints
 
+// CRUD endpoints
 
 /**
  * @swagger
