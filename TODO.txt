@@ -1,5 +1,3 @@
-fix all instances of 'throw err'
-check get orders and get ordered_products for descriptions
 document utility functions
 
 build front-end

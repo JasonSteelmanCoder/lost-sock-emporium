@@ -314,7 +314,7 @@ app.delete('/products/:product_id', db.deleteProductById);
  * @swagger
  * /orders:
  *  get:
- *      summary:
+ *      summary: get all orders from the orders table
  *      responses:
  *          '200':
  *              description: json array of order objects
@@ -700,7 +700,7 @@ app.delete('/users/:user_id', db.deleteUserById);
  * @swagger
  * /ordered_products:
  *  get:
- *      summary:
+ *      summary: get all ordered_products from the ordered_products table
  *      responses:
  *          '200':
  *              description: a json array of ordered_product objects
