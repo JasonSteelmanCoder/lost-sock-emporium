@@ -88,7 +88,7 @@ const getAllProducts = (req, res, next) => {
         "SELECT * FROM products;", 
         (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).send('server-side error');
         } else {
             res.status(200).json(results.rows);
         }
@@ -100,10 +100,15 @@ const addProduct = (req, res, next) => {
         'INSERT INTO products (product_name, description, price) VALUES ($1, $2, $3);',
         [req.body.product_name, req.body.description, req.body.price],
         (err, results) => {
-            if (err) {
-                throw err;
+             if (err && err.code === '22P02') {
+                res.status(400).send('price must be a number');
+             } else if (err && err.code === '23502') {
+                res.status(400).send('Request body must include product_name, description, and price.')
+            } else if (err) {
+                res.status(500).send('server-side error');
+            } else {
+                res.status(201).send('product created!');
             };
-            res.status(201).send('product created!');
         }
     );
 };
@@ -114,11 +119,11 @@ const getProductById = (req, res, next) => {
         [req.params.product_id], 
         (err, results) => {
             if (err) {
-                throw err;
+                res.status(500).send('server-side error');
             } else if (!results.rows[0]) {
                 res.status(404).send('Product not found with that id.');
             } else {
-                res.send(results.rows);
+                res.send(results.rows[0]);
             };
     });
 };
@@ -169,9 +174,10 @@ const deleteProductById = (req, res, next) => {
         [req.params.product_id],
         (err, results) => {
             if (err) {
-                throw err;
+                res.status(500).send('server-side error');
+            } else {
+                res.status(204).send('No content');
             };
-            res.status(204).send('No content');
         }
     );
 };
@@ -181,9 +187,10 @@ const getAllOrders = (req, res, next) => {
         'SELECT * FROM orders;',
         (err, results) => {
             if (err) {
-                throw err;
-            };
-            res.json(results.rows);
+                res.status(500).send('server-side error');
+            } else {
+                res.json(results.rows);
+            }
         }
     )
 };
@@ -249,9 +256,10 @@ const deleteOrderById = (req, res, next) => {
         [req.params.order_id],
         (err, results) => {
             if (err) {
-                throw err;
-            };
-            res.status(204).send('order deleted!');
+                res.status(500).send('server-side error');
+            } else {
+                res.status(204).send('order deleted!');
+            }
         }
     );
 };
@@ -261,11 +269,12 @@ const getAllUsers = (req, res, next) => {
         'SELECT * FROM users;',
         (err, results) => {
             if (err) {
-                throw err;
+                res.status(500).send('server-side error');
+            } else {
+                res.json(results.rows);
             };
-            res.json(results.rows);
         }
-    )
+    );
 };
 
 const addUser = async(req, res, next) => {
@@ -284,7 +293,7 @@ const addUser = async(req, res, next) => {
             [req.body.username, hashed_pw], 
             (err, results) => {
                 if (err) {
-                    throw err;
+                    res.status(500).send('server-side error');
                 };
                 res.status(201).send('user added!');
             }
@@ -349,9 +358,10 @@ const getAllOrderedProducts = (req, res, next) => {
         'SELECT * FROM ordered_products;',
         (err, results) => {
             if (err) {
-                throw err;
-            };
-            res.json(results.rows);
+                res.status(500).send('server-side error');
+            } else {
+                res.json(results.rows);
+            }
         }
     );
 };

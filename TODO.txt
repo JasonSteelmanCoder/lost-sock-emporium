@@ -1,8 +1,10 @@
-check for edge cases in crud operations
-document api
-turn all instances of 'throw err' into 500 responses
-handle a user making a duplicate order
-turn postman requests into proper test suite
+fix all instances of 'throw err'
+check get orders and get ordered_products for descriptions
+document utility functions
+
+build front-end
+connect front end to back end
 
 set up admin authorization level
 set most endpoints to be only accessible to admin
+turn postman requests into proper test suite

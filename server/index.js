@@ -127,7 +127,13 @@ app.post('/checkout', db.checkOut);
  *                                      description: the customer-facing description of the product
  *                                  price:
  *                                      type: number
- *                                      description: the price of the product                                  
+ *                                      description: the price of the product
+ *          '500':
+ *              description: server-side error
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string 
 */
 app.get('/products', db.getAllProducts);
 
@@ -163,6 +169,18 @@ app.get('/products', db.getAllProducts);
  *                  text/plain:
  *                      schema:
  *                          type: string
+ *          '400':
+ *              description: request price is not a number or request body is missing product_name, description, or price properties
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string 
+ *          '500':
+ *              description: server-side error
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string 
 */
 app.post('/products', db.addProduct);
 
@@ -200,6 +218,12 @@ app.post('/products', db.addProduct);
  *                                  description: the price of the product                                  
  *          '404':
  *              description: Product not found for that id
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string 
+ *          '500':
+ *              description: server-side error
  *              content: 
  *                  text/plain:
  *                      schema:
@@ -276,6 +300,12 @@ app.put('/products/:product_id', db.updateProductById);
  *                  text/plain:
  *                      schema:
  *                          type: string
+ *          '500': 
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
 */
 app.delete('/products/:product_id', db.deleteProductById);
 
@@ -301,6 +331,12 @@ app.delete('/products/:product_id', db.deleteProductById);
  *                                  user_id:
  *                                      type: integer
  *                                      description: the id of the user who made the order 
+ *          '500': 
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
 */
 app.get('/orders', db.getAllOrders);
 
@@ -450,6 +486,12 @@ app.put('/orders/:order_id', db.updateOrderById);
  *                  text/plain:
  *                      schema: 
  *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
 */
 app.delete('/orders/:order_id', db.deleteOrderById);
 
@@ -477,6 +519,12 @@ app.delete('/orders/:order_id', db.deleteOrderById);
  *                                  hashed_pw: 
  *                                      type: string
  *                                      description: the hash of the user's password
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
 */
 app.get('/users', db.getAllUsers);
 
@@ -513,6 +561,12 @@ app.get('/users', db.getAllUsers);
  *                          type:string
  *          '401':
  *              description: request is missing username or password
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
  *              content: 
  *                  text/plain:
  *                      schema:
@@ -666,6 +720,12 @@ app.delete('/users/:user_id', db.deleteUserById);
  *                                  quantity:
  *                                      type: integer
  *                                      description: the quantity of the product that is required by the order 
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
 */
 app.get('/ordered_products', db.getAllOrderedProducts);
 

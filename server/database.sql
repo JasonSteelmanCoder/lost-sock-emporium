@@ -2,9 +2,9 @@
 
 CREATE TABLE products (
     product_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    product_name text,
-    description text,
-    price money
+    product_name text NOT NULL,
+    description text NOT NULL,
+    price money NOT NULL
 );
 
 INSERT INTO products (product_name, description, price)
