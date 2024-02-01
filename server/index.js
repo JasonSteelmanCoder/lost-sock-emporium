@@ -673,7 +673,7 @@ app.get('/ordered_products', db.getAllOrderedProducts);
  * @swagger
  * /ordered_products:
  *  post: 
- *      summary: add a new ordered_product object to the ordered_products table
+ *      summary: Add a new ordered_product object to the ordered_products table. Note that the ordered product cannot duplicate an ordered product already assigned to the requested order_id.
  *      requestBody: 
  *          required: true
  *          content: 
@@ -722,15 +722,143 @@ app.post('/ordered_products', db.addOrderedProduct);
  * @swagger
  * /ordered_products/:order_id/:product_id:
  *  get:
- *      summary:
- *      parameters:
+ *      summary: Get a single ordered_product by its composite key, which is made up of order_id, and product_id. 
+ *      parameters: 
+ *          - in: path
+ *            name: order_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the order_id of the order that the ordered_product belongs to
+ *          - in: path
+ *            name: product_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the product_id of the type of product requested in the order
  *      responses:
+ *          '200':
+ *              description: a json object representing an ordered_product
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties: 
+ *                              order_id:
+ *                                  type: integer
+ *                                  description: the order_id of the order that these products go to
+ *                              product_id: 
+ *                                  type: integer
+ *                                  description: the product_id of the type of product that was ordered
+ *                              quantity: 
+ *                                  type: integer
+ *                                  description: how many of the product are required for the order
+ *          '404':
+ *              description: ordered_product not found with that combination of order_id and product_id
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
 */
 app.get('/ordered_products/:order_id/:product_id', db.getOrderedProductById);
+
+/**
+ * @swagger
+ * /ordered_products/:order_id/:product_id:
+ *  put:
+ *      summary: change the quantity of an ordered_product, identified by its order_id and product_id
+ *      parameters:
+ *          - in: path
+ *            name: order_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the order_id of the order that the ordered_product belongs to
+ *          - in: path
+ *            name: product_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the product_id of the type of product requested in the order
+ *      requestBody:
+ *          required: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                  properties:
+ *                      quantity:
+ *                          type: integer
+ *                          description: the revised number of items required by the order
+ *      responses:
+ *          '200':
+ *              description: order updated
+ *              content:
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+ *          '404':
+ *              description: ordered_product not found with that combination of order_id and product_id
+ *              content:
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+ *          '400':
+ *              description: request body must be a json object with a number assigned to the quantity property
+ *              content:
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content:
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+*/
 app.put('/ordered_products/:order_id/:product_id', db.updateOrderedProductById);
+
+/**
+ * @swagger
+ * /ordered_products/:order_id/:product_id:
+ *  delete:
+ *      summary: delete an ordered_product from the products table, identified by its order_id and product_id
+ *      parameters:
+ *          - in: path
+ *            name: order_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the order_id of the order that the ordered_product belongs to
+ *          - in: path
+ *            name: product_id
+ *            required: true
+ *            schema: 
+ *              type: integer
+ *            description: the product_id of the type of product requested in the order
+ *      responses:
+ *          '204':
+ *              description: ordered_product deleted or did not exist
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content:
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+*/
 app.delete('/ordered_products/:order_id/:product_id', db.deleteOrderedProductById);
 
-// Start backend
+// spin up backend
 
 app.listen(PORT, () => {
     console.log(`listening on ${PORT}`);

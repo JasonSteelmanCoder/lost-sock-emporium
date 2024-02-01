@@ -363,7 +363,7 @@ const addOrderedProduct = async (req, res, next) => {
             [req.body.order_id, req.body.product_id, req.body.quantity],
             (err, results) => {
                 if (err && err.code === '23505') {
-                    res.status(400).send('this order already exists')   // no duplicate orders allowed (may change in future.)
+                    res.status(400).send('The request creates a duplicate of an already ordered_product. To request more of that product, start a new order, or modify the existing ordered_product using the updateOrderedProductById endpoint.')   // no duplicate products allowed in the same order.
                 } else if (err && err.code === '23503') {
                     res.status(404).send('the order_id or product_id in the request does not exist');
                 } else if (err) {
@@ -386,22 +386,33 @@ const getOrderedProductById = (req, res, next) => {
         [req.params.order_id, req.params.product_id],
         (err, results) => {
             if (err) {
-                throw err;
+                res.status(500).send('server-side error');
             };
-            res.json(results.rows);
+            if (!results.rows[0]) {
+                res.status(404).send('ordered_product not found with that combination of order_id and product_id');
+            } else {
+                res.json(results.rows[0]);
+            };
         }
     );
 };
 
 const updateOrderedProductById = (req, res, next) => {
     pool.query(
-        'UPDATE ordered_products SET quantity = $1 WHERE order_id = $2 AND product_id = $3;',
+        'UPDATE ordered_products SET quantity = $1 WHERE order_id = $2 AND product_id = $3 RETURNING order_id, product_id;',
         [req.body.quantity, req.params.order_id, req.params.product_id],
         (err, results) => {
-            if (err) {
-                throw err;
+            if (err && err.code === '23502') {
+                res.status(400).send('request body must be an object with a quantity property');
+            } else if (err && err.code === '22P02') {
+                res.status(400).send('quantity must be a number');
+            } else if (err) {
+                res.status(500).send('server-side error')
+            } else if (!results.rows[0]) {
+                res.status(404).send('ordered_product not found with that combination of order_id and product_id');
+            } else {
+                res.send('ordered_products updated!');
             };
-            res.send('ordered_products updated!');
         }
     );
 };
@@ -412,9 +423,10 @@ const deleteOrderedProductById = (req, res, next) => {
         [req.params.order_id, req.params.product_id],
         (err, results) => {
             if (err) {
-                throw err;
+                res.status(500).send('server-side error');
+            } else {
+                res.status(204).send('ordered_product deleted!');
             };
-            res.status(204).send('ordered_product deleted!');
         }
     );
 };

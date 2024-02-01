@@ -54,7 +54,7 @@ VALUES
 CREATE TABLE ordered_products (
     order_id integer REFERENCES orders(order_id),
     product_id integer REFERENCES products(product_id),
-    quantity integer,
+    quantity integer NOT NULL,
     PRIMARY KEY (order_id, product_id)
 );
 
