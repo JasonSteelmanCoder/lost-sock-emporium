@@ -1,6 +1,6 @@
 build front-end
 connect front end to back end
-troubleshoot the logout functionality
+troubleshoot logout functionality
 
 set up admin authorization level
 set most endpoints to be only accessible to admin

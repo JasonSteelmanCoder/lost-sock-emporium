@@ -10,8 +10,16 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
-const PORT = (process.env.PORT || 3000);
+const PORT = (process.env.PORT || 3001);
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+};
 
 const swaggerDefinition = {
     openapi: '3.0.0',
@@ -30,6 +38,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
 // set up middleware
 
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(
