@@ -7,10 +7,7 @@ export const displayedProductsSlice = createSlice({
     initialState,
     reducers: {
         'populateProducts': (state, action) => {
-            return [
-                ...state,
-                ...action.payload
-            ];
+            return action.payload;
         }
     },
 });
