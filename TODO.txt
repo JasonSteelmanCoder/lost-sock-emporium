@@ -1,6 +1,8 @@
-build front-end
-connect front end to back end
-troubleshoot logout functionality
+Wireframe landing page
+Let users manipulate their cart in the redux store
+Build login page & connect it to login endpoint
+Troubleshoot logout functionality
+Make page responsive to bigger screens
 
 set up admin authorization level
 set most endpoints to be only accessible to admin

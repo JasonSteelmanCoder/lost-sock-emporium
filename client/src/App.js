@@ -1,4 +1,4 @@
-import lostSockEmporiumLogo from './lost-sock-emporium-logo.jpg';
+import lostSockEmporiumLogo from './images/lost-sock-emporium-logo.jpg';
 import './App.css';
 import ProductCard from './components/ProductCard';
 import { fetchAllProducts } from './API_helpers/APIHelpers';
