@@ -1,4 +1,5 @@
-Wireframe landing page
+Get images to populate product cards
+Document the /images endpoint
 Let users manipulate their cart in the redux store
 Build login page & connect it to login endpoint
 Troubleshoot logout functionality

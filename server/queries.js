@@ -1,6 +1,8 @@
 // Imports
 require('dotenv').config();
+const fs = require('fs');
 const bcrypt = require('bcrypt');
+const path = require('path')
 
 // Set up pool to access database
 const { Pool } = require('pg');
@@ -461,6 +463,12 @@ const deleteOrderedProductById = (req, res, next) => {
     );
 };
 
+const getImage = async (req, res, next) => {
+    const image_name = req.params.image_name;
+    const pathName = path.join(__dirname, `sock_images`, image_name)
+    res.sendFile(pathName);
+}
+
 module.exports = {
     pool,           // used to set up session in index.js
     deserialize,       // used by passport in index.js
@@ -486,4 +494,5 @@ module.exports = {
     getOrderedProductById,
     updateOrderedProductById,
     deleteOrderedProductById,
+    getImage,
 };

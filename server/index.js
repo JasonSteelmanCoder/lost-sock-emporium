@@ -1082,6 +1082,8 @@ app.put('/ordered_products/:order_id/:product_id', db.updateOrderedProductById);
 */
 app.delete('/ordered_products/:order_id/:product_id', db.deleteOrderedProductById);
 
+app.get('/images/:image_name', db.getImage);
+
 // spin up backend
 
 app.listen(PORT, () => {

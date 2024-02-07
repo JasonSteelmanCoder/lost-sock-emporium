@@ -1,5 +1,5 @@
 import lostSockEmporiumLogo from './images/lost-sock-emporium-logo.jpg';
-import './App.css';
+import './css/App.css';
 import ProductCard from './components/ProductCard';
 import { fetchAllProducts } from './API_helpers/APIHelpers';
 import { useEffect } from 'react';
@@ -15,9 +15,7 @@ function App() {
       const productsData = await fetchAllProducts();
       dispatch(populateProducts(productsData));
     }
-    console.log("definition finished")
     fetchProducts();
-    console.log("function called")
   }, []);
   return (
     <div className="App">
@@ -29,7 +27,7 @@ function App() {
           {displayedProducts.map(
             product => {
               return (
-                <ProductCard product={product.product_name} />
+                <ProductCard product={product} key={product.product_id} />
               )
             }
           )}

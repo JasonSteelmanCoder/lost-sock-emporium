@@ -4,21 +4,22 @@ CREATE TABLE products (
     product_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     product_name text NOT NULL,
     description text NOT NULL,
-    price money NOT NULL
+    price money NOT NULL,
+    image_name text
 );
 
-INSERT INTO products (product_name, description, price)
+INSERT INTO products (product_name, description, price, image_name)
 VALUES 
-('Simple White', 'Steps in for the classic white sock that somehow always gets lost between the couch cushions. Ideal for everyday use, from sports to casual wear.', 0.89),
-('Basic Black', 'The essential replacement for that everyday black sock that mysteriously left its partner behind in the laundry. A staple for any wardrobe, versatile and classic.', 0.89),
-('The Strider', 'Ideal for replacing that lone athletic sock lost in the gym locker room. Features moisture-wicking fabric and a sleek design for the active individual.', 1.99),
-('Cozy Cabin', 'A perfect match for the sock left behind at a winter cabin retreat. Thick, woolen, and plaid-patterned for ultimate warmth and comfort.', 1.25),
-('Executive Stripes', 'Replaces the sock lost in a busy workday hustle. Offers a professional look with subtle stripes, suitable for all business occasions.', 2.99),
-('Rainbow Bright', 'The go-to replacement for the vibrant sock that vanished during laundry day. Adds a cheerful splash of color to any outfit.', 0.85),
-('Eco-Friendly Footprint', 'Steps in for the eco-sock that got away during a weekend hike. Made from sustainable, organic cotton, balancing comfort with environmental consciousness.', 1.99),
-('Argyle Adventure', 'Fills in for the lost sock from your last casual outing. Features a classic argyle pattern, blending timeless style with everyday wear.', 1.30),
-('Neon Nightlife', 'A flashy substitute for the neon sock that disappeared after a night out. Glows in the dark, perfect for parties and lively events.', 2.50),
-('Gentle Yoga', 'Replaces the misplaced yoga sock. Offers grip and stability for yoga and pilates, ensuring comfort and balance in every pose.', 2.88);
+('Simple White', 'Steps in for the classic white sock that somehow always gets lost between the couch cushions. Ideal for everyday use, from sports to casual wear.', 0.89, 'simple_white.jpg'),
+('Basic Black', 'The essential replacement for that everyday black sock that mysteriously left its partner behind in the laundry. A staple for any wardrobe, versatile and classic.', 0.89, 'basic_black.jpg'),
+('The Strider', 'Ideal for replacing that lone athletic sock lost in the gym locker room. Features moisture-wicking fabric and a sleek design for the active individual.', 1.99, 'strider.jpg'),
+('Cozy Cabin', 'A perfect match for the sock left behind at a winter cabin retreat. Thick, woolen, and plaid-patterned for ultimate warmth and comfort.', 1.25, 'cozy_cabin.jpg'),
+('Executive Stripes', 'Replaces the sock lost in a busy workday hustle. Offers a professional look with subtle stripes, suitable for all business occasions.', 2.99, 'executive_stripes.jpg'),
+('Rainbow Bright', 'The go-to replacement for the vibrant sock that vanished during laundry day. Adds a cheerful splash of color to any outfit.', 0.85, 'rainbow_bright.jpg'),
+('Eco-Friendly Footprint', 'Steps in for the eco-sock that got away during a weekend hike. Made from sustainable, organic cotton, balancing comfort with environmental consciousness.', 1.99, 'eco_friendly.jpg'),
+('Argyle Adventure', 'Fills in for the lost sock from your last casual outing. Features a classic argyle pattern, blending timeless style with everyday wear.', 1.30, 'argyle_adventure.jpg'),
+('Neon Nightlife', 'A flashy substitute for the neon sock that disappeared after a night out. Glows in the dark, perfect for parties and lively events.', 2.50, 'neon_nightlife.jpg'),
+('Gentle Yoga', 'Replaces the misplaced yoga sock. Offers grip and stability for yoga and pilates, ensuring comfort and balance in every pose.', 2.88, 'gentle_yoga.jpg');
 
 -- Users are added to the users table when they register.
 -- When a user logs in, their login information is compared to the users table.

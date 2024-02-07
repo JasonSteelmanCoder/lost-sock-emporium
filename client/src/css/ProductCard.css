@@ -2,7 +2,12 @@
     background-color: beige;
     color: black;
     border-radius: 5px;
-    margin: 1rem;
+    margin: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-};
+    padding-top: 1rem;
+}
+
+.product-image {
+    max-width: 37vw;
+}
