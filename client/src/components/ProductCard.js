@@ -20,8 +20,16 @@ const ProductCard = ({product}) => {
         retrieveImage();
     }, []);
 
+    const handleMouseOver = (e) => {
+        
+    };
+    const handleMouseLeave = (e) => {
+        
+    };
+
     return (
-        <div className="product-card">
+        <div className="product-card" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+            <div className="details-slider" >{product.description}</div>
             <img src={image} className="product-image" />
             <p>{product.product_name}</p>
         </div>

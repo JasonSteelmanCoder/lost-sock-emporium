@@ -6,8 +6,28 @@
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 1rem;
+    position: relative;
 }
 
 .product-image {
     max-width: 37vw;
+}
+
+.details-slider {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    right: 0rem;
+    bottom: 4rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow: hidden;
+    background-color: rgba(00, 00, 00, 0.3);
+    visibility: hidden;
+    color: white;
+}
+
+.product-card:hover .details-slider {
+    visibility: visible;
 }
