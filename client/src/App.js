@@ -5,6 +5,7 @@ import { fetchAllProducts } from './API_helpers/APIHelpers';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { populateProducts } from './components/displayedProductsSlice';
+import NavBar from './components/NavBar';
 
 function App() {
   const displayedProducts = useSelector((state) => state.displayedProducts);
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
+        <NavBar />
         <h1>The Lost Sock Emporium</h1>
         <p>The place to find single socks to replace the ones you lost.</p>
         <img src={lostSockEmporiumLogo} className="app-logo" alt="logo" />

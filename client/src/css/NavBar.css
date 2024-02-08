@@ -1,0 +1,38 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    height: 5rem;
+    width: 100%;
+    align-items: center;
+    background-color: beige;
+    color: black;
+}
+
+nav img, nav a {
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+#logo {
+    max-height: 3rem;
+}
+
+#logo-container {
+    text-align: start;
+    flex-grow: 1;
+}
+
+#cart-image {
+    max-height: 2rem;
+    border: 4px solid rgb(0, 31, 63);
+    border-radius: 4px;
+}
+
+#login-button {
+    background-color: white;
+    padding: .3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 4px solid rgb(0, 31, 63);
+    border-radius: 4px;
+}

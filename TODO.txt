@@ -1,9 +1,11 @@
-Get images to populate product cards
-Document the /images endpoint
+Build the page's nav bar
+Set up the page's nav bar in React router
+Make product pages
 Let users manipulate their cart in the redux store
-Build login page & connect it to login endpoint
+Build register page & connect it to register endpoint
 Troubleshoot logout functionality
 Make page responsive to bigger screens
+Document the /images endpoint
 
 set up admin authorization level
 set most endpoints to be only accessible to admin
