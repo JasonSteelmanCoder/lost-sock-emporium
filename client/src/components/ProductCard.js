@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/ProductCard.css";
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({product}) => {
 
@@ -20,19 +21,12 @@ const ProductCard = ({product}) => {
         retrieveImage();
     }, []);
 
-    const handleMouseOver = (e) => {
-        
-    };
-    const handleMouseLeave = (e) => {
-        
-    };
-
     return (
-        <div className="product-card" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+        <Link to={`products/${product.product_id}`} className="product-card" >
             <div className="details-slider" >{product.description}</div>
             <img src={image} className="product-image" />
             <p>{product.product_name}</p>
-        </div>
+        </Link>
     );
 };
 

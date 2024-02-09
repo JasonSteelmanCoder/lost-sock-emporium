@@ -2,7 +2,7 @@ import react from 'react';
 import logoImage from '../images/lost-sock-emporium-logo.jpg';
 import cartImage from '../images/shopping_cart_emblem.png';
 import '../css/Root.css';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 
 const Root = () => {
 
@@ -10,10 +10,14 @@ const Root = () => {
         <div>
             <nav>
                 <div id='logo-container'>
-                    <img src={logoImage} id='logo'></img>
+                    <Link to={'/'} >
+                        <img src={logoImage} id='logo'></img>
+                    </Link>
                 </div>
-                <img src={cartImage} id='cart-image'></img>
-                <a id='login-button'>Login</a>
+                <Link to={'cart'} >
+                    <img src={cartImage} id='cart-image'></img>
+                </Link>                
+                <Link to={'login'} id='login-button'>Login</Link>
             </nav>
             <Outlet />
         </div>

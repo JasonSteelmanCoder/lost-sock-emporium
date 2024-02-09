@@ -35,4 +35,5 @@ nav img, nav a {
     font-weight: bold;
     border: 4px solid rgb(0, 31, 63);
     border-radius: 4px;
+    text-decoration: none;
 }
