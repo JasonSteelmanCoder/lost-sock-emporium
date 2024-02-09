@@ -1,13 +1,13 @@
-.App {
+.home-page {
   text-align: center;
 }
 
-.app-logo {
+.home-logo {
   max-height: 35vh;
   margin-bottom: 1rem;
 }
 
-.app-header {
+.home-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -18,9 +18,9 @@
   color: white;
 }
 
-.App-link {
+/* .App-link {
   color: #61dafb;
-}
+} */
 
 #product-cards-container {
   display: grid;

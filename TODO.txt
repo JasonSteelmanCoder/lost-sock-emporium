@@ -1,4 +1,4 @@
-Build the page's nav bar
+Set up React Router
 Set up the page's nav bar in React router
 Make product pages
 Let users manipulate their cart in the redux store
