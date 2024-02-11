@@ -10,6 +10,7 @@ const ProductPage = () => {
     const [product_index, setProduct_index] = useState(-1);
     const [displayedProducts, setDisplayedProducts] = useState();
 
+    const images = useSelector((state) => state.images);
     const { product_id } = useParams();
     const dispatch = useDispatch();
 
@@ -31,6 +32,7 @@ const ProductPage = () => {
     return (
         <div id='product-page'>
             <h1>{product_index !== -1 && displayedProducts ? displayedProducts[product_index].product_name : "loading..."}</h1>
+            <img src={product_index !== -1 && images ? images[product_index + 1]: null} />
             <p>{product_index !== -1 && displayedProducts ? displayedProducts[product_index].description : "loading..."}</p>
             <p>{product_index !== -1 && displayedProducts ? displayedProducts[product_index].price : "loading..."}</p>
             <form>
