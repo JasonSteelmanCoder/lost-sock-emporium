@@ -51,7 +51,7 @@ export const cartSlice = createSlice({
                 newState.push(cartItem);
             };
             return newState;
-        },
+        }
     }
 })
 
@@ -61,6 +61,7 @@ export const {
     incrementCartItem,
     decrementCartItem,
     setCartItemToNum,
+    cacheImageURL,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

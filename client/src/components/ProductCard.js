@@ -2,6 +2,8 @@ import React from "react";
 import "../css/ProductCard.css";
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import store from '../store.js';
+import { addImage } from "./imagesSlice";
 
 const ProductCard = ({product}) => {
 
@@ -13,6 +15,13 @@ const ProductCard = ({product}) => {
                 const retrievedImage = await fetch(`http://localhost:3001/images/${product.image_name}`);
                 const blob = await retrievedImage.blob();
                 const url = URL.createObjectURL(blob);
+                store.dispatch({
+                    type: addImage,
+                    payload: {
+                        product_id: product.product_id,
+                        image_url: url
+                    },
+                });
                 setImage(url);
             } catch (err) {
                 console.log(err);

@@ -1,6 +1,5 @@
-Set up React Router
-Set up the page's nav bar in React router
-Make product pages
+Fix product pages so that they still load successfully when accessed directly
+Add images to product pages
 Let users manipulate their cart in the redux store
 Build register page & connect it to register endpoint
 Troubleshoot logout functionality

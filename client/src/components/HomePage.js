@@ -17,6 +17,7 @@ function HomePage() {
     }
     fetchProducts();
   }, []);
+  
   return (
     <div className="home-page">
       <header className="home-header">
