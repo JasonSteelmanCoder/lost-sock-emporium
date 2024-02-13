@@ -465,9 +465,10 @@ const deleteOrderedProductById = (req, res, next) => {
 
 const getImage = async (req, res, next) => {
     const image_name = req.params.image_name;
-    const pathName = path.join(__dirname, `sock_images`, image_name)
+    const pathName = path.join(__dirname, `sock_images`, image_name);
     res.sendFile(pathName);
 }
+
 
 module.exports = {
     pool,           // used to set up session in index.js

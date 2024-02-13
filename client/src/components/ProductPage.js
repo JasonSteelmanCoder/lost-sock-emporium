@@ -1,40 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/ProductPage.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllProducts } from '../API_helpers/APIHelpers.js';
-import { populateProducts } from './displayedProductsSlice.js';
+import { fetchProductById } from '../API_helpers/APIHelpers.js';
+
 
 const ProductPage = () => {
 
-    const [product_index, setProduct_index] = useState(-1);
-    const [displayedProducts, setDisplayedProducts] = useState();
+    const [displayedProduct, setDisplayedProduct] = useState();
+    const [image, setImage] = useState();
 
-    const images = useSelector((state) => state.images);
     const { product_id } = useParams();
-    const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            const productsData = await fetchAllProducts();
-            dispatch(populateProducts(productsData));
-            setDisplayedProducts(productsData);
+        const fetchProduct = async () => {
+            const productData = await fetchProductById(product_id);
+            setDisplayedProduct(productData);
         }
-        fetchProducts();
+        fetchProduct();
     }, []);
 
     useEffect(() => {
-        if (displayedProducts) {
-            setProduct_index(displayedProducts.findIndex((product) => product.product_id === Number(product_id)));
+        if (displayedProduct) {
+            const fetchImage = async () => {
+                try {
+                    const imageData = await fetch(`http://localhost:3001/images/${displayedProduct.image_name}`);
+                    const blob = await imageData.blob();
+                    const url = URL.createObjectURL(blob);
+                    setImage(url);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            fetchImage();
         }
-    }, [displayedProducts]);
+    }, [displayedProduct]);
+
 
     return (
         <div id='product-page'>
-            <h1>{product_index !== -1 && displayedProducts ? displayedProducts[product_index].product_name : "loading..."}</h1>
-            <img src={product_index !== -1 && images ? images[product_index + 1]: null} />
-            <p>{product_index !== -1 && displayedProducts ? displayedProducts[product_index].description : "loading..."}</p>
-            <p>{product_index !== -1 && displayedProducts ? displayedProducts[product_index].price : "loading..."}</p>
+            <h1>{displayedProduct ? displayedProduct.product_name : "loading..."}</h1>
+            <img src={image ? image : null} />
+            <p>{displayedProduct ? displayedProduct.description : "loading..."}</p>
+            <p>{displayedProduct ? displayedProduct.price : "loading..."}</p>
             <form>
                 <label htmlFor='quantity-input'>Quantity: </label>
                 <input id='quantity-input'></input>

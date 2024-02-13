@@ -1,8 +1,9 @@
-Fix product pages so that they still load successfully when accessed directly
-Add images to product pages
-Let users manipulate their cart in the redux store
+Set up get requests in place of redux store requests
+Streamline redux store
 Build register page & connect it to register endpoint
+Let users manipulate their cart in the redux store
 Troubleshoot logout functionality
+
 Make page responsive to bigger screens
 Document the /images endpoint
 
