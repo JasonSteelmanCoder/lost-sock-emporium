@@ -2,22 +2,19 @@ import lostSockEmporiumLogo from '../images/lost-sock-emporium-logo.jpg';
 import '../css/HomePage.css';
 import ProductCard from './ProductCard';
 import { fetchAllProducts } from '../API_helpers/APIHelpers';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { populateProducts } from './displayedProductsSlice';
+import { useEffect, useState } from 'react';
 
 function HomePage() {
-  const displayedProducts = useSelector((state) => state.displayedProducts);
-  const dispatch = useDispatch();
+  const [displayedProducts, setDisplayedProducts] = useState([]); 
 
   useEffect(() => {
     const fetchProducts = async () => {
       const productsData = await fetchAllProducts();
-      dispatch(populateProducts(productsData));
+      setDisplayedProducts(productsData);
     }
     fetchProducts();
   }, []);
-  
+
   return (
     <div className="home-page">
       <header className="home-header">

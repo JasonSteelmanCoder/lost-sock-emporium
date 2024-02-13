@@ -1,5 +1,3 @@
-Set up get requests in place of redux store requests
-Streamline redux store
 Build register page & connect it to register endpoint
 Let users manipulate their cart in the redux store
 Troubleshoot logout functionality
