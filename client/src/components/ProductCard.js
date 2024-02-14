@@ -2,6 +2,7 @@ import React from "react";
 import "../css/ProductCard.css";
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { API_ENDPOINT } from "../API_helpers/APIEndpoint";
 
 const ProductCard = ({product}) => {
 
@@ -10,7 +11,7 @@ const ProductCard = ({product}) => {
     useEffect(() => {
         const retrieveImage = async () => {
             try {
-                const retrievedImage = await fetch(`http://localhost:3001/images/${product.image_name}`);
+                const retrievedImage = await fetch(`${API_ENDPOINT}/images/${product.image_name}`);
                 const blob = await retrievedImage.blob();
                 const url = URL.createObjectURL(blob);
                 setImage(url);

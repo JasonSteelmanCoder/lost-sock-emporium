@@ -1,6 +1,8 @@
+import { API_ENDPOINT } from "./APIEndpoint";
+
 const fetchAllProducts = async () => {
         try {
-            const response = await fetch('http://localhost:3001/products');
+            const response = await fetch(`${API_ENDPOINT}/products`);
             const data = await response.json();
             return data;
         } catch (err) {
@@ -10,7 +12,7 @@ const fetchAllProducts = async () => {
 
 const fetchProductById = async (product_id) => {
     try {
-        const response = await fetch(`http://localhost:3001/products/${product_id}`);
+        const response = await fetch(`${API_ENDPOINT}/products/${product_id}`);
         const data = await response.json();
         return data;
     } catch (err) {
@@ -22,7 +24,7 @@ const login = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
-    const response = await fetch('http://localhost:3001/login', {
+    const response = await fetch(`${API_ENDPOINT}/login`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +41,7 @@ const register = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
-    const response = await fetch('http://localhost:3001/register', {
+    const response = await fetch(`${API_ENDPOINT}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

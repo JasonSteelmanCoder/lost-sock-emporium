@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/ProductPage.css';
 import { fetchProductById } from '../API_helpers/APIHelpers.js';
-
+import { API_ENDPOINT } from '../API_helpers/APIEndpoint.js';
 
 const ProductPage = () => {
 
@@ -23,7 +23,7 @@ const ProductPage = () => {
         if (displayedProduct) {
             const fetchImage = async () => {
                 try {
-                    const imageData = await fetch(`http://localhost:3001/images/${displayedProduct.image_name}`);
+                    const imageData = await fetch(`${API_ENDPOINT}/images/${displayedProduct.image_name}`);
                     const blob = await imageData.blob();
                     const url = URL.createObjectURL(blob);
                     setImage(url);
