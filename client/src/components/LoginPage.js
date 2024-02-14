@@ -14,7 +14,7 @@ const LoginPage = () => {
                 <br></br>
                 <label htmlFor='password-input'>Password</label>
                 <br></br>
-                <input id='password-input' name='password'></input>
+                <input id='password-input' name='password' type='password'></input>
                 <br></br>
                 <input type='submit'></input>
                 <br></br>
