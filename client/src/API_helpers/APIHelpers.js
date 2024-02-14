@@ -18,4 +18,43 @@ const fetchProductById = async (product_id) => {
     }
 }
 
-export { fetchAllProducts, fetchProductById };
+const login = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const formProps = Object.fromEntries(formData);
+    const response = await fetch('http://localhost:3001/login', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: formProps.username,
+            password: formProps.password
+        }),
+    });
+    return response;
+}
+
+const register = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const formProps = Object.fromEntries(formData);
+    const response = await fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: formProps.username,
+            password: formProps.password
+        })
+    });
+    return response;
+}
+
+export { 
+    fetchAllProducts, 
+    fetchProductById, 
+    login, 
+    register, 
+};

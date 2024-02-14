@@ -1,8 +1,13 @@
-Build register page & connect it to register endpoint
-Let users manipulate their cart in the redux store
+Mask passwords on login and register pages
+Require 'confirm password' on registration page
+Check that passwords are strong on registration page
+Start a redirect when login or registration succeeds
+Make login button read logout when user is logged in
 Troubleshoot logout functionality
 
-Make page responsive to bigger screens
+Fix nav bar to fit on very small screens
+Style product page, login page, registration page
+Let users manipulate their cart in the redux store
 Document the /images endpoint
 
 set up admin authorization level

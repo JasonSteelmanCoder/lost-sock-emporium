@@ -1,13 +1,13 @@
 import React from 'react';
-import '../css/LoginPage.css';
+import '../css/RegistrationPage.css';
+import { register } from '../API_helpers/APIHelpers.js';
 import { Link } from 'react-router-dom';
-import { login } from '../API_helpers/APIHelpers.js';
 
-const LoginPage = () => {
+const RegistrationPage = () => {
     return (
-        <div id='login-page'>
-            <h1>Log in to your account</h1>
-            <form onSubmit={login}>
+        <div id='registration-page'>
+            <h1>Register a new account</h1>
+            <form onSubmit={register}>
                 <label htmlFor='username-input'>Username</label>
                 <br></br>
                 <input id='username-input' name='username'></input>
@@ -19,9 +19,9 @@ const LoginPage = () => {
                 <input type='submit'></input>
                 <br></br>
             </form>
-            <Link to='../register'>Don't have an account? Sign up!</Link>
+            <Link to='../login'>Already have an account? Sign in!</Link>
         </div>
-    );
+    )
 };
 
-export default LoginPage;
+export default RegistrationPage;
