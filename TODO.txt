@@ -1,14 +1,10 @@
 Require 'confirm password' on registration page
 Check that passwords are strong on registration page
-Make logout button call logout endpoint
-Troubleshoot logout functionality
-Style logout button
 Set up third party login with OAuth
 
 Fix nav bar to fit on very small screens
 Style product page, login page, registration page
 Let users manipulate their cart in the redux store
-Document the get('/login') endpoint
 Document the /images endpoint
 
 set up admin authorization level

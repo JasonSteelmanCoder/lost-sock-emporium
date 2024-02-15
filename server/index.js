@@ -213,25 +213,24 @@ app.get('/login', (req, res, next) => {
  *          '200':
  *              description: logout successful
  *              content:
- *                  text/plain:
+ *                  application/json:
  *                      schema: 
  *                          type: string
  *          '500':
  *              description:
  *              content:
- *                  text/plain:
+ *                  application/json:
  *                      schema: 
  *                          type: string
 */
 app.get('/logout', (req, res, next) => {
-    req.logOut((err) => {
+    req.logout((err) => {
         if (err) {
-            res.status(500).send('server-side error');
+            res.status(500).json('server-side error');
         } else {
-            res.send('logged out!');
+            res.json('logged out!');
         };
-    });
-    
+    }); 
 });
 
 /**

@@ -70,10 +70,17 @@ const register = async (event) => {
     };
 }
 
+const logout = async (event) => {
+    const response = await fetch(`${API_ENDPOINT}/logout`);
+    const data = await response.json();
+    return data;
+}
+
 export { 
     fetchAllProducts, 
     fetchProductById, 
     login, 
     checkLoggedIn,
     register, 
+    logout,
 };

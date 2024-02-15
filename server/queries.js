@@ -112,6 +112,7 @@ const getAllProducts = (req, res, next) => {
         if (err) {
             res.status(500).send('server-side error');
         } else {
+            // console.log(req.isAuthenticated());
             res.status(200).json(results.rows);
         }
     });
