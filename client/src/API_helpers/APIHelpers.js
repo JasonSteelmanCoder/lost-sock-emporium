@@ -21,7 +21,6 @@ const fetchProductById = async (product_id) => {
 }
 
 const login = async (event) => {
-    event.preventDefault();
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
     const response = await fetch(`${API_ENDPOINT}/login`, {
@@ -38,7 +37,6 @@ const login = async (event) => {
 }
 
 const register = async (event) => {
-    event.preventDefault();
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
     const response = await fetch(`${API_ENDPOINT}/register`, {
@@ -51,7 +49,11 @@ const register = async (event) => {
             password: formProps.password
         })
     });
-    return response;
+    const data = await response.json();
+    return {
+        status: response.status,
+        data: data
+    };
 }
 
 export { 

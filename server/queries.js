@@ -306,7 +306,7 @@ const addUser = async(req, res, next) => {
         [req.body.username]
     )
     if (usernameExists.rows[0]) {
-        res.status(400).send('Username already exists!');
+        res.status(400).json('Username already exists!');
     } else if (req.body.username && req.body.password) {            // check that username & password are both included 
         const salt = await bcrypt.genSalt(10);
         const hashed_pw = await bcrypt.hash(req.body.password, salt);
@@ -315,13 +315,13 @@ const addUser = async(req, res, next) => {
             [req.body.username, hashed_pw], 
             (err, results) => {
                 if (err) {
-                    res.status(500).send('server-side error');
+                    res.status(500).json('server-side error');
                 };
-                res.status(201).send('user added!');
+                res.status(201).json('user added!');
             }
         )
     } else {
-        res.status(401).send('Username and password are both required.');
+        res.status(401).json('Username and password are both required.');
     };     
 };
 

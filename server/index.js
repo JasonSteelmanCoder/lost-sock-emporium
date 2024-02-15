@@ -117,25 +117,25 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *          '201':
  *              description: new user object created successfully
  *              content: 
- *                  text/plain:
+ *                  application/json:
  *                      schema:
  *                          type: string
  *          '400':
  *              description: Username already exists
  *              content: 
- *                  text/plain:
+ *                  application/json:
  *                      schema:
  *                          type: string
  *          '401':
  *              description: Username or password is missing
  *              content: 
- *                  text/plain:
+ *                  application/json:
  *                      schema:
  *                          type: string
  *          '500':
  *              description: server-side error
  *              content: 
- *                  text/plain:
+ *                  application/json:
  *                      schema:
  *                          type: string
 */
@@ -177,7 +177,7 @@ app.post('/register', (req, res, next) => {
  *              content: 
 */
 app.post('/login', passport.authenticate("local"), (req, res, next) => {
-    res.send('logged in');
+    res.json('logged in');
 });
 
 /**

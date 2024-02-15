@@ -1,4 +1,3 @@
-Mask passwords on login and register pages
 Require 'confirm password' on registration page
 Check that passwords are strong on registration page
 Make registration also log the user in
