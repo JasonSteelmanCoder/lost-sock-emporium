@@ -11,7 +11,7 @@ CREATE TABLE products (
 INSERT INTO products (product_name, description, price, image_name)
 VALUES 
 ('Simple White', 'Steps in for the classic white sock that somehow always gets lost between the couch cushions. Ideal for everyday use, from sports to casual wear.', 0.89, 'simple_white.jpg'),
-('Basic Black', 'The essential replacement for that everyday black sock that mysteriously left its partner behind in the laundry. A staple for any wardrobe, versatile and classic.', 0.89, 'basic_black.jpg'),
+('Classic Black', 'The essential replacement for that everyday black sock that mysteriously left its partner behind in the laundry. A staple for any wardrobe, versatile and classic.', 0.89, 'basic_black.jpg'),
 ('The Strider', 'Ideal for replacing that lone athletic sock lost in the gym locker room. Features moisture-wicking fabric and a sleek design for the active individual.', 1.99, 'strider.jpg'),
 ('Cozy Cabin', 'A perfect match for the sock left behind at a winter cabin retreat. Thick, woolen, and plaid-patterned for ultimate warmth and comfort.', 1.25, 'cozy_cabin.jpg'),
 ('Executive Stripes', 'Replaces the sock lost in a busy workday hustle. Offers a professional look with subtle stripes, suitable for all business occasions.', 2.99, 'executive_stripes.jpg'),

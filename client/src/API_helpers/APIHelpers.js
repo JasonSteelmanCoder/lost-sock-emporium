@@ -2,7 +2,10 @@ import { API_ENDPOINT } from "./APIEndpoint";
 
 const fetchAllProducts = async () => {
         try {
-            const response = await fetch(`${API_ENDPOINT}/products`);
+            const response = await fetch(`${API_ENDPOINT}/products`, {
+                method: "GET",
+                credentials: 'include'
+            });
             const data = await response.json();
             return data;
         } catch (err) {
@@ -32,8 +35,18 @@ const login = async (event) => {
             username: formProps.username,
             password: formProps.password
         }),
+        credentials: 'include',
     });
     return response;
+}
+
+const checkLoggedIn = async () => {
+    const response = await fetch(`${API_ENDPOINT}/login`, {
+        method: 'GET',
+        credentials: 'include'
+    });
+    const data = await response.json();
+    return data;
 }
 
 const register = async (event) => {
@@ -47,7 +60,8 @@ const register = async (event) => {
         body: JSON.stringify({
             username: formProps.username,
             password: formProps.password
-        })
+        }),
+        credentials: 'include',
     });
     const data = await response.json();
     return {
@@ -60,5 +74,6 @@ export {
     fetchAllProducts, 
     fetchProductById, 
     login, 
+    checkLoggedIn,
     register, 
 };

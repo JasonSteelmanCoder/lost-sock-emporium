@@ -2,6 +2,8 @@ import React from 'react';
 import '../css/LoginPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../API_helpers/APIHelpers.js';
+import store from '../store.js';
+import { signalLoggedIn } from './authSlice.js';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -11,6 +13,7 @@ const LoginPage = () => {
         try {
             const response = await login(event);
             if (response.status === 200) {
+                store.dispatch(signalLoggedIn());
                 navigate('/');
             } else if (response.status === 400) {
                 alert("Bad request. Correct username and password required.");

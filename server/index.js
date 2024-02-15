@@ -182,6 +182,30 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
 
 /**
  * @swagger
+ * /login:
+ *  get:
+ *      summary: check if a user is logged in
+ *      responses:
+ *          '200':
+ *              description: user was checked
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties: 
+ *                              authenticated:
+ *                                  type: boolean
+ *                                  description: true if the user is logged in, false if not
+ *                              
+*/
+app.get('/login', (req, res, next) => {
+    res.json({
+        "authenticated": req.isAuthenticated()
+    });
+});
+
+/**
+ * @swagger
  * /logout:
  *  get:
  *      summary: log a user out
