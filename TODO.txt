@@ -1,3 +1,7 @@
+Make browser scroll to the top when opening product page
+Implement change-quantity button in cart-item-card
+Implement remove-item button in cart-item-card 
+If no items are in cart, put a notification and a link to product page in cart-items area
 Make cart icon display number of products in cart
 Change the product page's behavior when a product is already in the user's cart
 
@@ -6,7 +10,6 @@ Check that passwords are strong on registration page
 Stop cart slice from persisting after logout
 Make logging in send you back to where you came from (not always homepage)
 
-Fix nav bar to fit on very small screens
 On products page, add warning message if quantity is not 1 (Are you sure you want more than one sock? How many did you lose?)
 Style login page, registration page
 Document the /images endpoint

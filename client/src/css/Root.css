@@ -46,3 +46,10 @@ nav img, nav a {
     cursor: pointer;
     color: red;
 }
+
+@media screen and (width < 450px) {
+    nav img, nav a {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}

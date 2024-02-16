@@ -9,7 +9,13 @@ const CartPage = () => {
     return (
         <div id='cart-page'>
             <div id='checkout-interface'>
-                <p>Checkout Interface</p>
+                <p>Checkout</p>
+                <form>
+                    <label>Label</label>
+                    <br></br>
+                    <input></input>
+                    <br></br>
+                </form>
             </div>
             <div id='ordered-products-details'>
                 {cart.map((item) => {
