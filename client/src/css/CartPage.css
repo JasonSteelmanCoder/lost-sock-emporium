@@ -16,10 +16,6 @@
     width: 100%;
 }
 
-#ordered-products-details {
-    
-}
-
 @media screen and (width > 900px) {
     #cart-page {
         display: grid;

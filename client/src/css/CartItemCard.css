@@ -1,0 +1,27 @@
+#cart-item-card {
+    border-top: 1px solid white;
+    display: flex;
+    align-items: center;
+}
+
+#cart-item-image {
+    margin: 1rem;
+    max-height: 35vh;
+    max-width: 33%;
+}
+
+#cart-item-text {
+    font-size: 1rem;
+}
+
+#quantity-text {
+    display: inline;
+    margin-right: 3rem;
+}
+
+#remove-button, #quantity-button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: blue;
+    text-decoration: underline;
+}
