@@ -41,7 +41,6 @@ const ProductPage = () => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const formProps = Object.fromEntries(formData);
-        console.log(formProps);
         store.dispatch(addCartItem({
             product_id: product_id,
             quantity: formProps.quantity            
@@ -61,7 +60,7 @@ const ProductPage = () => {
             <form onSubmit={handleAddToCart}>
                 <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
                 <label htmlFor='quantity-input'>Quantity: </label>
-                <input id='quantity-input' name='quantity' defaultValue={1}></input>
+                <input type='number' min="1" id='quantity-input' name='quantity' defaultValue={1}></input>
             </form>
         </div>
     );
