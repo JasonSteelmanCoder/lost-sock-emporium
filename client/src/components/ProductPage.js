@@ -39,13 +39,17 @@ const ProductPage = () => {
     return (
         <div id='product-page'>
             <h1>{displayedProduct ? displayedProduct.product_name : "loading..."}</h1>
-            <img src={image ? image : null} />
-            <p>{displayedProduct ? displayedProduct.description : "loading..."}</p>
-            <p>{displayedProduct ? displayedProduct.price : "loading..."}</p>
+            <div id='product-summary'>
+                <img src={image ? image : null} id='product-image'/>
+                <div id='summary-text'>
+                    <p>{displayedProduct ? displayedProduct.description : "loading..."}</p>
+                    <p>{displayedProduct ? displayedProduct.price : "loading..."}</p>
+                </div>
+            </div>
             <form>
+                <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
                 <label htmlFor='quantity-input'>Quantity: </label>
-                <input id='quantity-input'></input>
-                <input type='submit' ></input>
+                <input id='quantity-input' defaultValue={1}></input>
             </form>
         </div>
     );

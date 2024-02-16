@@ -1,9 +1,11 @@
-Check that passwords are strong on registration page
+Make product pages submit an order with a quantity
+Let users manipulate their cart in the redux store
 Set up third party login with OAuth
+Check that passwords are strong on registration page
+Make logging in send you back to where you came from (not always homepage)
 
 Fix nav bar to fit on very small screens
-Style product page, login page, registration page
-Let users manipulate their cart in the redux store
+Style login page, registration page
 Document the /images endpoint
 
 set up admin authorization level
