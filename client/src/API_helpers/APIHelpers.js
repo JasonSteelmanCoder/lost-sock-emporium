@@ -52,22 +52,29 @@ const checkLoggedIn = async () => {
 const register = async (event) => {
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
-    const response = await fetch(`${API_ENDPOINT}/register`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: formProps.username,
-            password: formProps.password
-        }),
-        credentials: 'include',
-    });
-    const data = await response.json();
-    return {
-        status: response.status,
-        data: data
-    };
+    if (formProps.password === formProps.confirm) {
+        const response = await fetch(`${API_ENDPOINT}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: formProps.username,
+                password: formProps.password
+            }),
+            credentials: 'include',
+        });
+        const data = await response.json();
+        return {
+            status: response.status,
+            data: data
+        };
+    } else {
+        return {
+            status: 400,
+            data: "Passwords must match."
+        }
+    }
 }
 
 const logout = async (event) => {

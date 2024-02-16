@@ -34,6 +34,10 @@ const RegistrationPage = () => {
                 <br></br>
                 <input id='password-input' name='password' type='password' required></input>
                 <br></br>
+                <label htmlFor='confirm-input'>Confirm Password</label>
+                <br></br>
+                <input id='confirm-input' name='confirm' type='password' required></input>
+                <br></br>
                 <input type='submit' value='Register'></input>
                 <br></br>
             </form>

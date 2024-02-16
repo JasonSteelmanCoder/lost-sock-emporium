@@ -1,4 +1,3 @@
-Require 'confirm password' on registration page
 Check that passwords are strong on registration page
 Set up third party login with OAuth
 
