@@ -41,7 +41,7 @@ const LoginPage = () => {
                 <br></br>
                 <input id='password-input' name='password' type='password' required></input>
                 <br></br>
-                <input type='submit' value='Login'></input>
+                <input type='submit' value='Login' id='login-submit'></input>
                 <br></br>
             </form>
             <Link to='../register'>Don't have an account? Sign up!</Link>

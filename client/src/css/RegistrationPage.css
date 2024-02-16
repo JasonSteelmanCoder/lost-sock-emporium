@@ -8,3 +8,23 @@
     color: white;  
     min-height: 100vh;
 }
+
+#register-submit {
+    background-color: white;
+    padding: .3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 4px solid rgb(38, 145, 227);
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+#register-submit:hover {
+    cursor: pointer;
+}
+
+#register-submit:active {
+    cursor: pointer;
+    color: red;
+}

@@ -38,7 +38,7 @@ const RegistrationPage = () => {
                 <br></br>
                 <input id='confirm-input' name='confirm' type='password' required></input>
                 <br></br>
-                <input type='submit' value='Register'></input>
+                <input type='submit' value='Register' id='register-submit'></input>
                 <br></br>
             </form>
             <Link to='../login'>Already have an account? Sign in!</Link>
