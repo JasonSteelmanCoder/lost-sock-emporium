@@ -1,10 +1,15 @@
-Make product pages submit an order with a quantity
+Handle edge cases around quantity (no quantity, string quantity)
+Change the product page's behavior when a product is already in the user's cart
+Give a success signal when a user adds to their cart
+Make cart icon display number of products in cart
 Let users manipulate their cart in the redux store
 Set up third party login with OAuth
 Check that passwords are strong on registration page
 Make logging in send you back to where you came from (not always homepage)
 
 Fix nav bar to fit on very small screens
+On products page, add buttons to increment/decrement quantity
+On products page, add warning message if quantity is not 1 (Are you sure you want more than one sock? How many did you lose?)
 Style login page, registration page
 Document the /images endpoint
 

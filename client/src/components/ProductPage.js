@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import '../css/ProductPage.css';
 import { fetchProductById } from '../API_helpers/APIHelpers.js';
 import { API_ENDPOINT } from '../API_helpers/APIEndpoint.js';
+import store from '../store.js';
+import { addCartItem } from './cartSlice.js';
 
 const ProductPage = () => {
 
@@ -35,6 +37,16 @@ const ProductPage = () => {
         }
     }, [displayedProduct]);
 
+    const handleAddToCart = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const formProps = Object.fromEntries(formData);
+        console.log(formProps);
+        store.dispatch(addCartItem({
+            product_id: product_id,
+            quantity: formProps.quantity            
+        }));
+    };
 
     return (
         <div id='product-page'>
@@ -46,10 +58,10 @@ const ProductPage = () => {
                     <p>{displayedProduct ? displayedProduct.price : "loading..."}</p>
                 </div>
             </div>
-            <form>
+            <form onSubmit={handleAddToCart}>
                 <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
                 <label htmlFor='quantity-input'>Quantity: </label>
-                <input id='quantity-input' defaultValue={1}></input>
+                <input id='quantity-input' name='quantity' defaultValue={1}></input>
             </form>
         </div>
     );
