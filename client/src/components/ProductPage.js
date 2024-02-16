@@ -45,6 +45,7 @@ const ProductPage = () => {
             product_id: product_id,
             quantity: formProps.quantity            
         }));
+        alert("Product successfully added to cart!");
     };
 
     return (
@@ -60,7 +61,7 @@ const ProductPage = () => {
             <form onSubmit={handleAddToCart}>
                 <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
                 <label htmlFor='quantity-input'>Quantity: </label>
-                <input type='number' min="1" id='quantity-input' name='quantity' defaultValue={1}></input>
+                <input type='number' min="1" id='quantity-input' name='quantity' defaultValue={1} required></input>
             </form>
         </div>
     );

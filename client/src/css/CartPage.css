@@ -8,3 +8,33 @@
     color: white;  
     min-height: 100vh;
 }
+
+#checkout-interface {
+    display: flex;
+    justify-content: center;
+    border: 1px solid white;
+    width: 100%;
+}
+
+#ordered-products-details {
+    
+}
+
+@media screen and (width > 900px) {
+    #cart-page {
+        display: grid;
+        grid-template-columns: 1.75fr 1fr;
+        grid-template-areas: "details interface";
+    }
+
+    #checkout-interface {
+        display: block;
+        height: 100%;
+        grid-area: interface;
+    }
+
+    #ordered-products-details {
+        height: 100%;
+        grid-area: details;
+    }
+}
