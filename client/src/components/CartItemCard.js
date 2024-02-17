@@ -3,6 +3,8 @@ import '../css/CartItemCard.css';
 import { fetchProductById } from '../API_helpers/APIHelpers.js'
 import { useState, useEffect } from 'react';
 import { API_ENDPOINT } from '../API_helpers/APIEndpoint.js';
+import store from '../store.js';
+import { deleteCartItem } from './cartSlice.js';
 
 const CartItemCard = ({ product_id, quantity }) => {
     const [product, setProduct] = useState({});
@@ -29,6 +31,11 @@ const CartItemCard = ({ product_id, quantity }) => {
         };
     }, [product]);
 
+    const handleRemoveItem = (event) => {
+        // event.preventDefault();
+        store.dispatch(deleteCartItem({product_id}));
+    };
+
     return (
         <div id='cart-item-card'>
             <img src={image ? image : null} id='cart-item-image'></img>
@@ -37,7 +44,7 @@ const CartItemCard = ({ product_id, quantity }) => {
                 <p>{product.description}</p>
                 <p id='quantity-text'>Quantity: {quantity}</p>
                 <button id='quantity-button'>Change quantity</button>
-                <button id='remove-button'>Remove item</button>
+                <button id='remove-button' onClick={handleRemoveItem}>Remove item</button>
             </div>
         </div>
     );

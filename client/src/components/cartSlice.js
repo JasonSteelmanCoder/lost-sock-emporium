@@ -14,7 +14,8 @@ export const cartSlice = createSlice({
         },
         'deleteCartItem': (state, action) => {
             return state.filter((cartItem) => {
-                return cartItem.productId !== action.payload
+                console.log(cartItem.product_id);
+                return cartItem.product_id !== action.payload.product_id;
             })
         },
         'incrementCartItem': (state, action) => {

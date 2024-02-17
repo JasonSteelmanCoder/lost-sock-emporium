@@ -22,6 +22,14 @@
 #remove-button, #quantity-button {
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    color: blue;
+    color: rgb(38, 145, 227);
     text-decoration: underline;
+}
+
+#remove-button:hover, #quantity-button:hover {
+    cursor: pointer;
+}
+
+#remove-button:active, #quantity-button:active {
+    color: red;
 }
