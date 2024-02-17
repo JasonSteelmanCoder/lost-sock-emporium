@@ -21,7 +21,7 @@ export const cartSlice = createSlice({
         'incrementCartItem': (state, action) => {
             const newState = []
             for (let cartItem of state) {
-                if (cartItem.productId === action.payload) {
+                if (cartItem.product_id === action.payload) {
                     cartItem.quantity += 1;
                 };
                 newState.push(cartItem);
@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
         'decrementCartItem': (state, action) => {
             const newState = []
             for (let cartItem of state) {
-                if (cartItem.productId === action.payload) {
+                if (cartItem.product_id === action.payload) {
                     if (cartItem.quantity < 0) {
                         cartItem.quantity -= 1;
                     }
@@ -41,15 +41,16 @@ export const cartSlice = createSlice({
             return newState;
         },
         'setCartItemToNum': (state, action) => {
-            if (action.payload < 1) {
+            if (action.payload.quantity < 1) {
                 throw new Error('cart item quantities must be positive integers');
             };
             const newState = []
             for (let cartItem of state) {
-                if (cartItem.productId === action.payload.productId) {
-                    cartItem.quantity = action.payload.quantity;
+                const newCartItem = {...cartItem};
+                if (newCartItem.product_id === action.payload.product_id) {
+                    newCartItem.quantity = action.payload.quantity;
                 };
-                newState.push(cartItem);
+                newState.push(newCartItem);
             };
             return newState;
         }

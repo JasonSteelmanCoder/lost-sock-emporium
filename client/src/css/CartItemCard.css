@@ -33,3 +33,8 @@
 #remove-button:active, #quantity-button:active {
     color: red;
 }
+
+#quantity-input {
+    margin-left: 1rem;
+    max-width: 2.5rem;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../css/ProductPage.css';
 import { fetchProductById } from '../API_helpers/APIHelpers.js';
 import { API_ENDPOINT } from '../API_helpers/APIEndpoint.js';
@@ -12,6 +12,7 @@ const ProductPage = () => {
     const [image, setImage] = useState();
 
     const { product_id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -46,6 +47,7 @@ const ProductPage = () => {
             quantity: formProps.quantity            
         }));
         alert("Product successfully added to cart!");
+        navigate('/');
     };
 
     return (

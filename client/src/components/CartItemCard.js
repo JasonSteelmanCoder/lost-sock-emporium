@@ -4,7 +4,7 @@ import { fetchProductById } from '../API_helpers/APIHelpers.js'
 import { useState, useEffect } from 'react';
 import { API_ENDPOINT } from '../API_helpers/APIEndpoint.js';
 import store from '../store.js';
-import { deleteCartItem } from './cartSlice.js';
+import { deleteCartItem, setCartItemToNum } from './cartSlice.js';
 
 const CartItemCard = ({ product_id, quantity }) => {
     const [product, setProduct] = useState({});
@@ -32,8 +32,14 @@ const CartItemCard = ({ product_id, quantity }) => {
     }, [product]);
 
     const handleRemoveItem = (event) => {
-        // event.preventDefault();
         store.dispatch(deleteCartItem({product_id}));
+    };
+
+    const handleQuantityChange = (event) => {
+        const updatedQuantity = event.currentTarget.value;
+        if (Number(updatedQuantity) > 0) {
+            store.dispatch(setCartItemToNum({product_id, quantity: updatedQuantity}))
+        }
     };
 
     return (
@@ -42,8 +48,9 @@ const CartItemCard = ({ product_id, quantity }) => {
             <div id='cart-item-text'>
                 <h2>{product.product_name}</h2>
                 <p>{product.description}</p>
-                <p id='quantity-text'>Quantity: {quantity}</p>
-                <button id='quantity-button'>Change quantity</button>
+                <p id='quantity-text'>Quantity: 
+                    <input id='quantity-input' onChange={handleQuantityChange} type='number' defaultValue={quantity} name='quantity' min='1' required></input>
+                </p>
                 <button id='remove-button' onClick={handleRemoveItem}>Remove item</button>
             </div>
         </div>
