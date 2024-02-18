@@ -13,7 +13,10 @@ const LoginPage = () => {
         try {
             const response = await login(event);
             if (response.status === 200) {
-                store.dispatch(signalLoggedIn());
+                const data = await response.json();
+                store.dispatch(signalLoggedIn({
+                    user_id: data.user_id
+                }));
                 navigate('/');
             } else if (response.status === 400) {
                 alert("Bad request. Correct username and password required.");

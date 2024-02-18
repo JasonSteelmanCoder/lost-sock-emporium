@@ -65,7 +65,7 @@ passport.deserializeUser((user_id, done) => {
         if (err) {
             return done(err);
         };
-        done(null, user);
+        return done(null, user);
     });
 });
 
@@ -177,7 +177,9 @@ app.post('/register', (req, res, next) => {
  *              content: 
 */
 app.post('/login', passport.authenticate("local"), (req, res, next) => {
-    res.json('logged in');
+    res.json({
+        user_id: req.user.user_id
+    });
 });
 
 /**
@@ -283,7 +285,7 @@ app.get('/logout', (req, res, next) => {
  *                      schema:
  *                          type: string
 */
-app.post('/checkout', db.checkOut);
+app.post('/checkout', db.checkout);
 
 
 // CRUD endpoints

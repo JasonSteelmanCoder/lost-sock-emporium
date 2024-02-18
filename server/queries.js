@@ -37,7 +37,7 @@ const retrieveUser = (username, cb) => {
 
 
 // Create new order with corresponding ordered_products when a user checks out.
-const checkOut = async (req, res, next) => {
+const checkout = async (req, res, next) => {
     // look up user_id in database
     const userIdCheck = await pool.query(
         'SELECT * FROM users WHERE user_id = $1;',
@@ -112,7 +112,6 @@ const getAllProducts = (req, res, next) => {
         if (err) {
             res.status(500).send('server-side error');
         } else {
-            // console.log(req.isAuthenticated());
             res.status(200).json(results.rows);
         }
     });
@@ -475,7 +474,7 @@ module.exports = {
     pool,           // used to set up session in index.js
     deserialize,       // used by passport in index.js
     retrieveUser,        //used by passport in index.js
-    checkOut,       // coordinates posting to both orders and ordered_products
+    checkout,       // coordinates posting to both orders and ordered_products
     getAllProducts,
     addProduct,
     getProductById,

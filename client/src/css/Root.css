@@ -28,7 +28,7 @@ nav img, nav a {
     border-radius: 4px;
 }
 
-#login-button, #logout-button {
+#root-login-button, #root-logout-button {
     background-color: white;
     padding: .3rem;
     font-size: 1rem;
@@ -38,11 +38,11 @@ nav img, nav a {
     text-decoration: none;
 }
 
-#logout-button:hover {
+#root-logout-button:hover {
     cursor: pointer;
 }
 
-#logout-button:active {
+#root-logout-button:active {
     cursor: pointer;
     color: red;
 }

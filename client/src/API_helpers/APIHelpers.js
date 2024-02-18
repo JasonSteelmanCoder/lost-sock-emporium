@@ -24,6 +24,7 @@ const fetchProductById = async (product_id) => {
 }
 
 const login = async (event) => {
+    event.preventDefault();
     const formData = new FormData(event.target);
     const formProps = Object.fromEntries(formData);
     const response = await fetch(`${API_ENDPOINT}/login`, {
@@ -40,7 +41,7 @@ const login = async (event) => {
     return response;
 }
 
-const checkLoggedIn = async () => {
+const checkUserId = async () => {
     const response = await fetch(`${API_ENDPOINT}/login`, {
         method: 'GET',
         credentials: 'include'
@@ -77,17 +78,33 @@ const register = async (event) => {
     }
 }
 
-const logout = async (event) => {
+const logout = async () => {
     const response = await fetch(`${API_ENDPOINT}/logout`);
     const data = await response.json();
     return data;
+}
+
+const checkout = async (user_id, cart) => {
+    const response = await fetch(`${API_ENDPOINT}/checkout`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_id: user_id.toString(),
+            cart
+        }),
+        credentials: 'include'
+    });
+    return response;
 }
 
 export { 
     fetchAllProducts, 
     fetchProductById, 
     login, 
-    checkLoggedIn,
+    checkUserId,
     register, 
     logout,
+    checkout,
 };

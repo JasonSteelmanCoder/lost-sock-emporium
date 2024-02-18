@@ -16,6 +16,35 @@
     width: 100%;
 }
 
+#checkout-button, #login-button {
+    background-color: white;
+    padding: .3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 4px solid rgb(38, 145, 227);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#login-button {
+    margin: 1rem;
+    border-color: rgb(38, 145, 227);
+}
+
+#checkout-button:hover {
+    cursor: pointer;
+}
+
+#checkout-button:active {
+    cursor: pointer;
+    color: red;
+}
+
+#checkout-button:disabled {
+    cursor:auto;
+    color: grey;
+}
+
 @media screen and (width > 900px) {
     #cart-page {
         display: grid;

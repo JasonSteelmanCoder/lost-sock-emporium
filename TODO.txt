@@ -5,7 +5,7 @@ Make logging in send you back to where you came from (not always homepage)
 
 Check that passwords are strong on registration page
 Set up third party login with OAuth
-Style login page, registration page
+Style login and registration pages
 Document the /images endpoint
 
 Stop cart slice from persisting after logout
