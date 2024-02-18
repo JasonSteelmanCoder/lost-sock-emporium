@@ -4,18 +4,26 @@ import CartItemCard from './CartItemCard';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { checkout } from '../API_helpers/APIHelpers';
+import { emptyCart } from './cartSlice';
+import store from '../store.js';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
     const cart = useSelector(state => state.cart);
     const auth = useSelector(state => state.auth);
+    const navigate = useNavigate();
 
     const handleCheckout = async (event) => {
         event.preventDefault();
         const user_id = auth.user_id; 
-        await checkout(user_id, cart);
-        // alert successful
-        // clear cart in store
-        // redirect to homepage
+        const response = await checkout(user_id, cart);
+        if (response.status === 201) {
+            alert("Order successfully placed!");
+            store.dispatch(emptyCart());
+            navigate('/');
+        } else {
+            alert("There was a problem placing the order.");
+        }
     };
 
     return (

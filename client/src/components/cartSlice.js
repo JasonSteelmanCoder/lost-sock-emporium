@@ -53,6 +53,9 @@ export const cartSlice = createSlice({
                 newState.push(newCartItem);
             };
             return newState;
+        },
+        'emptyCart': (state, action) => {
+            return initialState;
         }
     }
 })
@@ -64,6 +67,7 @@ export const {
     decrementCartItem,
     setCartItemToNum,
     cacheImageURL,
+    emptyCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
