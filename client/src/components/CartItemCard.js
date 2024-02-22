@@ -9,6 +9,7 @@ import { deleteCartItem, setCartItemToNum } from './cartSlice.js';
 const CartItemCard = ({ product_id, quantity }) => {
     const [product, setProduct] = useState({});
     const [image, setImage] = useState(null);
+    const [price, setPrice] = useState(null);
 
     useEffect(() => {
         const fetchProductData = async () => {
@@ -31,6 +32,16 @@ const CartItemCard = ({ product_id, quantity }) => {
         };
     }, [product]);
 
+    const updatePrice = () => {
+        setPrice(`\$${(Number(product.price.slice(1)) * Number(quantity)).toFixed(2)}`)
+    }
+
+    useEffect(() => {
+        if (Object.keys(product).length > 0) {
+            updatePrice();
+        }
+    }, [product])
+
     const handleRemoveItem = (event) => {
         store.dispatch(deleteCartItem({product_id}));
     };
@@ -38,7 +49,8 @@ const CartItemCard = ({ product_id, quantity }) => {
     const handleQuantityChange = (event) => {
         const updatedQuantity = event.currentTarget.value;
         if (Number(updatedQuantity) > 0) {
-            store.dispatch(setCartItemToNum({product_id, quantity: updatedQuantity}))
+            store.dispatch(setCartItemToNum({product_id, quantity: updatedQuantity}));
+            updatePrice();
         }
     };
 
@@ -51,7 +63,7 @@ const CartItemCard = ({ product_id, quantity }) => {
                 <p id='quantity-text'>Quantity: 
                     <input id='quantity-input' onChange={handleQuantityChange} type='number' defaultValue={quantity} name='quantity' min='1' required></input>
                 </p>
-                <span id='item-price'>{`\$${Number(product.price.slice(1)) * Number(quantity)}`}</span>
+                <span id='item-price'>{price}</span>
                 <button id='remove-button' onClick={handleRemoveItem}>Remove item</button>
             </div>
         </div>
