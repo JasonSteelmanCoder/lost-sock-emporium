@@ -8,7 +8,7 @@ nav {
     color: black;
 }
 
-nav img, nav a {
+nav img, nav a, nav button {
     margin-left: 2rem;
     margin-right: 2rem;
 }
@@ -48,7 +48,7 @@ nav img, nav a {
 }
 
 @media screen and (width < 450px) {
-    nav img, nav a {
+    nav img, nav a, nav button {
         margin-left: 1rem;
         margin-right: 1rem;
     }
