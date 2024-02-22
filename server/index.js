@@ -14,8 +14,16 @@ const cors = require('cors');
 
 const PORT = (process.env.PORT || 3001);
 
+const allowedOrigins = ['https://lost-sock-emporium-backend.onrender.com', 'http://localhost:3000'];
+
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin:(origin, callback) => {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
