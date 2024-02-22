@@ -14,7 +14,7 @@ const cors = require('cors');
 
 const PORT = (process.env.PORT || 3001);
 
-const allowedOrigins = ['https://lost-sock-emporium-backend.onrender.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://lost-sock-emporium.onrender.com/', 'http://localhost:3000'];
 
 const corsOptions = {
     origin:(origin, callback) => {
@@ -96,6 +96,9 @@ passport.use(
 );
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "https://lost-sock-emporium.onrender.com")
+// })
 
 // Utility endpoints
 
