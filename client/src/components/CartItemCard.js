@@ -40,7 +40,7 @@ const CartItemCard = ({ product_id, quantity }) => {
         if (Object.keys(product).length > 0) {
             updatePrice();
         }
-    }, [product])
+    }, [product, quantity])
 
     const handleRemoveItem = (event) => {
         store.dispatch(deleteCartItem({product_id}));
@@ -50,7 +50,6 @@ const CartItemCard = ({ product_id, quantity }) => {
         const updatedQuantity = event.currentTarget.value;
         if (Number(updatedQuantity) > 0) {
             store.dispatch(setCartItemToNum({product_id, quantity: updatedQuantity}));
-            updatePrice();
         }
     };
 
