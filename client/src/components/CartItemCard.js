@@ -51,6 +51,7 @@ const CartItemCard = ({ product_id, quantity }) => {
                 <p id='quantity-text'>Quantity: 
                     <input id='quantity-input' onChange={handleQuantityChange} type='number' defaultValue={quantity} name='quantity' min='1' required></input>
                 </p>
+                <span id='item-price'>{`\$${Number(product.price.slice(1)) * Number(quantity)}`}</span>
                 <button id='remove-button' onClick={handleRemoveItem}>Remove item</button>
             </div>
         </div>

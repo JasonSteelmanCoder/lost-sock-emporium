@@ -1,14 +1,16 @@
+Add total price to cartPage
+Set up payment method
+Set up third party login with OAuth
+Make logging in send you back to where you came from (not always homepage)
 Make cart icon display number of products in cart
 Change the product page's behavior when a product is already in the user's cart
 Prevent duplicating cart items
-Make logging in send you back to where you came from (not always homepage)
 
 Check that passwords are strong on registration page
-Set up third party login with OAuth
 Style login and registration pages
 Document the /images endpoint
-
 Stop cart slice from persisting after logout
+
 On products page, add warning message if quantity is not 1 (Are you sure you want more than one sock? How many did you lose?)
 Make browser scroll to the top when opening product page
 set up admin authorization level
