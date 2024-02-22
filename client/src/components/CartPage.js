@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/CartPage.css';
 import CartItemCard from './CartItemCard';
 import { useSelector } from 'react-redux';
@@ -7,11 +7,31 @@ import { checkout } from '../API_helpers/APIHelpers';
 import { emptyCart } from './cartSlice';
 import store from '../store.js';
 import { useNavigate } from 'react-router-dom';
+import { fetchProductById } from '../API_helpers/APIHelpers';
 
 const CartPage = () => {
     const cart = useSelector(state => state.cart);
     const auth = useSelector(state => state.auth);
     const navigate = useNavigate();
+
+    const [subtotal, setSubtotal] = useState(null);
+
+    useEffect(() => {
+        const findSubtotal = async () => {
+            let accumulator = 0;
+            for (let cartItem of cart) {
+                const product = await fetchProductById(cartItem.product_id);
+                const rawProductPrice = product.price;
+                // product price has money datatype in the database, so we slice to remove the dollar sign.
+                const productPrice = Number(rawProductPrice.slice(1));
+                const itemPrice = productPrice * Number(cartItem.quantity);
+                accumulator += itemPrice;
+            }
+            setSubtotal(accumulator.toFixed(2));
+        }
+
+        findSubtotal();
+    }, [cart]);
 
     const handleCheckout = async (event) => {
         event.preventDefault();
@@ -29,7 +49,9 @@ const CartPage = () => {
     return (
         <div id='cart-page'>
             <div id='checkout-interface'>
-                <p>Checkout</p>
+                <div>
+                    <p>Subtotal: ${subtotal}</p>
+                </div>
                 <form onSubmit={handleCheckout}>
                     <label>Single click checkout:</label>
                     <br></br>

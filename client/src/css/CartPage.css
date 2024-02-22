@@ -11,7 +11,7 @@
 
 #checkout-interface {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     border: 1px solid white;
     width: 100%;
 }

@@ -11,6 +11,11 @@ const CartItemCard = ({ product_id, quantity }) => {
     const [image, setImage] = useState(null);
     const [price, setPrice] = useState(null);
 
+    const updatePrice = () => {
+        // product price has the data type 'money' in the database, so we slice it to remove the dollar sign.
+        setPrice(`\$${(Number(product.price.slice(1)) * Number(quantity)).toFixed(2)}`)
+    }
+
     useEffect(() => {
         const fetchProductData = async () => {
             const response = await fetchProductById(product_id);
@@ -32,9 +37,6 @@ const CartItemCard = ({ product_id, quantity }) => {
         };
     }, [product]);
 
-    const updatePrice = () => {
-        setPrice(`\$${(Number(product.price.slice(1)) * Number(quantity)).toFixed(2)}`)
-    }
 
     useEffect(() => {
         if (Object.keys(product).length > 0) {
