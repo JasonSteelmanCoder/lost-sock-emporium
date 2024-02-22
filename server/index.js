@@ -96,9 +96,9 @@ passport.use(
 );
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "https://lost-sock-emporium.onrender.com")
-// })
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+})
 
 // Utility endpoints
 
