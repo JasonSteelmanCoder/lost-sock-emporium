@@ -47,7 +47,7 @@ const LoginPage = () => {
                 <input type='submit' value='Login' id='login-submit'></input>
                 <br></br>
             </form>
-            <Link to='../register'>Don't have an account? Sign up!</Link>
+            <Link to='../register' className='blue-link'>Don't have an account? Sign up!</Link>
         </div>
     );
 };

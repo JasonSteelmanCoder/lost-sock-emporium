@@ -47,6 +47,10 @@ nav img, nav a, nav button {
     color: red;
 }
 
+#root-login-button:visited, #root-logout-button:visited {
+    color: rgb(0, 31, 63);
+}
+
 @media screen and (width < 450px) {
     nav img, nav a, nav button {
         margin-left: 1rem;

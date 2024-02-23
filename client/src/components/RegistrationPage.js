@@ -41,7 +41,7 @@ const RegistrationPage = () => {
                 <input type='submit' value='Register' id='register-submit'></input>
                 <br></br>
             </form>
-            <Link to='../login'>Already have an account? Sign in!</Link>
+            <Link to='../login' className='blue-link'>Already have an account? Sign in!</Link>
         </div>
     )
 };
