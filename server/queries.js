@@ -300,14 +300,26 @@ const getAllUsers = (req, res, next) => {
 };
 
 const addUser = async(req, res, next) => {
-    // Reject special characters
+    // Check username length
+    if (req.body.username.length > 50) {
+        res.status(400).json("Username must be less than 50 characters.");
+        return;
+    };
+
+    // Check password strength
+    if (req.body.password.length < 12 || !/[a-zA-Z]/.test(req.body.password) || !/[0-9]/.test(req.body.password) || !/[^a-zA-Z0-9]/.test(req.body.password)) {
+        res.status(400).json("Password must be at least 12 characters long and include a letter, a number, and a special character.");
+        return;
+    }
+
+    // Reject special characters in username
     const forbiddenCharacters = /[^a-zA-Z0-9\-_]/;
     if (forbiddenCharacters.test(req.body.username)) {
         res.status(400).json("Username must not include special characters.");
         return;
     };
 
-    // Clean up spaces and capital characters in username
+    // Clean up spaces and capital letters in username
     const cleanedUsername = req.body.username.trim().toLowerCase()
 
     // Check that username does not already exist
