@@ -10,6 +10,7 @@
 }
 
 #register-submit {
+    color: black;
     background-color: white;
     padding: .3rem;
     font-size: 1rem;
@@ -27,4 +28,8 @@
 #register-submit:active {
     cursor: pointer;
     color: red;
+}
+
+link {
+    color:rgb(38, 145, 227);
 }

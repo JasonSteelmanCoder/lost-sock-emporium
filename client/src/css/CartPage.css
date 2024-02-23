@@ -16,6 +16,11 @@
     width: 100%;
 }
 
+#subtotal {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
 #checkout-button, #login-button {
     background-color: white;
     padding: .3rem;

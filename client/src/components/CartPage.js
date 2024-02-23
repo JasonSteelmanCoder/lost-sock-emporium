@@ -50,10 +50,10 @@ const CartPage = () => {
         <div id='cart-page'>
             <div id='checkout-interface'>
                 <div>
-                    <p>Subtotal: ${subtotal}</p>
+                    <p id='subtotal'>Subtotal: ${subtotal}</p>
                 </div>
-                <form onSubmit={handleCheckout}>
-                    <label>Single click checkout:</label>
+                <form onSubmit={handleCheckout} id='checkout form'>
+                    <label id='checkout-label'>Single click checkout:</label>
                     <br></br>
                     {auth.authenticated ?
                         <input 
@@ -63,7 +63,12 @@ const CartPage = () => {
                             disabled={ cart.length > 0 ? false : true }
                         >
                         </input> : 
-                        <Link to='/login' id='login-button'  >Login to checkout!</Link>}                    
+                        (
+                            <div>
+                                <br></br>
+                                <Link to='/login' id='login-button'  >Login to checkout!</Link>
+                            </div>
+                        )}
                     <br></br>
                 </form>
             </div>
