@@ -13,7 +13,6 @@ const RegistrationPage = () => {
             if (response.status === 201) {
                 navigate('/login');
             } else {
-                console.log(response);
                 alert(response.data);
             }
         } catch (err) {

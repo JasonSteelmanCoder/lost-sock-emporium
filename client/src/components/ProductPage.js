@@ -5,6 +5,8 @@ import { fetchProductById } from '../API_helpers/APIHelpers.js';
 import { API_ENDPOINT } from '../API_helpers/APIEndpoint.js';
 import store from '../store.js';
 import { addCartItem } from './cartSlice.js';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const ProductPage = () => {
 
@@ -13,6 +15,7 @@ const ProductPage = () => {
 
     const { product_id } = useParams();
     const navigate = useNavigate();
+    const cart = useSelector(state => state.cart);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -50,6 +53,15 @@ const ProductPage = () => {
         navigate('/');
     };
 
+    const productIsInCart = () => {
+        for (let item of cart) {
+            if (item.product_id === product_id) {
+                return true;
+            }
+            return false;
+        }
+    };
+
     return (
         <div id='product-page'>
             <h1>{displayedProduct ? displayedProduct.product_name : "loading..."}</h1>
@@ -60,11 +72,14 @@ const ProductPage = () => {
                     <p>{displayedProduct ? displayedProduct.price : "loading..."}</p>
                 </div>
             </div>
-            <form onSubmit={handleAddToCart}>
-                <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
-                <label htmlFor='quantity-input'>Quantity: </label>
-                <input type='number' min="1" id='quantity-input' name='quantity' defaultValue={1} required></input>
-            </form>
+            {productIsInCart() ? 
+                <p>Item already in <Link to="/cart" className='blue-link'>cart.</Link></p> : 
+                <form onSubmit={handleAddToCart}>
+                    <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
+                    <label htmlFor='quantity-input'>Quantity: </label>
+                    <input type='number' min="1" id='quantity-input' name='quantity' defaultValue={1} required></input>
+                </form>
+            }
         </div>
     );
 };
