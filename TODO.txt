@@ -1,12 +1,15 @@
+Add deployed link to readme
+Notify user when they have entered an incorrect username/password
+Make usernames case insensitive
+Check that passwords are strong on registration page
+Fix bug when removing items from cart
 Set up order history page
-Deploy to Render
 Set up payment method
 Set up third party login with OAuth
 Make logging in send you back to where you came from (not always homepage)
 Make cart icon display number of products in cart
 Change the product page's behavior when a product is already in the user's cart
 Prevent duplicating cart items
-Check that passwords are strong on registration page
 
 Style login and registration pages
 Document the /images endpoint

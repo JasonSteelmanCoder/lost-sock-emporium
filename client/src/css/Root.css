@@ -29,6 +29,7 @@ nav img, nav a, nav button {
 }
 
 #root-login-button, #root-logout-button {
+    color: rgb(0, 31, 63);
     background-color: white;
     padding: .3rem;
     font-size: 1rem;
