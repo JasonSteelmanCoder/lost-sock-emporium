@@ -33,7 +33,7 @@ form label, form input {
     color: black;
     background-color: white;
     padding: .3rem;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: bold;
     border: 4px solid rgb(38, 145, 227);
     border-radius: 4px;
@@ -56,7 +56,7 @@ form label {
 #quantity-input {
     max-width: 2.5rem;
     min-height: 24px;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
 }
 
 @media screen and (width > 800px) {
