@@ -41,6 +41,17 @@ const ProductPage = () => {
         }
     }, [displayedProduct]);
 
+    const handleQuantityInput = (e) => {
+        const newQuantity = e.currentTarget.value;
+        if (!/^\d+$/.test(newQuantity)) {
+            e.currentTarget.value = "";
+        } else if (Number(newQuantity) === 0) {
+            e.currentTarget.value = "";
+        } else {
+            e.currentTarget.value = newQuantity;
+        }
+    };
+
     const handleAddToCart = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -77,7 +88,7 @@ const ProductPage = () => {
                 <form onSubmit={handleAddToCart}>
                     <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
                     <label htmlFor='quantity-input'>Quantity: </label>
-                    <input type='number' min="1" id='quantity-input' name='quantity' defaultValue={1} required></input>
+                    <input type='number' min="1" id='quantity-input' name='quantity' defaultValue={1} onInput={handleQuantityInput} required></input>
                 </form>
             }
         </div>

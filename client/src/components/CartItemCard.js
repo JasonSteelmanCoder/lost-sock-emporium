@@ -50,8 +50,12 @@ const CartItemCard = ({ product_id, quantity }) => {
 
     const handleQuantityChange = (event) => {
         const updatedQuantity = event.currentTarget.value;
-        if (Number(updatedQuantity) > 0) {
+        if (!/^\d+$/.test(updatedQuantity)) {
+            event.currentTarget.value = "";
+        } else if (Number(updatedQuantity) > 0) {
             store.dispatch(setCartItemToNum({product_id, quantity: updatedQuantity}));
+        } else {
+            event.currentTarget.value = "";
         }
     };
 
@@ -62,7 +66,7 @@ const CartItemCard = ({ product_id, quantity }) => {
                 <h2>{product.product_name}</h2>
                 <p>{product.description}</p>
                 <p id='quantity-text'>Quantity: 
-                    <input id='quantity-input' onChange={handleQuantityChange} type='number' defaultValue={quantity} name='quantity' min='1' required></input>
+                    <input id='quantity-input' onInput={handleQuantityChange} type='number' defaultValue={quantity} name='quantity' min='1' required></input>
                 </p>
                 <span id='item-price'>{price}</span>
                 <button id='remove-button' onClick={handleRemoveItem}>Remove item</button>
