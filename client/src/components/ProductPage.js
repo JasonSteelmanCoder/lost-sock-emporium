@@ -58,8 +58,8 @@ const ProductPage = () => {
             if (item.product_id === product_id) {
                 return true;
             }
-            return false;
         }
+        return false;
     };
 
     return (
