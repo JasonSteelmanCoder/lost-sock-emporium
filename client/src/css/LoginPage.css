@@ -10,7 +10,8 @@
 }
 
 input:not([type="submit"]) {
-    min-height: 24px;
+    min-height: 32px;
+    font-size: 1.5rem;
 }
 
 #login-submit {

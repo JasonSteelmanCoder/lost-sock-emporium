@@ -9,10 +9,6 @@
     min-height: 100vh;
 }
 
-input:not([type="submit"]) {
-    min-height: 24px;
-}
-
 #register-submit {
     color: black;
     background-color: white;

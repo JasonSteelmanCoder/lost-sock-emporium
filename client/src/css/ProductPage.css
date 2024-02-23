@@ -55,6 +55,8 @@ form label {
 
 #quantity-input {
     max-width: 2.5rem;
+    min-height: 24px;
+    font-size: 1.4rem;
 }
 
 @media screen and (width > 800px) {
