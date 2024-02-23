@@ -1,5 +1,3 @@
-Add deployed link to readme
-Notify user when they have entered an incorrect username/password
 Make usernames case insensitive
 Check that passwords are strong on registration page
 Fix bug when removing items from cart

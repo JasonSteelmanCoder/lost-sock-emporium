@@ -81,14 +81,14 @@ passport.use(
     new LocalStrategy((username, password, done) => {
         db.retrieveUser(username, async (err, user) => {
             if (err) {
-                return done(err, false);
+                return done(err, false, {message: err});
             };
             if (!user) {
-                return done(null, false);
+                return done(null, false, {message: "Username or password is incorrect"});
             };
             const matchedPassword = await bcrypt.compare(password, user.hashed_pw); 
             if (!matchedPassword) {
-                return done(null, false);
+                return done(null, false, {message: "Username or password is incorrect"});
             };
             return done(null, user);
         });
