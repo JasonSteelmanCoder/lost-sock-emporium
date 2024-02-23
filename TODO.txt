@@ -1,4 +1,4 @@
-Prevent usernames from including special characters
+Control the length of usernames & passwords
 Check that passwords are strong on registration page
 Fix bug when removing items from cart
 Set up order history page
@@ -9,7 +9,6 @@ Make cart icon display number of products in cart
 Change the product page's behavior when a product is already in the user's cart
 Prevent duplicating cart items
 
-Style login and registration pages
 Document the /images endpoint
 Stop cart slice from persisting after logout
 

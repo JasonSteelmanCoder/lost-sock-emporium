@@ -130,7 +130,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                      schema:
  *                          type: string
  *          '400':
- *              description: Username already exists
+ *              description: Username already exists or username includes special character
  *              content: 
  *                  application/json:
  *                      schema:

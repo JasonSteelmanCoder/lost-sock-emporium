@@ -300,7 +300,14 @@ const getAllUsers = (req, res, next) => {
 };
 
 const addUser = async(req, res, next) => {
-    // Clean username
+    // Reject special characters
+    const forbiddenCharacters = /[^a-zA-Z0-9\-_]/;
+    if (forbiddenCharacters.test(req.body.username)) {
+        res.status(400).json("Username must not include special characters.");
+        return;
+    };
+
+    // Clean up spaces and capital characters in username
     const cleanedUsername = req.body.username.trim().toLowerCase()
 
     // Check that username does not already exist
