@@ -1,4 +1,3 @@
-Fix problem with zooming in on phone
 Set up order history page
 Set up payment method
 Set up third party login with OAuth
