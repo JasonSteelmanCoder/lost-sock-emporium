@@ -50,10 +50,10 @@ const CartPage = () => {
         <div id='cart-page'>
             <div id='checkout-interface'>
                 <div>
-                    <p id='subtotal'>Subtotal: ${subtotal}</p>
+                    <p id='subtotal' className='edge'>Subtotal: ${subtotal}</p>
                 </div>
                 <form onSubmit={handleCheckout} id='checkout form'>
-                    <label id='checkout-label'>Single click checkout:</label>
+                    <label id='checkout-label' className='edge'>Single click checkout:</label>
                     <br></br>
                     {auth.authenticated ?
                         <input 
@@ -79,7 +79,7 @@ const CartPage = () => {
                             <CartItemCard key={item.product_id} product_id={item.product_id} quantity={item.quantity} />
                         )
                     }) : (
-                        <div>
+                        <div className='edge'>
                             <p>Add some products to your cart to check out!</p>
                             <Link to="/" className='blue-link'>Return to products page</Link>
                         </div>

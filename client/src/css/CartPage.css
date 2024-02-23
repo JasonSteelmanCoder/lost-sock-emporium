@@ -12,7 +12,7 @@
 #checkout-interface {
     display: flex;
     justify-content: space-around;
-    border: 1px solid white;
+    border-bottom: 1px solid white;
     width: 100%;
 }
 
@@ -70,10 +70,16 @@
         display: block;
         height: 100%;
         grid-area: interface;
+        border-bottom: 0px;
+        border-left: 1px solid white;
     }
 
     #ordered-products-details {
         height: 100%;
         grid-area: details;
+    }
+
+    .edge {
+        margin-left: 1rem;
     }
 }
