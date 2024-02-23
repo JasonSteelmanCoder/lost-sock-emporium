@@ -81,7 +81,7 @@ const CartPage = () => {
                     }) : (
                         <div>
                             <p>Add some products to your cart to check out!</p>
-                            <Link to="/">Return to products page</Link>
+                            <Link to="/" className='blue-link'>Return to products page</Link>
                         </div>
                     )
                 }
