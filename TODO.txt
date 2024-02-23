@@ -1,4 +1,4 @@
-Make usernames case insensitive
+Prevent usernames from including special characters
 Check that passwords are strong on registration page
 Fix bug when removing items from cart
 Set up order history page

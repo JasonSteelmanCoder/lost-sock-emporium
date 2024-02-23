@@ -79,7 +79,8 @@ passport.deserializeUser((user_id, done) => {
 
 passport.use(
     new LocalStrategy((username, password, done) => {
-        db.retrieveUser(username, async (err, user) => {
+        const cleanedUsername = username.trim().toLowerCase();
+        db.retrieveUser(cleanedUsername, async (err, user) => {
             if (err) {
                 return done(err, false, {message: err});
             };

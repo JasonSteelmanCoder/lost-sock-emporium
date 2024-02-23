@@ -300,19 +300,22 @@ const getAllUsers = (req, res, next) => {
 };
 
 const addUser = async(req, res, next) => {
+    // Clean username
+    const cleanedUsername = req.body.username.trim().toLowerCase()
+
     // Check that username does not already exist
     const usernameExists = await pool.query(
         'SELECT * FROM users WHERE username = $1',
-        [req.body.username]
+        [cleanedUsername]
     )
     if (usernameExists.rows[0]) {
         res.status(400).json('Username already exists!');
-    } else if (req.body.username && req.body.password) {            // check that username & password are both included 
+    } else if (cleanedUsername && req.body.password) {            // check that username & password are both included 
         const salt = await bcrypt.genSalt(10);
         const hashed_pw = await bcrypt.hash(req.body.password, salt);
         pool.query(
             'INSERT INTO users (username, hashed_pw) VALUES ($1, $2);',
-            [req.body.username, hashed_pw], 
+            [cleanedUsername, hashed_pw], 
             (err, results) => {
                 if (err) {
                     res.status(500).json('server-side error');
