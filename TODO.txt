@@ -1,12 +1,12 @@
-Fix bug when removing items from cart
+Fix problem with zooming in on phone
 Set up order history page
 Set up payment method
 Set up third party login with OAuth
 
+Stop cart slice from persisting after logout
 Make cart icon display number of products in cart
 Make logging in send you back to where you came from (not always homepage)
 Document the /images endpoint
-Stop cart slice from persisting after logout
 
 On products page, add warning message if quantity is not 1 (Are you sure you want more than one sock? How many did you lose?)
 Make browser scroll to the top when opening product page

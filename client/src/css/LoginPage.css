@@ -9,6 +9,10 @@
     min-height: 100vh;
 }
 
+input:not([type="submit"]) {
+    min-height: 24px;
+}
+
 #login-submit {
     color: black;
     background-color: white;
