@@ -6,6 +6,11 @@ A place to find a replacement sock for the one you lost!
 
 The Lost Sock Emporium is a full stack e-commerce web app, meant to sell single socks to replace the ones you lost. Its front end is built with React, while its back end is made up of Node, Express, and PostgreSQL. Passport.js and Express-session allow the user to register, log in, and log out. Data on products, users, sessions, and orders are stored and processed by the SQL database. Express endpoints pass this data on via HTTP calls from React components. 
 
+## Link
+
+This app is deployed using the cloud service Render. 
+https://lost-sock-emporium.onrender.com
+
 ## Getting Started
 
 ### Dependencies
