@@ -7,7 +7,6 @@ Make cart icon display number of products in cart
 Make logging in send you back to where you came from (not always homepage)
 Document the /images endpoint
 
-On products page, add warning message if quantity is not 1 (Are you sure you want more than one sock? How many did you lose?)
 Make browser scroll to the top when opening product page
 set up admin authorization level
 set most endpoints to be only accessible to admin
