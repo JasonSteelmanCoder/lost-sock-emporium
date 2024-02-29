@@ -25,7 +25,7 @@ const ProductCard = ({product}) => {
     return (
         <Link to={`products/${product.product_id}`} className="product-card" >
             <div className="details-slider" >{product.description}</div>
-            <img src={image} className="product-image" />
+            <img src={image} className="product-image" alt="sock" />
             <p>{product.product_name}</p>
         </Link>
     );

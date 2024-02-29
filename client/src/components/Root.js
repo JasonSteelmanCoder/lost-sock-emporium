@@ -22,11 +22,11 @@ const Root = () => {
             <nav>
                 <div id='logo-container'>
                     <Link to={'/'} >
-                        <img src={logoImage} id='logo'></img>
+                        <img src={logoImage} id='logo' alt='sock emporium logo' ></img>
                     </Link>
                 </div>
                 <Link to={'cart'} >
-                    <img src={cartImage} id='cart-image'></img>
+                    <img src={cartImage} id='cart-image' alt='cart icon' ></img>
                 </Link>
                 {loggedIn ? <button id='root-logout-button' onClick={handleLogOut}>Logout</button> : <Link to={'login'} id='root-login-button'>Login</Link> }
             </nav>

@@ -61,7 +61,7 @@ const CartItemCard = ({ product_id, quantity }) => {
 
     return (
         <div id='cart-item-card'>
-            <img src={image ? image : null} id='cart-item-image'></img>
+            <img src={image ? image : null} id='cart-item-image' alt='sock'></img>
             <div id='cart-item-text'>
                 <h2>{product.product_name}</h2>
                 <p>{product.description}</p>

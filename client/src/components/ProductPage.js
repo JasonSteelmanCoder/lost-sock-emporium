@@ -77,7 +77,7 @@ const ProductPage = () => {
         <div id='product-page'>
             <h1>{displayedProduct ? displayedProduct.product_name : "loading..."}</h1>
             <div id='product-summary'>
-                <img src={image ? image : null} id='product-image'/>
+                <img src={image ? image : null} id='product-image' alt='sock' />
                 <div id='summary-text'>
                     <p>{displayedProduct ? displayedProduct.description : "loading..."}</p>
                     <p>{displayedProduct ? displayedProduct.price : "loading..."}</p>
