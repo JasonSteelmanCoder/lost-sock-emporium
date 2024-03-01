@@ -1,9 +1,9 @@
+Make cart icon display number of products in cart
 Set up order history page
 Set up payment method
 Set up third party login with OAuth
 
 Stop cart slice from persisting after logout
-Make cart icon display number of products in cart
 Make logging in send you back to where you came from (not always homepage)
 Document the /images endpoint
 

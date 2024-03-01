@@ -10,6 +10,7 @@ import { signalLoggedOut } from './authSlice';
 
 const Root = () => {
     const loggedIn = useSelector(store => store.auth.authenticated);
+    const cart = useSelector(store => store.cart)
 
     const handleLogOut = async (event) => {
         await logout();
@@ -25,7 +26,7 @@ const Root = () => {
                         <img src={logoImage} id='logo' alt='sock emporium logo' ></img>
                     </Link>
                 </div>
-                <Link to={'cart'} >
+                <Link to={'cart'} id='root-cart-button' style={{'--cart-length': `"${cart.length}"`, '--show-notification': `${cart.length > 0 ? 1 : -1}`}} >
                     <img src={cartImage} id='cart-image' alt='cart icon' ></img>
                 </Link>
                 {loggedIn ? <button id='root-logout-button' onClick={handleLogOut}>Logout</button> : <Link to={'login'} id='root-login-button'>Login</Link> }
