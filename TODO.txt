@@ -2,7 +2,6 @@ Set up order history page
 Set up payment method
 Set up third party login with OAuth
 
-Make logging in send you back to where you came from (not always homepage)
 Document the /images endpoint
 
 set up admin authorization level

@@ -66,7 +66,7 @@ const CartPage = () => {
                         (
                             <div>
                                 <br></br>
-                                <Link to='/login' id='login-button'  >Login to checkout!</Link>
+                                <Link to='/login?return=cart' id='login-button'  >Login to checkout!</Link>
                             </div>
                         )}
                     <br></br>

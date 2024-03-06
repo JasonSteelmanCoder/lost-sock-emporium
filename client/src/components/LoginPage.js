@@ -17,7 +17,13 @@ const LoginPage = () => {
                 store.dispatch(signalLoggedIn({
                     user_id: data.user_id
                 }));
-                navigate('/');
+                const queryString = window.location.search;
+                const searchParams = new URLSearchParams(queryString);
+                const searchParamsObj = {};
+                searchParams.forEach((value, index) => {
+                    searchParamsObj[index] = value;
+                })
+                navigate(searchParamsObj["return"] ? "/" + searchParamsObj.return :'/');
             } else if (response.status === 400) {
                 alert("Bad request. Correct username and password required.");
             } else if (response.status === 401) {
