@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { logout } from '../API_helpers/APIHelpers';
 import store from '../store.js';
 import { signalLoggedOut } from './authSlice';
+import { emptyCart } from './cartSlice.js';
 
 const Root = () => {
     const loggedIn = useSelector(store => store.auth.authenticated);
@@ -16,6 +17,7 @@ const Root = () => {
         await logout();
         alert('Logged out successfully!');
         store.dispatch(signalLoggedOut());
+        store.dispatch(emptyCart());
     };
 
     return (

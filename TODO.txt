@@ -1,13 +1,10 @@
-Make cart icon display number of products in cart
 Set up order history page
 Set up payment method
 Set up third party login with OAuth
 
-Stop cart slice from persisting after logout
 Make logging in send you back to where you came from (not always homepage)
 Document the /images endpoint
 
-Make browser scroll to the top when opening product page
 set up admin authorization level
 set most endpoints to be only accessible to admin
 turn postman requests into proper test suite
