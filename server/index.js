@@ -111,6 +111,7 @@ passport.use(
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
         //     return done(err, user);
         // });
+        console.log("PROFILE: " + profile);
         return done(err, profile);
     })
 );
@@ -215,7 +216,7 @@ app.get('/auth/google', passport.authenticate(
 ));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-    successRedirect: 'https://lost-sock-emporium.onrender.com/',
+    successRedirect: 'https://lost-sock-emporium.onrender.com',
     failureRedirect: 'https://lost-sock-emporium.onrender.com/login'
 }))
 
