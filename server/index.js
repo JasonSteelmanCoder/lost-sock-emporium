@@ -103,14 +103,15 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "https://lost-sock-emporium.onrender.com/googleauth/callback",
+        callbackURL: "https://lost-sock-emporium.onrender.com/auth/google/callback",
         passReqToCallback: true,
     },
     function(request, accessToken, refreshToken, profile, done) {
         // create new user in the database here
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            return done(err, user);
-        });
+        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        //     return done(err, user);
+        // });
+        return done(err, user);
     })
 );
 
@@ -209,11 +210,11 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
     });
 });
 
-app.get('/googleauth', passport.authenticate(
+app.get('/auth/google', passport.authenticate(
     'google', { scope: ['email', 'profile']}
 ));
 
-app.get('/googleauth/callback', passport.authenticate('google', {
+app.get('/auth/google/callback', passport.authenticate('google', {
     successRedirect: '/',
     failureRedirect: '/login'
 }))

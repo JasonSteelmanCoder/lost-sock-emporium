@@ -55,7 +55,7 @@ const LoginPage = () => {
             </form>
             <Link to='../register' className='blue-link'>Don't have an account? Sign up!</Link>
             <p>--- OR ---</p>
-            <a href='https://lost-sock-emporium-backend.onrender.com/googleauth'>Sign in with Google</a>
+            <a href='https://lost-sock-emporium-backend.onrender.com/auth/google'>Sign in with Google</a>
         </div>
     );
 };
