@@ -11,6 +11,9 @@ const bcrypt = require('bcrypt');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const cors = require('cors');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const dotenv = require('dotenv');
+dotenv.config();
 
 const PORT = (process.env.PORT || 3001);
 
@@ -92,6 +95,21 @@ passport.use(
                 return done(null, false, {message: "Username or password is incorrect"});
             };
             return done(null, user);
+        });
+    })
+);
+
+passport.use(
+    new GoogleStrategy({
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        callbackURL: "https://lost-sock-emporium.onrender.com/googleauth/callback",
+        passReqToCallback: true,
+    },
+    function(request, accessToken, refreshToken, profile, done) {
+        // create new user in the database here
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            return done(err, user);
         });
     })
 );
@@ -190,6 +208,15 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
         user_id: req.user.user_id
     });
 });
+
+app.get('/googleauth', passport.authenticate(
+    'google', { scope: ['email', 'profile']}
+));
+
+app.get('/googleauth/callback', passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}))
 
 /**
  * @swagger

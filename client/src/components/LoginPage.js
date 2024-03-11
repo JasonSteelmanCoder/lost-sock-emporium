@@ -54,6 +54,8 @@ const LoginPage = () => {
                 <br></br>
             </form>
             <Link to='../register' className='blue-link'>Don't have an account? Sign up!</Link>
+            <p>--- OR ---</p>
+            <a href='/googleauth'>Sign in with Google</a>
         </div>
     );
 };

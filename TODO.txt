@@ -1,7 +1,14 @@
-Set up order history page
-Set up payment method
+Add googleauth button to registration page
+Style googleauth buttons & add google logo
+Document googleauth endpoints
+Add notification when google auth fails
+Make signing in with google auth from cart page return you to the cart page
 Set up third party login with OAuth
+Set up payment method
+Set up order history page
 
+Clean up linter warnings
+Track down enoent warning
 Document the /images endpoint
 
 set up admin authorization level
