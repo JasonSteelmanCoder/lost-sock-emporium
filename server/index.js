@@ -103,7 +103,7 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "https://lost-sock-emporium.onrender.com/auth/google/callback",
+        callbackURL: "https://lost-sock-emporium-backend.onrender.com/auth/google/callback",
         passReqToCallback: true,
     },
     function(request, accessToken, refreshToken, profile, done) {
