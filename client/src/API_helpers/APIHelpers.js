@@ -46,8 +46,8 @@ const checkUserId = async () => {
         method: 'GET',
         credentials: 'include'
     });
-    // const data = await response.json();
-    return response;
+    const data = await response.json();
+    return data;
 }
 
 const register = async (event) => {

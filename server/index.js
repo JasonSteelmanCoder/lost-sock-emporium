@@ -242,7 +242,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
 app.get('/login', (req, res, next) => {
     res.json({
         "authenticated": req.isAuthenticated(),
-        "user_id": req.user.user_id,
+        "user_id": req.user.user_id ? req.user.user_id : null,
     });
 });
 
