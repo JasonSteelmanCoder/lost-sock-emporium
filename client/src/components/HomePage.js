@@ -19,8 +19,7 @@ function HomePage() {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const response = await checkUserId();
-      const authData = await response.json();
+      const authData = await checkUserId();
       console.log("AUTH STATUS: " + authData.authenticated);
       if (authData.authenticated) {
         store.dispatch(signalLoggedIn({user_id: authData.user_id}));
