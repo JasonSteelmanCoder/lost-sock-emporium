@@ -37,6 +37,7 @@ const retrieveUser = (username, cb) => {
 
 // Get or create a new user for google login
 const findOrCreateGoogleUser = (googleInfo, callback) => {
+    console.log("RUNNING FINDORCREATE. googleInfo: " + googleInfo + "\ncallback: " + callback);
     pool.query(
         'SELECT * FROM users WHERE google_id = $1',
         [googleInfo.googleId],
