@@ -21,7 +21,7 @@ function HomePage() {
     const checkAuthStatus = async () => {
       const authStatus = await checkUserId()
       if (authStatus.authenticated) {
-        store.dispatch(signalLoggedIn);
+        store.dispatch(signalLoggedIn());
       }
     }
     checkAuthStatus();
