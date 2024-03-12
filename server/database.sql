@@ -26,6 +26,7 @@ VALUES
 
 CREATE TABLE users (
     user_id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    google_id text UNIQUE,
     username text UNIQUE,
     hashed_pw text
 );
