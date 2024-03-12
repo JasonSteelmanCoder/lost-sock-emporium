@@ -35,6 +35,33 @@ const retrieveUser = (username, cb) => {
     );
 };
 
+// Get or create a new user for google login
+const findOrCreateGoogleUser = (googleInfo, callback) => {
+    pool.query(
+        'SELECT * FROM users WHERE google_id = $1',
+        [googleInfo.googleId],
+        (err, results) => {
+            if (err) {
+                return callback(err, null);
+            } else if (results.rows[0]) {
+                return callback(null, results.rows[0]);
+            } else if (!results.rows[0]) {
+                pool.query(
+                    'INSERT INTO users (google_id, username) VALUES ($1, $2) RETURNING SELECT * FROM users WHERE google_id = $1;',
+                    [googleInfo.googleId, googleInfo.name],
+                    (err, results) => {
+                        if (err) {
+                            return callback(err, null);
+                        } else {
+                            return callback(null, results.rows[0]);
+                        }
+                    }
+                )
+            }
+        }
+    )
+};
+
 
 // Create new order with corresponding ordered_products when a user checks out.
 const checkout = async (req, res, next) => {
@@ -496,6 +523,7 @@ module.exports = {
     pool,           // used to set up session in index.js
     deserialize,       // used by passport in index.js
     retrieveUser,        //used by passport in index.js
+    findOrCreateGoogleUser, // find or create user for google authentication
     checkout,       // coordinates posting to both orders and ordered_products
     getAllProducts,
     addProduct,

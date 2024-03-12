@@ -107,11 +107,9 @@ passport.use(
         passReqToCallback: true,
     },
     function(request, accessToken, refreshToken, profile, done) {
-        // create new user in the database here
-        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //     return done(err, user);
-        // });
-        return done(null, profile.id);
+        db.findOrCreateGoogleUser({ googleId: profile.id, name: profile.name }, function (err, user) {
+            return done(err, user);
+        });
     })
 );
 
