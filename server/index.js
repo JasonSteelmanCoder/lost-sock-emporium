@@ -17,7 +17,7 @@ dotenv.config();
 
 const PORT = (process.env.PORT || 3001);
 
-const allowedOrigins = ['https://lost-sock-emporium.onrender.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://lost-sock-emporium.onrender.com', 'http://localhost:3000', 'https://accounts.google.com'];
 
 const corsOptions = {
     origin:(origin, callback) => {
@@ -111,7 +111,6 @@ passport.use(
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
         //     return done(err, user);
         // });
-        console.log("PROFILE: " + profile);
         return done(err, profile);
     })
 );
