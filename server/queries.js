@@ -44,8 +44,10 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
             if (err) {
                 callback(err, null);
             } else if (results.rows[0]) {
+                console.log("GOOGLE USER FOUND IN DATABASE!")
                 callback(null, results.rows[0]);
             } else if (!results.rows[0]) {
+                console.log("CREATING NEW GOOGLE USER IN DATABASE!");
                 pool.query(
                     'INSERT INTO users (google_id, username) VALUES ($1, $2) RETURNING *;',
                     [googleInfo.googleId, googleInfo.name],
