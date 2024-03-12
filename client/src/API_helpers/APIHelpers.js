@@ -47,7 +47,6 @@ const checkUserId = async () => {
         credentials: 'include'
     });
     const data = await response.json();
-    console.log("RESPONSE FROM APIHELPER: " + JSON.stringify(data));
     return data;
 }
 

@@ -42,18 +42,18 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
         [googleInfo.googleId],
         (err, results) => {
             if (err) {
-                return callback(err, null);
+                callback(err, null);
             } else if (results.rows[0]) {
-                return callback(null, results.rows[0]);
+                callback(null, results.rows[0]);
             } else if (!results.rows[0]) {
                 pool.query(
                     'INSERT INTO users (google_id, username) VALUES ($1, $2) RETURNING *;',
                     [googleInfo.googleId, googleInfo.name],
                     (err, results) => {
                         if (err) {
-                            return callback(err, null);
+                            callback(err, null);
                         } else {
-                            return callback(null, results.rows[0]);
+                            callback(null, results.rows[0]);
                         }
                     }
                 )
