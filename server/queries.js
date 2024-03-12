@@ -37,13 +37,14 @@ const retrieveUser = (username, cb) => {
 
 // Get or create a new user for google login
 const findOrCreateGoogleUser = (googleInfo, callback) => {
-    console.log("RUNNING FINDORCREATE. googleInfo: " + googleInfo + "\ncallback: " + callback);
+    console.log("RUNNING FINDORCREATE. googleInfo: " + JSON.stringify(googleInfo));
     pool.query(
         'SELECT * FROM users WHERE google_id = $1',
         [googleInfo.googleId],
         (err, results) => {
             if (err) {
                 console.log("THERE WAS AN ERROR WHILE LOOKING FOR A GOOGLE USER IN THE DATABASE")
+                console.log(err);
                 return callback(err, null);
             } else if (results.rows[0]) {
                 console.log("GOOGLE USER FOUND IN DATABASE!")
@@ -55,6 +56,7 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
                     [googleInfo.googleId, googleInfo.name],
                     (err, results) => {
                         if (err) {
+                            console.log(err);
                             return callback(err, null);
                         } else {
                             return callback(null, results.rows[0]);
