@@ -111,7 +111,7 @@ passport.use(
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
         //     return done(err, user);
         // });
-        return done(err, profile);
+        return done(new Error('There was an error in the Google strategy callback'), profile.id);
     })
 );
 
