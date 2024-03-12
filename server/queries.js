@@ -48,6 +48,7 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
                 return callback(err, null);
             } else if (results.rows[0]) {
                 console.log("GOOGLE USER FOUND IN DATABASE!")
+                console.log(results);
                 return callback(null, results.rows[0]);
             } else {
                 console.log("CREATING NEW GOOGLE USER IN DATABASE!");
