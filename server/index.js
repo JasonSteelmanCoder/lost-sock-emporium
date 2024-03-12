@@ -240,9 +240,10 @@ app.get('/auth/google/callback', passport.authenticate('google', {
  *                              
 */
 app.get('/login', (req, res, next) => {
+    const user_id = req.user && req.user.user_id ? req.user.user_id : null; 
     res.json({
         "authenticated": req.isAuthenticated(),
-        "user_id": req.user.user_id ? req.user.user_id : null,
+        "user_id": user_id
     });
 });
 
