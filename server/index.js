@@ -107,7 +107,8 @@ passport.use(
         passReqToCallback: true,
     },
     function(request, accessToken, refreshToken, profile, done) {
-        db.findOrCreateGoogleUser({ googleId: profile.id, name: profile.email }, function (err, user) {
+        db.findOrCreateGoogleUser({ googleId: profile.id, name: profile.email }, 
+        function (err, user) {
             return done(err, user);
         });
     })
@@ -213,9 +214,13 @@ app.get('/auth/google', passport.authenticate(
 ));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-    successRedirect: 'https://lost-sock-emporium.onrender.com',
     failureRedirect: 'https://lost-sock-emporium.onrender.com/login'
-}))
+}), 
+    function(req, res) {
+        res.cookie('isLoggedIn', true, {httpOnly: true});
+        res.redirect("https://lost-sock-emporium.onrender.com");
+    }
+)
 
 /**
  * @swagger
