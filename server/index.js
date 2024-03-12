@@ -111,7 +111,7 @@ passport.use(
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
         //     return done(err, user);
         // });
-        return done(new Error('There was an error in the Google strategy callback'), profile.id);
+        (err, profile) => done(err, profile.id);
     })
 );
 
@@ -215,13 +215,9 @@ app.get('/auth/google', passport.authenticate(
 ));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-    // successRedirect: 'https://lost-sock-emporium.onrender.com',
+    successRedirect: 'https://lost-sock-emporium.onrender.com',
     failureRedirect: 'https://lost-sock-emporium.onrender.com/login'
-}),
-    function(req, res) {
-        res.redirect('https://lost-sock-emporium.onrender.com');
-    }
-);
+}))
 
 /**
  * @swagger
