@@ -44,10 +44,10 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
         (err, results) => {
             if (err) {
                 console.log("THERE WAS AN ERROR WHILE LOOKING FOR A GOOGLE USER IN THE DATABASE")
-                callback(err, null);
+                return callback(err, null);
             } else if (results.rows[0]) {
                 console.log("GOOGLE USER FOUND IN DATABASE!")
-                callback(null, results.rows[0]);
+                return callback(null, results.rows[0]);
             } else {
                 console.log("CREATING NEW GOOGLE USER IN DATABASE!");
                 pool.query(
@@ -55,9 +55,9 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
                     [googleInfo.googleId, googleInfo.name],
                     (err, results) => {
                         if (err) {
-                            callback(err, null);
+                            return callback(err, null);
                         } else {
-                            callback(null, results.rows[0]);
+                            return callback(null, results.rows[0]);
                         }
                     }
                 )
