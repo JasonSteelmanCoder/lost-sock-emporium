@@ -47,7 +47,7 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
                 return callback(null, results.rows[0]);
             } else if (!results.rows[0]) {
                 pool.query(
-                    'INSERT INTO users (google_id, username) VALUES ($1, $2) RETURNING SELECT * FROM users WHERE google_id = $1;',
+                    'INSERT INTO users (google_id, username) VALUES ($1, $2) RETURNING *;',
                     [googleInfo.googleId, googleInfo.name],
                     (err, results) => {
                         if (err) {
