@@ -1,8 +1,10 @@
 import lostSockEmporiumLogo from '../images/lost-sock-emporium-logo.jpg';
 import '../css/HomePage.css';
 import ProductCard from './ProductCard';
-import { fetchAllProducts } from '../API_helpers/APIHelpers';
+import { checkUserId, fetchAllProducts } from '../API_helpers/APIHelpers';
 import { useEffect, useState } from 'react';
+import store from '../store.js';
+import { signalLoggedIn } from './authSlice';
 
 function HomePage() {
   const [displayedProducts, setDisplayedProducts] = useState([]); 
@@ -14,6 +16,16 @@ function HomePage() {
     }
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const authStatus = await checkUserId()
+      if (authStatus.authenticated) {
+        store.dispatch(signalLoggedIn);
+      }
+    }
+    checkAuthStatus();
+  }, [])
 
   return (
     <div className="home-page">

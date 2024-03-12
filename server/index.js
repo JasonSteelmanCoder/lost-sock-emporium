@@ -217,7 +217,6 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: 'https://lost-sock-emporium.onrender.com/login'
 }), 
     function(req, res) {
-        res.cookie('isLoggedIn', true, {httpOnly: true});
         res.redirect("https://lost-sock-emporium.onrender.com");
     }
 )
