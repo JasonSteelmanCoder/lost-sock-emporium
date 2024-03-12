@@ -42,6 +42,7 @@ const findOrCreateGoogleUser = (googleInfo, callback) => {
         [googleInfo.googleId],
         (err, results) => {
             if (err) {
+                console.log("THERE WAS AN ERROR WHILE LOOKING FOR A GOOGLE USER IN THE DATABASE")
                 callback(err, null);
             } else if (results.rows[0]) {
                 console.log("GOOGLE USER FOUND IN DATABASE!")
