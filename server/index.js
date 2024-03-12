@@ -107,7 +107,6 @@ passport.use(
         passReqToCallback: true,
     },
     function(request, accessToken, refreshToken, profile, done) {
-        console.log(profile.email);
         db.findOrCreateGoogleUser({ googleId: profile.id, name: profile.email }, function (err, user) {
             return done(err, user);
         });
