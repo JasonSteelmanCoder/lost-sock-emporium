@@ -68,10 +68,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser((user, done) => {
+    console.log("SERIALIZING!");
     done(null, user.user_id);
 });
 
 passport.deserializeUser((user_id, done) => {
+    console.log("DESERIALIZING!");
     db.deserialize(user_id, (err, user) => {
         if (err) {
             return done(err);
