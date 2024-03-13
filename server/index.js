@@ -111,12 +111,10 @@ passport.use(
     async function(request, accessToken, refreshToken, profile, done) {
         await db.findOrCreateGoogleUser({ googleId: profile.id, name: profile.email }, 
         function (err, user) {
-            if (err) {
-                return done(err);
-            } else {
+            if (user) {
                 passport.serializeUser(user);
-                return done(null, user);
-            }
+            };
+            return done(err, user);
         });
     })
 );
