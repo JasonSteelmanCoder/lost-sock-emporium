@@ -107,10 +107,16 @@ passport.use(
         callbackURL: "https://lost-sock-emporium-backend.onrender.com/auth/google/callback",
         passReqToCallback: true,
     },
-    async function(request, accessToken, refreshToken, profile, done) {
+    async function(request, accessToken, refreshToken, profile, cb) {
         await db.findOrCreateGoogleUser({ googleId: profile.id, name: profile.email }, 
         function (err, user) {
-            return done(err, user);
+            if (err) {
+                return cb(err);
+            };
+            if (!user) {
+                return cb(null, false);
+            };
+            return cb(null, user);
         });
     })
 );
