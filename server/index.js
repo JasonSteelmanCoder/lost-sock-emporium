@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const cors = require('cors');
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const GoogleStrategy = require('passport-google-oidc').Strategy;
 const dotenv = require('dotenv');
 dotenv.config();
 
