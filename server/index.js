@@ -216,9 +216,11 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
     });
 });
 
-app.get('/auth/google', passport.authenticate(
-    'google', { scope: ['email', 'profile'] }
-));
+app.get('/auth/google', (req, res, next) => {
+    passport.authenticate(
+        'google', { scope: ['email', 'profile'], state: req.session.cookie.state }
+    )
+})
 
 app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: 'https://lost-sock-emporium.onrender.com/login',
