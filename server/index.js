@@ -58,6 +58,7 @@ app.use(
         cookie: {maxAge: 60 * 60, secure: false},
         saveUninitialized: false,
         resave: false,
+        state: Math.floor(Math.random() * 1000000),
         store: new pgSession({
             pool: db.pool,
             tableName: 'session',
