@@ -217,10 +217,11 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
 });
 
 app.get('/auth/google', (req, res, next) => {
+    req.session.oauthState = req.session.cookie.state;
     passport.authenticate(
         'google', { scope: ['email', 'profile'], state: req.session.cookie.state }
-    ) (req, res, next)
-})
+    ) (req, res, next);
+});
 
 app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: 'https://lost-sock-emporium.onrender.com/login',
