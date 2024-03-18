@@ -219,7 +219,7 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
 app.get('/auth/google', (req, res, next) => {
     passport.authenticate(
         'google', { scope: ['email', 'profile'], state: req.session.cookie.state }
-    )
+    ) (req, res, next)
 })
 
 app.get('/auth/google/callback', passport.authenticate('google', {
