@@ -55,10 +55,9 @@ app.use(express.urlencoded({extended:false}));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
-        cookie: {maxAge: 60 * 60, secure: false},
+        cookie: {maxAge: 60 * 60, secure: false, state: Math.floor(Math.random() * 1000000)},
         saveUninitialized: false,
         resave: false,
-        state: Math.floor(Math.random() * 1000000),
         store: new pgSession({
             pool: db.pool,
             tableName: 'session',
