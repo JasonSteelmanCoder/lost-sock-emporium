@@ -55,7 +55,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
-        cookie: {maxAge: 60 * 60, secure: false, state: Math.floor(Math.random() * 1000000)},
+        cookie: {maxAge: 60 * 60, secure: false, state: Math.floor(Math.random() * 1000000000)},
         saveUninitialized: false,
         resave: false,
         store: new pgSession({
@@ -217,7 +217,7 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
 });
 
 app.get('/auth/google', passport.authenticate(
-    'google', { scope: ['email', 'profile']}
+    'google', { scope: ['email', 'profile'], state: req.session.cookie.state }
 ));
 
 app.get('/auth/google/callback', passport.authenticate('google', {

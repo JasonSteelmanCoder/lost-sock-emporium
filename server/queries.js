@@ -140,7 +140,6 @@ const checkout = async (req, res, next) => {
 };
 
 const getAllProducts = (req, res, next) => {
-    console.log(req.session.cookie);
     pool.query(
         "SELECT * FROM products;", 
         (err, results) => {
