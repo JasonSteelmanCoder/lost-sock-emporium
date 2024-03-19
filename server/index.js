@@ -252,7 +252,8 @@ app.get('/auth/google/callback', passport.authenticate('google', {
  *                              
 */
 app.get('/login', (req, res, next) => {
-    console.log('REQ: ' + req.sessionID);
+    console.log('REQ SESSION: ' + req.session);
+    console.log('IS AUTHENTICATED: ' + req.isAuthenticated());
     const user_id = req.session.passport && req.session.passport.user ? req.session.passport.user : null; 
     res.json({
         "authenticated": req.isAuthenticated(),
