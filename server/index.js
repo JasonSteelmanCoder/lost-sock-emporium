@@ -229,7 +229,6 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     successFlash: true
 }), 
     function(req, res) {
-        console.log(req);
         res.redirect("https://lost-sock-emporium.onrender.com");
     }
 )
@@ -253,7 +252,8 @@ app.get('/auth/google/callback', passport.authenticate('google', {
  *                              
 */
 app.get('/login', (req, res, next) => {
-    const user_id = req.user && req.user.user_id ? req.user.user_id : null; 
+    console.log('REQ SESSION PASSPORT: ' + req.session.passport);
+    const user_id = req.session.passport && req.session.passport.user ? req.session.passport.user : null; 
     res.json({
         "authenticated": req.isAuthenticated(),
         "user_id": user_id
