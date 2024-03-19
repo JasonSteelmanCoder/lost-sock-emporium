@@ -229,7 +229,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     successFlash: true
 }), 
     function(req, res) {
-        res.session.user = req.session.passport.user;
+        res.user = req.session.passport.user;
         res.redirect("https://lost-sock-emporium.onrender.com");
     }
 )
