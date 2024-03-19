@@ -229,8 +229,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     successFlash: true
 }), 
     function(req, res) {
-        res.cookie('user_id', req.session.passport.user, {httpOnly: true, secure: true, domain: '.onrender.com'})
-        res.redirect("https://lost-sock-emporium.onrender.com");
+        res.cookie('user_id', req.session.passport.user, {httpOnly: true, secure: true, domain: '.onrender.com'}).redirect("https://lost-sock-emporium.onrender.com");
     }
 )
 
