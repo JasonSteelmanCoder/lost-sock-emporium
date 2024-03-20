@@ -234,7 +234,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
 
 /**
  * @swagger
- * /login:
+ * /login/:queryUserId:
  *  get:
  *      summary: check if a user is logged in
  *      responses:
@@ -250,15 +250,8 @@ app.get('/auth/google/callback', passport.authenticate('google', {
  *                                  description: true if the user is logged in, false if not
  *                              
 */
-app.get('/login', (req, res, next) => {
-    // console.log('REQ SESSION: ' + JSON.stringify(req.session));
-    // console.log('REQ ISLOGGEDIN: ' + req.isLoggedIn);
-    console.log("COOKIES" + JSON.stringify(req.session.cookie));
-    const user_id = req.session.passport && req.session.passport.user ? req.session.passport.user : null; 
-    res.json({
-        "authenticated": req.isAuthenticated(),
-        "user_id": user_id
-    });
+app.get('/login/:queryUserId', (req, res, next) => {
+    db.checkSession(req.params.queryUserId);
 });
 
 /**

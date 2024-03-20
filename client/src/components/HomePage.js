@@ -19,10 +19,16 @@ function HomePage() {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const authData = await checkUserId();
-      console.log("AUTH DATA: " + JSON.stringify(authData));
-      if (authData.authenticated) {
-        store.dispatch(signalLoggedIn({user_id: authData.user_id}));
+      if (window.location.search) {
+        const queryString = window.location.search;
+        const params = new URLSearchParams(queryString);
+        const queryUserId = params.get('user_id');
+
+        const authData = await checkUserId(queryUserId);
+        console.log("AUTH DATA: " + JSON.stringify(authData));
+        if (authData.authenticated) {
+          store.dispatch(signalLoggedIn({user_id: authData.user_id}));
+        }
       }
     }
     checkAuthStatus();

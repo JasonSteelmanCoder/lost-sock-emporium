@@ -1,3 +1,5 @@
+Prevent session spoofing
+Update the get('/login') documentation
 Add googleauth button to registration page
 Style googleauth buttons & add google logo
 Document googleauth endpoints

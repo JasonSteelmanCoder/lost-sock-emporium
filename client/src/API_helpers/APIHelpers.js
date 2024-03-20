@@ -41,8 +41,8 @@ const login = async (event) => {
     return response;
 }
 
-const checkUserId = async () => {
-    const response = await fetch(`${API_ENDPOINT}/login`, {
+const checkUserId = async (queryUserId) => {
+    const response = await fetch(`${API_ENDPOINT}/login/${queryUserId}`, {
         method: 'GET',
         credentials: 'include'
     });

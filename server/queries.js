@@ -35,6 +35,30 @@ const retrieveUser = (username, cb) => {
     );
 };
 
+// Given a user_id, check that there is an unexpired session with that user_id
+const checkSession = (queryUserId) => {
+    pool.query(
+        "SELECT * FROM session WHERE sess -> 'passport' ->> 'user' = $1 AND expire < NOW();",
+        [queryUserId],
+        (err, results) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json(err);
+            } else if (!results.rows[0]) {
+                res.status(401).json({
+                    "authenticated": false,
+                    "user_id": null
+                })
+            } else {
+                res.json({
+                    "authenticated": true,
+                    "user_id": queryUserId
+                })
+            }
+        } 
+    )
+}
+
 // Get or create a new user for google login
 const findOrCreateGoogleUser = (googleInfo, callback) => {
     console.log("RUNNING FINDORCREATE. googleInfo: " + JSON.stringify(googleInfo));
@@ -529,7 +553,8 @@ const getImage = async (req, res, next) => {
 module.exports = {
     pool,           // used to set up session in index.js
     deserialize,       // used by passport in index.js
-    retrieveUser,        //used by passport in index.js
+    retrieveUser,        // used by passport in index.js
+    checkSession,        // given a user_id, check for a matching session 
     findOrCreateGoogleUser, // find or create user for google authentication
     checkout,       // coordinates posting to both orders and ordered_products
     getAllProducts,
