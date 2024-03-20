@@ -251,9 +251,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
  *                                  description: true if the user is logged in, false if not
  *                              
 */
-app.get('/login/:queryUserId', (req, res, next) => {
-    db.checkSession(req.params.queryUserId);
-});
+app.get('/login/:queryUserId', db.checkSession);
 
 /**
  * @swagger

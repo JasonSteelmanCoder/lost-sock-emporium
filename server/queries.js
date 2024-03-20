@@ -36,10 +36,10 @@ const retrieveUser = (username, cb) => {
 };
 
 // Given a user_id, check that there is an unexpired session with that user_id
-const checkSession = (queryUserId) => {
+const checkSession = (req, res, next) => {
     pool.query(
         "SELECT * FROM session WHERE sess -> 'passport' ->> 'user' = $1 AND expire < NOW();",
-        [queryUserId],
+        [req.params.queryUserId],
         (err, results) => {
             if (err) {
                 console.log(err);
@@ -52,7 +52,7 @@ const checkSession = (queryUserId) => {
             } else {
                 res.json({
                     "authenticated": true,
-                    "user_id": queryUserId
+                    "user_id": req.params.queryUserId
                 })
             }
         } 
