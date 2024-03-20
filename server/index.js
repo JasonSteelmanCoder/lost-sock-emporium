@@ -105,8 +105,9 @@ passport.use(
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         callbackURL: "https://lost-sock-emporium-backend.onrender.com/auth/google/callback",
+        passReqToCallback: true
     },
-    async function(accessToken, refreshToken, profile, cb) {
+    async function(request, accessToken, refreshToken, profile, cb) {
         await db.findOrCreateGoogleUser({ googleId: profile.id, name: profile.email }, 
         function (err, user) {
             if (err) {
