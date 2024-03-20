@@ -36,7 +36,7 @@ const retrieveUser = (username, cb) => {
 };
 
 // Given a user_id, check that there is an unexpired session with that user_id
-const checkSession = (queryUserId) => {
+const checkSession = (queryUserId, req, res, next) => {
     pool.query(
         "SELECT * FROM session WHERE sess -> 'passport' ->> 'user' = $1 AND expire < NOW();",
         [queryUserId],
