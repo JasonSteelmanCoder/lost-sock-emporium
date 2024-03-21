@@ -1,18 +1,20 @@
 Prevent session spoofing
-Update the get('/login') documentation
+Make google oauth work on the first try--not the second
 Add googleauth button to registration page
-Style googleauth buttons & add google logo
-Document googleauth endpoints
 Add notification when google auth fails
-Make signing in with google auth from cart page return you to the cart page
-Set up third party login with OAuth
 Set up payment method
 Set up order history page
 
+Update the get('/login') documentation
+Document googleauth endpoints
+Get google oauth published
 Clean up linter warnings
 Track down enoent warning
 Document the /images endpoint
+Optimize web performance (Largest Contentful Paint, First Input Delay, cumulative layout shift, lighthouse report / web vitals)
 
+Style googleauth buttons & add google logo
+Make signing in with google auth from cart page return you to the cart page
 set up admin authorization level
 set most endpoints to be only accessible to admin
 turn postman requests into proper test suite
