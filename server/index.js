@@ -218,7 +218,7 @@ app.post('/login', passport.authenticate("local"), (req, res, next) => {
 
 app.get('/auth/google', (req, res, next) => {
     passport.authenticate(
-        'google', { scope: ['email', 'profile'] }
+        'google', { scope: ['email', 'profile'], state: "state_passed_by_google_strategy" }
     ) (req, res, next);
 });
 
