@@ -1,5 +1,6 @@
 Prevent session spoofing
 Make google oauth work on the first try--not the second
+Let cart itms persist after google login
 Add googleauth button to registration page
 Add notification when google auth fails
 Set up payment method
