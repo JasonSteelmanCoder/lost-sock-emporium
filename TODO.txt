@@ -5,13 +5,13 @@ Add notification when google auth fails
 Set up payment method
 Set up order history page
 
+Run lighthouse report
 Update the get('/login') documentation
 Document googleauth endpoints
 Get google oauth published
 Clean up linter warnings
 Track down enoent warning
 Document the /images endpoint
-Optimize web performance (Largest Contentful Paint, First Input Delay, cumulative layout shift, lighthouse report / web vitals)
 
 Style googleauth buttons & add google logo
 Make signing in with google auth from cart page return you to the cart page
