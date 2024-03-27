@@ -31,7 +31,7 @@ function HomePage() {
         }
       }
     }
-    setTimeout(checkAuthStatus, 2000);
+    setTimeout(checkAuthStatus, 3000);
   }, [])
 
   return (
