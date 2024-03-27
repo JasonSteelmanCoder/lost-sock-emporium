@@ -1,5 +1,10 @@
+Reroute through loading page after google login
 Prevent session spoofing
-Make google oauth work on the first try--not the second
+Disable root buttons on loading page
+Animate loading page
+Style loading page
+Add a disclaimer saying that we will not actually send you any socks
+Optimize products page images for load time
 Let cart itms persist after google login
 Add googleauth button to registration page
 Add notification when google auth fails
