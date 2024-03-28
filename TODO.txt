@@ -1,9 +1,9 @@
-Reroute through loading page after google login
-Prevent session spoofing
+Fix bug where logging out must be done twice
+Add a disclaimer saying that we will not actually send you any socks
+Get google oauth published
 Disable root buttons on loading page
 Animate loading page
 Style loading page
-Add a disclaimer saying that we will not actually send you any socks
 Optimize products page images for load time
 Let cart itms persist after google login
 Add googleauth button to registration page
@@ -14,7 +14,6 @@ Set up order history page
 Run lighthouse report
 Update the get('/login') documentation
 Document googleauth endpoints
-Get google oauth published
 Clean up linter warnings
 Track down enoent warning
 Document the /images endpoint

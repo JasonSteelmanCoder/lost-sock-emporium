@@ -68,7 +68,9 @@ const CartPage = () => {
                                 <br></br>
                                 <Link to='/login?return=cart' id='login-button'  >Login to checkout!</Link>
                             </div>
-                        )}
+                        )
+                    }
+                    <p id='disclaimer'>*This site is for demonstration only. We will not actually send you a sock (though we wish you luck finding yours).</p>
                     <br></br>
                 </form>
             </div>

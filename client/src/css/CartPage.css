@@ -52,6 +52,11 @@
     color: grey;
 }
 
+#disclaimer {
+    font-size: 14px;
+    max-width: 200px;
+}
+
 .bluelink {
     color:rgb(38, 145, 227);
 }
