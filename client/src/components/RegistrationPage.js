@@ -41,6 +41,8 @@ const RegistrationPage = () => {
                 <br></br>
             </form>
             <Link to='../login' className='blue-link'>Already have an account? Sign in!</Link>
+            <p>--- OR ---</p>
+            <a href='https://lost-sock-emporium-backend.onrender.com/auth/google'>Sign in with Google</a>
         </div>
     )
 };
