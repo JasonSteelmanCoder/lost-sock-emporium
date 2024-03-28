@@ -21,7 +21,7 @@ const LoadingPage = () => {
             navigate('/');
         }
     } 
-    setTimeout(() => checkAuthStatus(), 2000);
+    setTimeout(() => checkAuthStatus(), 4000);
         
     const timeoutId = setTimeout(() => {
         navigate('/');
