@@ -18,19 +18,32 @@ const LoadingPage = () => {
         if (authData.authenticated) {
             store.dispatch(signalLoggedIn({user_id: authData.user_id }));
             clearTimeout(timeoutId);
+            clearInterval(intervalId);
             navigate('/');
         }
     } 
+    // wait until session is created to check authorization
     setTimeout(() => checkAuthStatus(), 4000);
         
+    // return to homepage in maximum of 5 seconds
     const timeoutId = setTimeout(() => {
         navigate('/');
     }, 5000);
 
+    // animate loading message
+    const [elipsis, setElipsis] = useState("");
+    const intervalId = setInterval(() => {
+        if (elipsis.length === 0 || elipsis.length === 1) {
+            setElipsis(elipsis + ".");
+        } else {
+            setElipsis("");
+        }
+    }, 700)
     
     return (
         <div id="LoadingPage">
-            <h1>Loading...<br/><br/>Please wait.</h1>
+            <h1>Loading.{elipsis}</h1>
+            <h2>Please wait.</h2>
         </div>
     )
 }
