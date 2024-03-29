@@ -33,19 +33,20 @@ const LoadingPage = () => {
     // animate loading message
     const [elipsis, setElipsis] = useState("");
     
-    useEffect(
-        () => {
-            const intervalId = setInterval(() => {
-                console.log("TICK...");
-                if (elipsis.length === 0 || elipsis.length === 1) {
-                    setElipsis(elipsis + ".");
-                } else {
-                    setElipsis("");
-                }
-            }, 700)
-            return () => clearInterval(intervalId);
-        }, []
-    );
+    // useEffect(
+    //     () => {
+    //         const intervalId = setInterval(() => {
+    //             console.log("TICK...");
+    //             console.log("ELIPSIS LENGTH: " + elipsis.length);
+    //             if (elipsis.length === 0 || elipsis.length === 1) {
+    //                 setElipsis(elipsis + ".");
+    //             } else {
+    //                 setElipsis("");
+    //             }
+    //         }, 700)
+    //         return () => clearInterval(intervalId);
+    //     }, []
+    // );
     
     return (
         <div id="LoadingPage">
