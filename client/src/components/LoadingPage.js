@@ -31,22 +31,19 @@ const LoadingPage = () => {
 
     // animate loading message
     const [elipsis, setElipsis] = useState("");
-    // const [intervalId, setIntervalId] = useState(null);
     
-    // useEffect(
-    //     () => {
-    //         const intervalId = setIntervalId(
-    //             setInterval(() => {
-    //                 if (elipsis.length === 0 || elipsis.length === 1) {
-    //                     setElipsis(elipsis + ".");
-    //                 } else {
-    //                     setElipsis("");
-    //                 }
-    //             }, 700)
-    //         )
-    //         return () => clearInterval(intervalId);
-    //     }, []
-    // );
+    useEffect(
+        () => {
+            const intervalId = setInterval(() => {
+                if (elipsis.length === 0 || elipsis.length === 1) {
+                    setElipsis(elipsis + ".");
+                } else {
+                    setElipsis("");
+                }
+            }, 700)
+            return () => clearInterval(intervalId);
+        }, []
+    );
     
     return (
         <div id="LoadingPage">
