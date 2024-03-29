@@ -1,4 +1,3 @@
-import lostSockEmporiumLogo from '../images/lost-sock-emporium-logo.webp';
 import '../css/HomePage.css';
 import ProductCard from './ProductCard';
 import { checkUserId, fetchAllProducts } from '../API_helpers/APIHelpers';
@@ -39,7 +38,7 @@ function HomePage() {
       <header className="home-header">
         <h1>The Lost Sock Emporium</h1>
         <p>The place to find single socks to replace the ones you lost.</p>
-        <img src={lostSockEmporiumLogo} className="home-logo" alt="logo" />
+        <img src='../images/lost-sock-emporium-logo.webp' className="home-logo" alt="logo" />
         <div id='product-cards-container'>   
           {displayedProducts.map(
             product => {
