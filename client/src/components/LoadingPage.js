@@ -18,35 +18,36 @@ const LoadingPage = () => {
         const authData = await checkUserId(queryUserId);
         if (authData.authenticated) {
             store.dispatch(signalLoggedIn({user_id: authData.user_id }));
-            clearTimeout(timeoutId);
+            clearTimeout(timeoutCheckingId);
+            clearTimeout(timeoutNavigationId);
             navigate('/');
         }
     } 
     // wait until session is created to check authorization
-    setTimeout(() => checkAuthStatus(), 4000);
+    const timeoutCheckingId = setTimeout(() => checkAuthStatus(), 4000);
         
     // return to homepage in maximum of 5 seconds
-    const timeoutId = setTimeout(() => {
+    const timeoutNavigationId = setTimeout(() => {
         navigate('/');
     }, 5000);
 
     // animate loading message
     const [elipsis, setElipsis] = useState("");
     
-    // useEffect(
-    //     () => {
-    //         const intervalId = setInterval(() => {
-    //             console.log("TICK...");
-    //             console.log("ELIPSIS LENGTH: " + elipsis.length);
-    //             if (elipsis.length === 0 || elipsis.length === 1) {
-    //                 setElipsis(elipsis + ".");
-    //             } else {
-    //                 setElipsis("");
-    //             }
-    //         }, 700)
-    //         return () => clearInterval(intervalId);
-    //     }, []
-    // );
+    useEffect(
+        () => {
+            const intervalId = setInterval(() => {
+                console.log("TICK...");
+                console.log("ELIPSIS LENGTH: " + elipsis.length);
+                if (elipsis.length === 0 || elipsis.length === 1) {
+                    setElipsis(elipsis + ".");
+                } else {
+                    setElipsis("");
+                }
+            }, 700)
+            return () => clearInterval(intervalId);
+        }, []
+    );
     
     return (
         <div id="LoadingPage">
