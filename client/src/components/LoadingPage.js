@@ -18,7 +18,7 @@ const LoadingPage = () => {
         if (authData.authenticated) {
             store.dispatch(signalLoggedIn({user_id: authData.user_id }));
             clearTimeout(timeoutId);
-            clearInterval(intervalId);
+            // clearInterval(intervalId);
             navigate('/');
         }
     } 
@@ -36,7 +36,7 @@ const LoadingPage = () => {
     
     useEffect(
         () => {
-            setIntervalId(
+            const intervalId = setIntervalId(
                 setInterval(() => {
                     if (elipsis.length === 0 || elipsis.length === 1) {
                         setElipsis(elipsis + ".");
@@ -45,6 +45,7 @@ const LoadingPage = () => {
                     }
                 }, 700)
             )
+            return () => clearInterval(intervalId);
         }, []
     );
     
