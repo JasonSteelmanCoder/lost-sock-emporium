@@ -28,30 +28,14 @@ const LoadingPage = () => {
         
     // return to homepage in maximum of 5 seconds
     const timeoutNavigationId = setTimeout(() => {
+        clearTimeout(timeoutCheckingId);
+        clearTimeout(timeoutNavigationId);
         navigate('/');
     }, 5000);
-
-    // animate loading message
-    const [elipsis, setElipsis] = useState("");
-    
-    useEffect(
-        () => {
-            const intervalId = setInterval(() => {
-                console.log("TICK...");
-                console.log("ELIPSIS LENGTH: " + elipsis.length);
-                if (elipsis.length === 0 || elipsis.length === 1) {
-                    setElipsis(elipsis + ".");
-                } else {
-                    setElipsis("");
-                }
-            }, 700)
-            return () => clearInterval(intervalId);
-        }, []
-    );
     
     return (
         <div id="LoadingPage">
-            <h1>Loading.{elipsis}</h1>
+            <h1>Loading</h1>
             <h2>Please wait.</h2>
         </div>
     )
