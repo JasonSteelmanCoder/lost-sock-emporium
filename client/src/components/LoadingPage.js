@@ -18,7 +18,6 @@ const LoadingPage = () => {
         if (authData.authenticated) {
             store.dispatch(signalLoggedIn({user_id: authData.user_id }));
             clearTimeout(timeoutId);
-            // clearInterval(intervalId);
             navigate('/');
         }
     } 
@@ -32,22 +31,22 @@ const LoadingPage = () => {
 
     // animate loading message
     const [elipsis, setElipsis] = useState("");
-    const [intervalId, setIntervalId] = useState(null);
+    // const [intervalId, setIntervalId] = useState(null);
     
-    useEffect(
-        () => {
-            const intervalId = setIntervalId(
-                setInterval(() => {
-                    if (elipsis.length === 0 || elipsis.length === 1) {
-                        setElipsis(elipsis + ".");
-                    } else {
-                        setElipsis("");
-                    }
-                }, 700)
-            )
-            return () => clearInterval(intervalId);
-        }, []
-    );
+    // useEffect(
+    //     () => {
+    //         const intervalId = setIntervalId(
+    //             setInterval(() => {
+    //                 if (elipsis.length === 0 || elipsis.length === 1) {
+    //                     setElipsis(elipsis + ".");
+    //                 } else {
+    //                     setElipsis("");
+    //                 }
+    //             }, 700)
+    //         )
+    //         return () => clearInterval(intervalId);
+    //     }, []
+    // );
     
     return (
         <div id="LoadingPage">
