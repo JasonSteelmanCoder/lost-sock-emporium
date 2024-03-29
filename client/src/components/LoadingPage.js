@@ -38,7 +38,7 @@ const LoadingPage = () => {
         } else {
             setElipsis("");
         }
-    }, 700)
+    }, 1400)
     
     return (
         <div id="LoadingPage">

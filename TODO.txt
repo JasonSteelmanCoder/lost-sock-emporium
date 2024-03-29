@@ -1,19 +1,19 @@
+Fix bug where login/7 is called 6 times after homepage loads
+Let cart items persist after google login
 Fix bug where logging out must be done twice
 Disable root buttons on loading page
 Optimize products page images for load time
-Let cart itms persist after google login
-Add googleauth button to registration page
 Add notification when google auth fails
 Set up order history page
-Set up payment method with stripe
+Set up stripe for payment
 
+Style googleauth buttons & add google logo
 Update the get('/login') documentation
 Document googleauth endpoints
 Clean up linter warnings
 Track down enoent warning
 Document the /images endpoint
 
-Style googleauth buttons & add google logo
 Make signing in with google auth from cart page return you to the cart page
 set up admin authorization level
 set most endpoints to be only accessible to admin
