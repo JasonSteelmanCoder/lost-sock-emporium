@@ -14,6 +14,7 @@ const LoadingPage = () => {
     const queryUserId = params.get('user_id');
 
     const checkAuthStatus = async () => {
+        console.log("CHECKING AUTH STATUS!")
         const authData = await checkUserId(queryUserId);
         if (authData.authenticated) {
             store.dispatch(signalLoggedIn({user_id: authData.user_id }));
@@ -35,6 +36,7 @@ const LoadingPage = () => {
     useEffect(
         () => {
             const intervalId = setInterval(() => {
+                console.log("TICK...");
                 if (elipsis.length === 0 || elipsis.length === 1) {
                     setElipsis(elipsis + ".");
                 } else {
