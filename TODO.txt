@@ -1,8 +1,6 @@
-Fix bug where login/7 is called 6 times after homepage loads
-Let cart items persist after google login
-Fix bug where logging out must be done twice
-Disable root buttons on loading page
 Optimize products page images for load time
+Let cart items persist after google login
+Disable root buttons on loading page
 Add notification when google auth fails
 Set up order history page
 Set up stripe for payment

@@ -1,5 +1,5 @@
 import react from 'react';
-import logoImage from '../images/lost-sock-emporium-logo.jpg';
+import logoImage from '../images/lost-sock-emporium-logo.webp';
 import cartImage from '../images/shopping_cart_emblem.png';
 import '../css/Root.css';
 import { Outlet, Link } from 'react-router-dom';
