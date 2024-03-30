@@ -1,8 +1,10 @@
+Order history page tells you to login
+Order history page shows your history
+There is a link to the order history page in the root
 Optimize products page images for load time
 Let cart items persist after google login
 Disable root buttons on loading page
 Add notification when google auth fails
-Set up order history page
 Set up stripe for payment
 
 Style googleauth buttons & add google logo
