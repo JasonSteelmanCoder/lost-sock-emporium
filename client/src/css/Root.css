@@ -77,7 +77,7 @@ nav img, nav a, nav button {
     color: rgb(0, 31, 63);
 }
 
-@media screen and (width < 450px) {
+@media screen and (width < 580px) {
     nav img, nav a, nav button {
         margin-left: .7rem;
         margin-right: .7rem;
