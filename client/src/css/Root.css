@@ -49,7 +49,7 @@ nav img, nav a, nav button {
     align-items: center;
 }
 
-#root-login-button, #root-logout-button {
+#root-login-button, #root-logout-button, #root-history-button {
     color: rgb(0, 31, 63);
     background-color: white;
     padding: .3rem;
@@ -58,6 +58,10 @@ nav img, nav a, nav button {
     border: 4px solid rgb(0, 31, 63);
     border-radius: 4px;
     text-decoration: none;
+}
+
+#root-history-button {
+    font-size: 1rem;
 }
 
 #root-logout-button:hover {
@@ -75,8 +79,8 @@ nav img, nav a, nav button {
 
 @media screen and (width < 450px) {
     nav img, nav a, nav button {
-        margin-left: 1rem;
-        margin-right: 1rem;
+        margin-left: .7rem;
+        margin-right: .7rem;
     }
 
     #root-cart-button::after {

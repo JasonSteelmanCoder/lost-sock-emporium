@@ -1,20 +1,20 @@
-Order history page tells you to login
 Order history page shows your history
-There is a link to the order history page in the root
+Make the root nav button for order history look good
 Optimize products page images for load time
 Let cart items persist after google login
 Disable root buttons on loading page
-Add notification when google auth fails
 Set up stripe for payment
 
+Make signing in with google auth from cart page return you to the cart page
+Make signing in from the order history page send you back there
 Style googleauth buttons & add google logo
 Update the get('/login') documentation
 Document googleauth endpoints
+Document the /images endpoint
 Clean up linter warnings
 Track down enoent warning
-Document the /images endpoint
+Change default "visited" color to be visible against the grey background 
 
-Make signing in with google auth from cart page return you to the cart page
 set up admin authorization level
 set most endpoints to be only accessible to admin
 turn postman requests into proper test suite

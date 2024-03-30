@@ -11,7 +11,7 @@ const OrderHistory = () => {
             {
                 !authenticated 
                 ? <p>Please <Link to="/login">login</Link> to see your order history.</p> 
-                : <p>Order history...</p>
+                : <p>Order history still in construction. <br/>Check back soon!</p>
             }
         </div>
     )

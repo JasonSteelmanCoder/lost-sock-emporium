@@ -28,6 +28,9 @@ const Root = () => {
                         <img src={logoImage} id='logo' alt='sock emporium logo' ></img>
                     </Link>
                 </div>
+                <Link to={'history'} id='root-history-button' >
+                    Orders
+                </Link>
                 <Link to={'cart'} id='root-cart-button' style={{'--cart-length': `"${cart.length}"`, '--show-notification': `${cart.length > 0 ? 1 : -1}`}} >
                     <img src={cartImage} id='cart-image' alt='cart icon' ></img>
                 </Link>
