@@ -615,6 +615,47 @@ app.get('/orders', db.getAllOrders);
 */
 app.post('/orders', db.addOrder);
 
+/**
+ * @swagger
+ * /orders/user/:user_id:
+ *  get:
+ *      summary: get a single order by its user_id
+ *      parameters:
+ *          - in: path
+ *            name: user_id
+ *            required: true
+ *            schema:
+ *                type: integer
+ *            description: the id of the user whose orders we are retrieving
+ *      responses:
+ *          '200':
+ *              description: order object in json format
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties: 
+ *                              order_id:
+ *                                  type: integer
+ *                                  description: the id of the order
+ *                              user_id:
+ *                                  type: integer
+ *                                  description: the id of the user who placed the order                  
+ *          '404':
+ *              description: that user_id does not have any orders yet
+ *              content: 
+ *                  text/plain:
+ *                      schema: 
+ *                          type: string
+ *          '500':
+ *              description: server-side error
+ *              content: 
+ *                  text/plain:
+ *                      schema:
+ *                          type: string
+ * 
+*/
+app.get('/orders/user/:user_id', db.getOrderByUser);
 
 /**
  * @swagger

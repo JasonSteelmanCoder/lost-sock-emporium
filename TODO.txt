@@ -11,6 +11,7 @@ Style googleauth buttons & add google logo
 Update the get('/login') documentation
 Document googleauth endpoints
 Document the /images endpoint
+Check getOrderByUser documentation
 Clean up linter warnings
 Track down enoent warning
 Change default "visited" color to be visible against the grey background 

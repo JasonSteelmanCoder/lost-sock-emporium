@@ -308,6 +308,23 @@ const getOrderById = (req, res, next) => {
     );
 };
 
+const getOrderByUser = (req, res, next) => {
+    pool.query(
+        'SELECT * FROM orders WHERE user_id = $1;',
+        [req.params.user_id],
+        (err, results) => {
+            if (err) {
+                res.status(500).send();
+            };
+            if (results.rows[0]) {
+                res.json(results.rows);
+            } else {
+                res.status(404).send('There are no orders yet for this user.');
+            }
+        }
+    )
+}
+
 const updateOrderById = async (req, res, next) => {
     if (req.body.user_id) {
         try {
@@ -565,6 +582,7 @@ module.exports = {
     getAllOrders,
     addOrder,
     getOrderById,
+    getOrderByUser,
     updateOrderById,
     deleteOrderById,
     getAllUsers,
