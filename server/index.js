@@ -1056,6 +1056,50 @@ app.post('/ordered_products', db.addOrderedProduct);
 
 /**
  * @swagger
+ * /ordered_products/order/:order_id:
+ * get:
+ *  summary: Get a list of ordered_product objects that share the same order_id.
+ *  parameters:
+ *      - in: path
+ *        name: order_id
+ *        required: true
+ *  responses:
+ *      '500':
+ *          description: server-side error
+ *          content:
+ *              text/plain:
+ *                  schema:
+ *                      type: string
+ *      '404': 
+ *          description: ordered_product not found with that combination of order_id and product_id
+ *          content:
+ *              text/plain:
+ *                  schema:
+ *                      type: string
+ *      '200': 
+ *          description: a list of ordered_product objects
+ *          content:
+ *              application/json:
+ *                  schema: 
+ *                      type: array
+ *                      items:
+ *                          type: object
+ *                              properties: 
+ *                                  order_id:
+ *                                      type: integer
+ *                                      description: the id of the order
+ *                                  product_id: 
+ *                                      type: integer
+ *                                      description: the id of the product
+ *                                  quantity: 
+ *                                      type: integer
+ *                                      description: the number of items of the given product type that were ordered 
+ *                      
+*/
+app.get('/ordered_products/order/:order_id', db.getOrderedProductByOrder);
+
+/**
+ * @swagger
  * /ordered_products/:order_id/:product_id:
  *  get:
  *      summary: Get a single ordered_product by its composite key, which is made up of order_id, and product_id. 

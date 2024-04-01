@@ -509,6 +509,22 @@ const addOrderedProduct = async (req, res, next) => {
     }
 };
 
+const getOrderedProductByOrder = (req, res, next) => {
+    pool.query(
+        'SELECT * FROM ordered_products WHERE order_id = $1',
+        [req.params.order_id],
+        (err, results) => {
+            if (err) {
+                res.status(500).send();
+            } else if (!results.rows[0]) {
+                res.status(404).send('no products found matching that order_id')
+            } else {
+                res.json(results.rows);
+            }
+        }
+    )
+}
+
 const getOrderedProductById = (req, res, next) => {
     pool.query(
         'SELECT * FROM ordered_products WHERE order_id = $1 AND product_id = $2;',
@@ -592,6 +608,7 @@ module.exports = {
     deleteUserById,
     getAllOrderedProducts,
     addOrderedProduct,
+    getOrderedProductByOrder,
     getOrderedProductById,
     updateOrderedProductById,
     deleteOrderedProductById,

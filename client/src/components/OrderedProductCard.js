@@ -1,13 +1,13 @@
 import React from "react";
 
-const OrderedProductCard = () => {
+const OrderedProductCard = ({orderedProductId, orderedProductQuantity}) => {
     return (
         <div id="ordered-product-card">
             <div>{/* product image */}</div> 
             <div>
-                <h3>Product: </h3>
+                <h3>Product: {orderedProductId}</h3>
                 <p>Description: a sock that you ordered</p>
-                <span>Quantity: </span>
+                <span>Quantity: {orderedProductQuantity}</span>
                 <span>Price: </span>
             </div>
         </div>

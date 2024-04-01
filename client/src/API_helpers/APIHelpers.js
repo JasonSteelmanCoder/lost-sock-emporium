@@ -109,6 +109,11 @@ const fetchOrdersByUserId = async (user_id) => {
     return response;
 }
 
+const fetchProductsByOrderId = async (orderId) => {
+    const response = await fetch(`${API_ENDPOINT}/ordered_products/order/${orderId}`);
+    return response;
+}
+
 export { 
     fetchAllProducts, 
     fetchProductById, 
@@ -119,4 +124,5 @@ export {
     checkout,
     fetchUsername,
     fetchOrdersByUserId,
+    fetchProductsByOrderId,
 };
