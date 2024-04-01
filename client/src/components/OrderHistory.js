@@ -42,7 +42,7 @@ const OrderHistory = () => {
                 : 
                     <>
                         <h1 id='username'>Order History for {username}</h1>
-                        {orders.map((order) => <OrderCard order_id={order.order_id} />)}
+                        {orders.map((order) => <OrderCard order_id={order.order_id} key={order.order_id} />)}
                     </>
             }
         </div>

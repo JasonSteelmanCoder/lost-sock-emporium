@@ -19,7 +19,7 @@ const OrderCard = ({order_id}) => {
     return (
         <div id='order-card'>
             <h2>Order # {order_id}</h2>
-            {orderedProducts.map((orderedProduct) => <OrderedProductCard orderedProductId={orderedProduct.product_id} orderedProductQuantity={orderedProduct.quantity} />)}
+            {orderedProducts.map((orderedProduct) => <OrderedProductCard orderedProductId={orderedProduct.product_id} orderedProductQuantity={orderedProduct.quantity} key={orderedProduct.order_id} />)}
             <h2>Total: </h2>
         </div>
     )
