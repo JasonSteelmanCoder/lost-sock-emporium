@@ -99,6 +99,11 @@ const checkout = async (user_id, cart) => {
     return response;
 }
 
+const fetchUsername = async (user_id) => {
+    const response = await fetch(`${API_ENDPOINT}/users/${user_id}`);
+    return response;
+}
+
 export { 
     fetchAllProducts, 
     fetchProductById, 
@@ -107,4 +112,5 @@ export {
     register, 
     logout,
     checkout,
+    fetchUsername,
 };
