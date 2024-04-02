@@ -1,5 +1,5 @@
-Style order history page
 Find total prices for orders and display them on order cards
+Stop long usernames from overflowing on mobile
 Optimize products page images for load time
 Let cart items persist after google login
 Disable root buttons on loading page

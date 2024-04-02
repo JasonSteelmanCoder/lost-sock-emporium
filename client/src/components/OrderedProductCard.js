@@ -3,7 +3,7 @@ import { fetchProductById } from "../API_helpers/APIHelpers";
 import { API_ENDPOINT } from "../API_helpers/APIEndpoint";
 import '../css/OrderedProductCard.css';
 
-const OrderedProductCard = ({orderedProductId, orderedProductQuantity}) => {
+const OrderedProductCard = ({orderedProductId, orderedProductQuantity, subtotals, setSubtotals}) => {
 
     const [product, setProduct] = useState({});
     const [image, setImage] = useState([]);
@@ -26,6 +26,10 @@ const OrderedProductCard = ({orderedProductId, orderedProductQuantity}) => {
         }
 
         getImage();
+    }, [product]);
+
+    useEffect(() => {
+        setSubtotals({...subtotals, [orderedProductId]: product.price ? Number(product.price.slice(1)) * orderedProductQuantity : null})
     }, [product])
 
     return (

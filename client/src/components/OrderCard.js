@@ -5,7 +5,11 @@ import '../css/OrderCard.css';
 
 const OrderCard = ({order_id}) => {
 
-    const [orderedProducts, setOrderedProducts] = useState([]); 
+    // an array of objects with order_id, product_id, and quantity properties
+    const [orderedProducts, setOrderedProducts] = useState([]);
+    // an object where the keys are product_id's and values are the subtotal prices of those products for this order
+    const [subtotals, setSubtotals] = useState({});
+    const [orderTotal, setOrderTotal] = useState(0);
 
     useEffect(() => {
         const getOrderedProducts = async () => {
@@ -17,11 +21,22 @@ const OrderCard = ({order_id}) => {
         getOrderedProducts();
     }, []);
 
+    useEffect(() => {
+        if (Object.keys(subtotals).length > 0) {
+            let total = 0;
+            console.log(subtotals);
+            for (let key in subtotals) {
+                total += subtotals[key];
+            }
+            setOrderTotal(total);
+        }
+    }, [subtotals])
+
     return (
         <div id='order-card'>
             <h2>Order # {order_id}</h2>
-            {orderedProducts.map((orderedProduct) => <OrderedProductCard orderedProductId={orderedProduct.product_id} orderedProductQuantity={orderedProduct.quantity} key={orderedProduct.order_id} />)}
-            <h2>Total: </h2>
+            {orderedProducts.map((orderedProduct) => <OrderedProductCard orderedProductId={orderedProduct.product_id} orderedProductQuantity={orderedProduct.quantity} key={orderedProduct.product_id} subtotals={subtotals} setSubtotals={setSubtotals} />)}
+            <h2>Total: ${orderTotal ? orderTotal : ""}</h2>
         </div>
     )
 };

@@ -10,7 +10,7 @@ const OrderHistory = () => {
     const user_id = useSelector((state) => state.auth.user_id);
 
     const [username, setUsername] = useState("")
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState([]);       // a list of objects with order_id and user_id properties
 
     useEffect(() => {
         if (authenticated) {
