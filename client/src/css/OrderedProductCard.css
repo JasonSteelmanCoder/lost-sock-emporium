@@ -1,0 +1,25 @@
+#ordered-product-card {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+#sock-image {
+    max-height: 11rem;
+}
+
+#spans {
+    display: flex;
+    gap: 1rem;
+}
+
+@media screen and (width > 500px) {
+    #ordered-product-card {
+        display: flex;
+    }
+
+    #sock-image {
+        margin-right: 1rem;
+        align-self: center;
+    }
+}

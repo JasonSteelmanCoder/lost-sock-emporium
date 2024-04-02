@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchProductById } from "../API_helpers/APIHelpers";
 import { API_ENDPOINT } from "../API_helpers/APIEndpoint";
+import '../css/OrderedProductCard.css';
 
 const OrderedProductCard = ({orderedProductId, orderedProductQuantity}) => {
 
@@ -29,13 +30,15 @@ const OrderedProductCard = ({orderedProductId, orderedProductQuantity}) => {
 
     return (
         <div id="ordered-product-card">
-            <img src={image} /> 
+            <img src={image} alt="sock" id="sock-image"/> 
             <div>
                 <h3>Product: {product.product_name}</h3>
                 <p>Description: {product.description}</p>
-                <span>Quantity: {orderedProductQuantity}</span>
-                <span>Price: {product.price ? product.price : " "}</span>
-                <span>Subtotal: ${product.price ? Number(product.price.slice(1)) * orderedProductQuantity : " "}</span>
+                <div id="spans">
+                    <span>Quantity: {orderedProductQuantity}</span>
+                    <span>Price: {product.price ? product.price : " "}</span>
+                    <span>Subtotal: ${product.price ? Number(product.price.slice(1)) * orderedProductQuantity : " "}</span>
+                </div>
             </div>
         </div>
     )

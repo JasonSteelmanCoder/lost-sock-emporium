@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import OrderedProductCard from './OrderedProductCard';
 import { fetchProductsByOrderId } from '../API_helpers/APIHelpers';
+import '../css/OrderCard.css';
 
 const OrderCard = ({order_id}) => {
 
