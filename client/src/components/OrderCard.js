@@ -24,7 +24,6 @@ const OrderCard = ({order_id}) => {
     useEffect(() => {
         if (Object.keys(subtotals).length > 0) {
             let total = 0;
-            console.log(subtotals);
             for (let key in subtotals) {
                 total += subtotals[key];
             }
@@ -36,7 +35,7 @@ const OrderCard = ({order_id}) => {
         <div id='order-card'>
             <h2>Order # {order_id}</h2>
             {orderedProducts.map((orderedProduct) => <OrderedProductCard orderedProductId={orderedProduct.product_id} orderedProductQuantity={orderedProduct.quantity} key={orderedProduct.product_id} subtotals={subtotals} setSubtotals={setSubtotals} />)}
-            <h2>Total: ${orderTotal ? orderTotal : ""}</h2>
+            <h2>Total: ${orderTotal ? orderTotal.toFixed(2) : ""}</h2>
         </div>
     )
 };
