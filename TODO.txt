@@ -1,4 +1,3 @@
-Stop long usernames from overflowing on mobile
 Optimize products page images for load time
 Let cart items persist after google login
 Disable root buttons on loading page
