@@ -1,4 +1,3 @@
-Make sure total prices round off at two digits
 Stop long usernames from overflowing on mobile
 Optimize products page images for load time
 Let cart items persist after google login
@@ -14,7 +13,7 @@ Document the /images endpoint
 Check getOrderByUser documentation
 Clean up linter warnings
 Track down enoent warning
-Change default "visited" color to be visible against the grey background 
+Change default "visited" color to be visible against the grey background
 
 set up admin authorization level
 set most endpoints to be only accessible to admin

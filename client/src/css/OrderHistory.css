@@ -12,4 +12,5 @@
 #username {
     align-self: start;
     margin-left: 1rem;
+    overflow-wrap: break-word;
 }
