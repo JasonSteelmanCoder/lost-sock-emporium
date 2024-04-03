@@ -1,3 +1,4 @@
+Make order history work properly when there is no history
 Optimize products page images for load time
 Let cart items persist after google login
 Disable root buttons on loading page
