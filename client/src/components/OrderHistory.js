@@ -24,9 +24,13 @@ const OrderHistory = () => {
             getUserName();
 
             const getOrders = async () => {
-                const response = await fetchOrdersByUserId(user_id);
-                const data = await response.json();
-                setOrders(data);
+                try {
+                    const response = await fetchOrdersByUserId(user_id);
+                    const data = await response.json();
+                    setOrders(data);
+                } catch (err) {
+                    console.log(err);
+                }
             }
 
             getOrders();
@@ -37,13 +41,17 @@ const OrderHistory = () => {
         <div id='order-history'>
             {
                 !authenticated 
-                ? 
-                    <p>Please <Link to="/login">login</Link> to see your order history.</p> 
-                : 
-                    <>
-                        <h1 id='username'>Order History for {username}</h1>
-                        {orders.map((order) => <OrderCard order_id={order.order_id} key={order.order_id} />)}
-                    </>
+                    ? 
+                        <p>Please <Link to="/login">login</Link> to see your order history.</p> 
+                    : 
+                        <>
+                            <h1 id='username'>Order History for {username}</h1>
+                            {orders.length 
+                                ? 
+                                    orders.map((order) => <OrderCard order_id={order.order_id} key={order.order_id} />) 
+                                : 
+                                    <p className='text'>No orders yet! Return to the <Link to='/'>products page</Link> to get started!</p> }
+                        </>
             }
         </div>
     )

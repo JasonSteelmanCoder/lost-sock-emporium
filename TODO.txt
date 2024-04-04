@@ -1,9 +1,12 @@
-Make order history work properly when there is no history
+Make sure price and subtotal are rounded to two digits on history page
+Change default "visited" color to be visible against the grey background
 Optimize products page images for load time
 Let cart items persist after google login
 Disable root buttons on loading page
 Set up stripe for payment
 
+Add tooltip to password input on registration page
+Delete password when it is incorrect (or doesn't match on registration page)
 Make signing in with google auth from cart page return you to the cart page
 Make signing in from the order history page send you back there
 Style googleauth buttons & add google logo
@@ -13,8 +16,8 @@ Document the /images endpoint
 Check getOrderByUser documentation
 Clean up linter warnings
 Track down enoent warning
-Change default "visited" color to be visible against the grey background
 
-set up admin authorization level
-set most endpoints to be only accessible to admin
-turn postman requests into proper test suite
+Add forgot password functionality
+Set up admin authorization level
+Set most endpoints to be only accessible to admin
+Turn postman requests into proper test suite
