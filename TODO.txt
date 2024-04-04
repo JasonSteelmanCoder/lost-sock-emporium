@@ -1,4 +1,3 @@
-Make sure price and subtotal are rounded to two digits on history page
 Change default "visited" color to be visible against the grey background
 Let cart items persist after google login
 Disable root buttons on loading page
