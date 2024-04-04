@@ -40,8 +40,8 @@ const OrderedProductCard = ({orderedProductId, orderedProductQuantity, subtotals
                 <p>Description: {product.description}</p>
                 <div id="spans">
                     <span>Quantity: {orderedProductQuantity}</span>
-                    <span>Price: {product.price ? product.price : " "}</span>
-                    <span>Subtotal: ${product.price ? Number(product.price.slice(1)) * orderedProductQuantity : " "}</span>
+                    <span>Price: ${product.price ? Number(product.price.slice(1)).toFixed(2) : " "}</span>
+                    <span>Subtotal: ${product.price ? Number(product.price.slice(1)).toFixed(2) * orderedProductQuantity : " "}</span>
                 </div>
             </div>
         </div>

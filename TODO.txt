@@ -1,12 +1,12 @@
 Make sure price and subtotal are rounded to two digits on history page
 Change default "visited" color to be visible against the grey background
-Optimize products page images for load time
 Let cart items persist after google login
 Disable root buttons on loading page
 Set up stripe for payment
-
 Add tooltip to password input on registration page
 Delete password when it is incorrect (or doesn't match on registration page)
+
+Optimize products page images for load time
 Make signing in with google auth from cart page return you to the cart page
 Make signing in from the order history page send you back there
 Style googleauth buttons & add google logo
