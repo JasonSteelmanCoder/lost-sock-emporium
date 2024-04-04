@@ -34,7 +34,7 @@ nav img, nav a, nav button {
 
 #root-cart-button::after {
     background-color: red;
-    color: rgb(0, 31, 63);
+    color: white;
     font-weight: bold;
     content: var(--cart-length);
     height: 20px;
