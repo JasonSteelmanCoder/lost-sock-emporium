@@ -66,7 +66,7 @@ const CartPage = () => {
                         (
                             <div>
                                 <br></br>
-                                <Link to='/login?return=cart' id='login-button'  >Login to checkout!</Link>
+                                <Link to='/login?return=cart' id='login-button' className='dark-bg-link' >Login to checkout!</Link>
                             </div>
                         )
                     }
@@ -83,7 +83,7 @@ const CartPage = () => {
                     }) : (
                         <div className='edge'>
                             <p>Add some products to your cart to check out!</p>
-                            <Link to="/" className='blue-link'>Return to products page</Link>
+                            <Link to="/" className='blue-link dark-bg-link' >Return to products page</Link>
                         </div>
                     )
                 }

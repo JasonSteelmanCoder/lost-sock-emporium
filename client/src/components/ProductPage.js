@@ -84,7 +84,7 @@ const ProductPage = () => {
                 </div>
             </div>
             {productIsInCart() ? 
-                <p>Item already in <Link to="/cart" className='blue-link'>cart.</Link></p> : 
+                <p>Item already in <Link to="/cart" className='blue-link dark-bg-link'>cart.</Link></p> : 
                 <form onSubmit={handleAddToCart}>
                     <input type='submit' value='Add to cart' id='add-to-cart-button' ></input>
                     <label htmlFor='quantity-input'>Quantity: </label>

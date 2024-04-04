@@ -42,7 +42,7 @@ const OrderHistory = () => {
             {
                 !authenticated 
                     ? 
-                        <p>Please <Link to="/login">login</Link> to see your order history.</p> 
+                        <p>Please <Link to="/login" className='dark-bg-link'>login</Link> to see your order history.</p> 
                     : 
                         <>
                             <h1 id='username'>Order History for {username}</h1>
@@ -50,7 +50,7 @@ const OrderHistory = () => {
                                 ? 
                                     orders.map((order) => <OrderCard order_id={order.order_id} key={order.order_id} />) 
                                 : 
-                                    <p className='text'>No orders yet! Return to the <Link to='/'>products page</Link> to get started!</p> }
+                                    <p className='text'>No orders yet! Return to the <Link to='/' className='dark-bg-link'>products page</Link> to get started!</p> }
                         </>
             }
         </div>

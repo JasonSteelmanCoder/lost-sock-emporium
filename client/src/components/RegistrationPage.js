@@ -40,9 +40,9 @@ const RegistrationPage = () => {
                 <input type='submit' value='Register' id='register-submit'></input>
                 <br></br>
             </form>
-            <Link to='../login' className='blue-link'>Already have an account? Sign in!</Link>
+            <Link to='../login' className='blue-link dark-bg-link'>Already have an account? Sign in!</Link>
             <p>--- OR ---</p>
-            <a href='https://lost-sock-emporium-backend.onrender.com/auth/google'>Sign up with Google</a>
+            <a href='https://lost-sock-emporium-backend.onrender.com/auth/google' className='dark-bg-link'>Sign up with Google</a>
         </div>
     )
 };

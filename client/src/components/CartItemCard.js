@@ -69,7 +69,7 @@ const CartItemCard = ({ product_id, quantity }) => {
                     <input id='quantity-input' onInput={handleQuantityChange} type='number' defaultValue={quantity} name='quantity' min='1' required></input>
                 </p>
                 <span id='item-price'>{price}</span>
-                <button id='remove-button' onClick={handleRemoveItem}>Remove item</button>
+                <button id='remove-button' onClick={handleRemoveItem} className='dark-bg-link'>Remove item</button>
             </div>
         </div>
     );

@@ -87,3 +87,7 @@ nav img, nav a, nav button {
         right: .5rem;
     }
 }
+
+.dark-bg-link:visited {
+    color: rgb(38, 145, 227);
+}
