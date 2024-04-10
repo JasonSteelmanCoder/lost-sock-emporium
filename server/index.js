@@ -1084,16 +1084,16 @@ app.post('/ordered_products', db.addOrderedProduct);
  *                      type: array
  *                      items:
  *                          type: object
- *                              properties: 
- *                                  order_id:
- *                                      type: integer
- *                                      description: the id of the order
- *                                  product_id: 
- *                                      type: integer
- *                                      description: the id of the product
- *                                  quantity: 
- *                                      type: integer
- *                                      description: the number of items of the given product type that were ordered 
+ *                          properties: 
+ *                              order_id:
+ *                                  type: integer
+ *                                  description: the id of the order
+ *                              product_id: 
+ *                                  type: integer
+ *                                  description: the id of the product
+ *                              quantity: 
+ *                                  type: integer
+ *                                  description: the number of items of the given product type that were ordered 
  *                      
 */
 app.get('/ordered_products/order/:order_id', db.getOrderedProductByOrder);
