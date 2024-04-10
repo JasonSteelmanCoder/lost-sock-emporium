@@ -13,7 +13,11 @@ const RegistrationPage = () => {
             if (response.status === 201) {
                 navigate('/login');
             } else {
-                alert(response.data);
+                const passwordInput = document.getElementById('password-input');
+                const confirmInput = document.getElementById('confirm-input');
+                passwordInput.value = "";
+                confirmInput.value = "";
+                alert(response.data);       ////
             }
         } catch (err) {
             alert('something went wrong.');
