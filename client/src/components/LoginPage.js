@@ -10,6 +10,7 @@ const LoginPage = () => {
 
     const handleLoginSubmit = async (event) => {
         event.preventDefault();
+        const passwordInput = document.getElementById("password-input");
         try {
             const response = await login(event);
             if (response.status === 200) {
@@ -25,10 +26,13 @@ const LoginPage = () => {
                 })
                 navigate(searchParamsObj["return"] ? "/" + searchParamsObj.return :'/');
             } else if (response.status === 400) {
+                passwordInput.value = "";
                 alert("Bad request. Correct username and password required.");
             } else if (response.status === 401) {
+                passwordInput.value = "";
                 alert("Username or password is incorrect.");
             } else {
+                passwordInput.value = "";
                 console.log(response);
                 alert(response.status);
             }
