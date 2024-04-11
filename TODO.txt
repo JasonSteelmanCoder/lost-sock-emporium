@@ -1,5 +1,4 @@
 Add tooltip to password input on registration page
-Disable root buttons on loading page
 Let cart items persist after google login
 Set up stripe for payment
 
@@ -14,7 +13,7 @@ Check getOrderByUser documentation
 Clean up linter warnings
 Track down enoent warning
 
-Add forgot password functionality
+Add forgot-password functionality
 Set up admin authorization level
 Set most endpoints to be only accessible to admin
 Turn postman requests into proper test suite
