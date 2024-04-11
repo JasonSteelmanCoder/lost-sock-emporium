@@ -1,7 +1,6 @@
-Delete password when it is incorrect (or doesn't match on registration page)
 Add tooltip to password input on registration page
-Let cart items persist after google login
 Disable root buttons on loading page
+Let cart items persist after google login
 Set up stripe for payment
 
 Optimize products page images for load time

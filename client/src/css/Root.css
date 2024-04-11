@@ -13,6 +13,10 @@ nav img, nav a, nav button {
     margin-right: 2rem;
 }
 
+.disabled {
+    pointer-events: none;
+}
+
 #logo {
     max-height: 3rem;
 }
